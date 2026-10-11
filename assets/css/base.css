@@ -1,3 +1,4 @@
+/* TOKENS GLOBALI DEL TEMA */
 :root {
   --primary: #041b2e;
   --accent: #0fa3b1;
@@ -9,6 +10,7 @@
   --shadow: 0 4px 4px rgba(0, 0, 0, 0.185);
 }
 
+/* RESET E BOX MODEL */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -16,6 +18,7 @@
   user-select: none;
 }
 
+/* DEFAULT DOCUMENTO */
 body {
   font-family: "Montserrat", sans-serif;
   background: var(--bg);
@@ -25,6 +28,7 @@ body {
   line-height: 1.6;
 }
 
+/* CONTROLLI E MEDIA */
 button {
   border: none;
   background: none;

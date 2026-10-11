@@ -1,4 +1,6 @@
+/* CHECKOUT: PREZZI, STATO, RENDERING E INTERAZIONI */
 (() => {
+  // Tariffe base e limiti economici della prenotazione.
   const PRICES = { day: 250, am: 170, pm: 170 };
   const DEPOSIT = 50;
   const CAUTION = 400;
@@ -11,6 +13,7 @@
     { id: "insurance", label: "Assicurazione estesa", desc: "Copertura extra", price: 35, icon: "fa-solid fa-shield-halved", type: "toggle" },
   ];
 
+  // Testi degli extra aggiornati al cambio lingua.
   const getTranslation = (key, fallback) => {
     const api = window.WaveToGoTranslations;
     return api && typeof api.t === "function" ? api.t(key, fallback) : fallback;
@@ -23,7 +26,9 @@
   }));
 
   let EXTRAS = getTranslatedExtras();
+  const fleetOptions = Array.isArray(window.FLEET_DB) ? window.FLEET_DB : [];
 
+  // Riferimenti agli elementi del checkout.
   const tabs = Object.fromEntries([1, 2, 3, 4].map((n) => [n, document.getElementById(`pm-tab-${n}`)]));
   const panels = Object.fromEntries([1, 2, 3, 4].map((n) => [n, document.getElementById(`pm-step-${n}`)]));
   const progress = document.getElementById("pm-progress");
@@ -32,6 +37,7 @@
   const btnBack = document.getElementById("pm-back");
   const btnNext = document.getElementById("pm-next");
 
+  const boatSel = document.getElementById("pm-boat");
   const dateInp = document.getElementById("pm-date");
   const slotSel = document.getElementById("pm-slot");
   const baseHint = document.getElementById("pm-baseHint");
@@ -47,6 +53,7 @@
   const headSub = document.getElementById("pm-headSub");
   const extrasWrap = document.getElementById("pm-extras");
 
+  // Apertura esclusiva delle voci FAQ.
   document.getElementById("pm-acc")?.addEventListener("click", (e) => {
     const btn = e.target.closest(".pm-accBtn");
     if (!btn) return;
@@ -58,6 +65,7 @@
     if (!isOpen) panel.classList.add("pm-accOpen");
   });
 
+  // Stato del flusso e degli extra selezionati.
   let step = 1;
   const unlocked = new Set([1]);
   const extraState = {};
@@ -65,14 +73,40 @@
     extraState[x.id] = x.type === "qty" ? 0 : false;
   });
 
+  // Calcolo prezzi e formattazione importi.
   const euro = (n) => `${Math.round(n)}€`;
   const slotValue = () => document.getElementById("pm-slot")?.value || "day";
   const basePrice = () => PRICES[slotValue()] ?? 0;
+
+  function populateBoatSelect() {
+    if (!boatSel) return;
+
+    const selectedFromQuery = new URLSearchParams(window.location.search).get("boat");
+    const options = fleetOptions.map((boat) => ({ value: String(boat.id || boat.name), label: boat.name || "Barca" }));
+
+    boatSel.innerHTML = '<option value="">Scegli la barca</option>' +
+      options.map((boat) => `<option value="${boat.value}">${boat.label}</option>`).join("");
+
+    const preferred = selectedFromQuery || boatSel.dataset.preselected || "";
+    if (preferred) {
+      const found = Array.from(boatSel.options).some((option) => option.value === preferred);
+      if (found) {
+        boatSel.value = preferred;
+      }
+    }
+  }
+
+  function updateBoatSummary() {
+    const boatName = boatSel?.selectedOptions?.[0]?.textContent || "—";
+    const miniBase = document.getElementById("pm-miniBase");
+    if (miniBase) miniBase.textContent = boatName !== "—" ? boatName : "—";
+  }
 
   function setDefaults() {
     if (baseHint) {
       baseHint.textContent = `${getTranslation("booking.base.price", "Prezzo base")}: ${euro(basePrice())}`;
     }
+    updateBoatSummary();
   }
 
   function extraTotal() {
@@ -89,6 +123,7 @@
     return basePrice() + extraTotal();
   }
 
+  // Costruzione e sincronizzazione dell'elenco extra.
   function renderExtras() {
     if (!extrasWrap) return;
 
@@ -136,6 +171,7 @@
     });
   }
 
+  // Aggiornamento del riepilogo prezzi.
   function updateMini() {
     const miniTotal = document.getElementById("pm-miniTotal");
     const miniBase = document.getElementById("pm-miniBase");
@@ -150,6 +186,7 @@
     miniTotal.textContent = euro(t);
   }
 
+  // Aggiornamento degli indicatori del passaggio attivo.
   function setProgress() {
     if (progress) {
       progress.style.width = `${((step - 1) / 3) * 100}%`;
@@ -171,6 +208,7 @@
     if (headSub) headSub.textContent = map[step][1];
   }
 
+  // Navigazione tra i passaggi sbloccati.
   function unlock(n) {
     unlocked.add(n);
     const tab = tabs[n];
@@ -207,6 +245,7 @@
     window.scrollTo({ top: 0, left: 0, behavior: "auto" });
   }
 
+  // Validazione dei campi e messaggi di errore.
   function showErr(el, msg) {
     if (!el) return;
     el.textContent = msg;
@@ -221,6 +260,10 @@
 
   function validStep1() {
     clearErr(err1);
+    if (!boatSel?.value) {
+      showErr(err1, getTranslation("booking.validation.boat", "⚠️ Seleziona una barca."));
+      return false;
+    }
     if (!dateInp.value) {
       showErr(err1, getTranslation("booking.validation.date", "⚠️ Seleziona una data."));
       return false;
@@ -245,8 +288,11 @@
     return true;
   }
 
+  // Composizione e invio della richiesta di prenotazione.
   function sendRequest() {
     const payload = {
+      boat: boatSel?.value || "",
+      boat_name: boatSel?.selectedOptions?.[0]?.textContent || "",
       date: dateInp.value,
       slot: slotValue(),
       extras: EXTRAS.map((x) => ({ ...x, value: extraState[x.id] })).filter((x) => (x.type === "toggle" ? x.value : x.value > 0)),
@@ -269,6 +315,7 @@
     console.log("PM BOOKING REQUEST:", payload);
   }
 
+  // Eventi dei controlli checkout.
   Object.values(tabs).forEach((btn) => {
     btn?.addEventListener("click", () => go(Number(btn.dataset.step)));
   });
@@ -303,6 +350,9 @@
     setDefaults();
     updateMini();
   });
+  boatSel?.addEventListener("change", () => {
+    updateBoatSummary();
+  });
   dateInp?.addEventListener("change", updateMini);
 
   btnBack?.addEventListener("click", () => go(Math.max(1, step - 1)));
@@ -319,6 +369,7 @@
     sendRequest();
   });
 
+  // Riallineamento dell'interfaccia al cambio lingua.
   window.addEventListener("site-language-change", () => {
     EXTRAS = getTranslatedExtras();
     const nextExtraState = {};
@@ -337,6 +388,8 @@
     updateActionButtons();
   });
 
+  // Stato iniziale del widget.
+  populateBoatSelect();
   renderExtras();
   setDefaults();
   setHeader();

@@ -1,65 +1,57 @@
 <!doctype html>
 <html lang="it">
-  
+
   <!-- HEAD: META, SEO, CSS, FONT/ICONE -->
   <head>
-    
+
     <!-- META: CHARSET -->
     <meta charset="UTF-8" />
-    
+
     <!-- META: VIEWPORT RESPONSIVE -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    
+
     <!-- META: THEME COLOR (USA VARIABILE, NON HEX) -->
     <meta name="theme-color" content="--primary" />
-    
-    <!-- FAVICON: ICONA SITO -->
-    <link rel="icon" href="./assets/images/favicon.ico" />
 
-    
     <!-- SEO: TITOLO PAGINA -->
-    <title data-i18n="meta.title">WaveToGo – Noleggio Gommoni Golfo Aranci</title>
-    
-    <!-- SEO: DESCRIZIONE PAGINA -->
-    <meta name="description" data-i18n-attr="content" data-i18n="meta.description" content="Noleggio gommoni premium senza patente a Golfo Aranci. Scopri Tavolara e Molara in libertà." />
+    <title data-i18n="meta.title">Blu Diamond Rent – Noleggio gommoni e moto d'acqua in Sardegna</title>
 
-    
+    <!-- SEO: DESCRIZIONE PAGINA -->
+    <meta name="description" data-i18n-attr="content" data-i18n="meta.description" content="Blu Diamond Rent: noleggio di gommoni e moto d'acqua in Sardegna, tra Tavolara, Costa Smeralda e Arcipelago della Maddalena." />
+
+
     <!-- CSS: BASE -->
     <link rel="stylesheet" href="./assets/css/base.css" />
-    
+
     <!-- CSS: LAYOUT -->
     <link rel="stylesheet" href="./assets/css/layout.css" />
-    
+
     <!-- CSS: COMPONENTI -->
     <link rel="stylesheet" href="./assets/css/components.css" />
-    
-    <!-- CSS: TEMPLATE CHECKOUT -->
-    <link rel="stylesheet" href="./assets/css/checkout-template.css" />
-    
-    
+
     <!-- CSS: BOOKING -->
     <link rel="stylesheet" href="./assets/css/booking.css" />
-    
+
     <!-- CSS: TRANSLATE -->
     <link rel="stylesheet" href="./assets/css/translate.css" />
 
     <!-- ICONE: FONTAWESOME CDN CSS (COESISTE CON KIT SOPRA) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-   
+
     <!-- FONT: GOOGLE FONTS MONTSERRAT -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet" />
   </head>
 
   <body>
-    
+
     <!-- BODY: CONTENUTO PAGINA -->
-    
+
     <!-- HEADER: TESTATA PRINCIPALE -->
     <header class="header">
-      
+
       <!-- HEADER > CONTAINER: ALLINEAMENTO INTERNO -->
       <div class="container header-inner">
-        
+
         <!-- HEADER > LOGO: BRAND -->
         <h1 class="logo">
           <img src="Blu-Diamond-Rent-3 copy.png" width="50px" alt="">
@@ -72,13 +64,13 @@
         </div>
       </div>
     </header>
-    
+
     <!-- MAIN: CONTENUTO PRINCIPALE -->
     <main>
-      
+
       <!-- HERO: SEZIONE HOME -->
         <section data-page="home" class="hero" id="section1" style="position: relative">
-        
+
         <!-- HERO > SVG ONDE: SFONDO ANIMATO (PATH CON ANIMATE) -->
         <svg id="mobilesvg" viewBox="0 0 1200 200" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" style="background: transparent; position: absolute; transform: rotate(180deg); opacity: 0.6; top: 0px; left: 0; z-index: 0; width: 100%; height: calc(16.666667vw + 30px)" aria-hidden="true">
                <path fill="#0a1e3b">
@@ -99,7 +91,7 @@
 
             <!-- HERO > OVERLAY: STRATO SCURO DI CONTRASTO -->
             <div class="hero-overlay" style="z-index: 1" aria-hidden="true"></div>
-        
+
             <!-- HERO > BOLLE: STRATO EFFETTO BUBBLES -->
             <div class="bubbles" aria-hidden="true"></div>
 
@@ -133,7 +125,7 @@
                       <button class="pm-rStep" type="button" data-step="4" id="pm-tab-4" disabled>
                         <span class="pm-dot"></span><span data-i18n="booking.steps.4">Regole</span>
                       </button>
-                      
+
                       <div class="pm-railProg" aria-hidden="true"><span id="pm-progress"></span></div>
                     </nav>
                   </aside>
@@ -160,6 +152,13 @@
                       </div>
 
                       <div class="pm-grid">
+                        <div class="pm-field">
+                          <label class="pm-lbl" for="pm-boat">Barca</label>
+                          <select class="pm-in" id="pm-boat">
+                            <option value="">Scegli la barca</option>
+                          </select>
+                        </div>
+
                         <div class="pm-field">
                           <label class="pm-lbl" for="pm-date" data-i18n="booking.form.date">Data</label>
                           <input class="pm-in" id="pm-date" type="date" />
@@ -284,72 +283,72 @@
         </section>
     </main>
 
-    
+
     <!-- FOOTER: PIE DI PAGINA -->
     <div class="main-footer">
-      
+
       <!-- FOOTER: CONTENUTO (GRIGLIA COLONNE) -->
       <div class="footer-content">
-        
+
         <!-- FOOTER: COLONNA BRAND -->
         <div class="footer-column brand">
-          
+
           <!-- FOOTER BRAND: ETICHETTA -->
           <div class="footer-label" data-i18n="footer.location">Noleggio</div>
-          
+
           <!-- FOOTER BRAND: LOGO -->
           <h1 class="logo"><a href="">Wave<span>To</span>Go</a></h1>
-          
+
           <!-- FOOTER BRAND: TESTO -->
           <p data-i18n="footer.brand.text">Esperienze nautiche premium, prenotazioni rapide e assistenza dedicata.</p>
 
-          
+
           <!-- FOOTER BRAND: SOCIAL -->
           <div class="footer-social">
-            
+
             <!-- SOCIAL: INSTAGRAM -->
             <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram" aria-hidden="true"></i></a>
-            
+
             <!-- SOCIAL: FACEBOOK -->
             <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f" aria-hidden="true"></i></a>
-            
+
             <!-- SOCIAL: LINKEDIN -->
             <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in" aria-hidden="true"></i></a>
-            
+
             <!-- SOCIAL: YOUTUBE -->
             <a href="#" aria-label="YouTube"><i class="fa-brands fa-youtube" aria-hidden="true"></i></a>
           </div>
         </div>
 
-        
+
         <!-- FOOTER: DIVISORE COLONNE -->
         <div class="footer-divider"></div>
 
-        
+
         <!-- FOOTER: COLONNA SEZIONI (TAB) -->
         <div class="footer-column tabs">
-          
+
           <!-- FOOTER TAB: ETICHETTA -->
           <div class="footer-label" data-i18n="footer.sections.label">Indice</div>
 
-          
+
           <!-- FOOTER TAB: BOTTONI -->
           <div class="tab-buttons">
-            
+
             <!-- FOOTER TAB BTN: SERVIZI -->
             <button class="tab-btn active" data-tab="tab-servizi" data-i18n="footer.tabs.services">Servizi</button>
-            
+
             <!-- FOOTER TAB BTN: SUPPORTO -->
             <button class="tab-btn" data-tab="tab-supporto" data-i18n="footer.tabs.support">Supporto</button>
-            
+
             <!-- FOOTER TAB BTN: CONTATTI -->
             <button class="tab-btn" data-tab="tab-contatti" data-i18n="footer.tabs.contacts">Contatti</button>
           </div>
 
-          
+
           <!-- FOOTER TAB PANEL: SERVIZI -->
           <div class="tab-panel active" id="tab-servizi">
-            
+
             <!-- FOOTER SERVIZI: LISTA -->
             <ul>
               <li><i class="fa-solid fa-ship" aria-hidden="true"></i> <span data-i18n="footer.services.item1">Noleggio barche</span></li>
@@ -360,7 +359,7 @@
             </ul>
           </div>
 
-          
+
           <!-- FOOTER TAB PANEL: SUPPORTO -->
           <div class="tab-panel" id="tab-supporto">
             <ul>
@@ -374,68 +373,72 @@
             </ul>
           </div>
 
-          
+
           <!-- FOOTER TAB PANEL: CONTATTI -->
           <div class="tab-panel" id="tab-contatti">
             <ul>
-              <li><i class="fa-solid fa-location-dot" aria-hidden="true"></i> <span data-i18n="footer.contacts.item1">Marina di Golfo Aranci</span></li>
+              <li><i class="fa-solid fa-location-dot" aria-hidden="true"></i> <span data-i18n="footer.contacts.item1">Golfo Aranci • Portisco</span></li>
               <hr>
-              <li><i class="fa-solid fa-phone" aria-hidden="true"></i> <span data-i18n="footer.contacts.item2">+39 389 629 8553</span></li>
+              <li><i class="fa-solid fa-phone" aria-hidden="true"></i> <a href="tel:+393421355874" data-i18n="footer.contacts.item2">+39 342 1355874</a></li>
               <hr>
-              <li><i class="fa-solid fa-envelope" aria-hidden="true"></i> <span data-i18n="footer.contacts.item3">info@wavetogo.it</span></li>
+              <li><i class="fa-solid fa-envelope" aria-hidden="true"></i> <a href="mailto:blu.diamond.rent@gmail.com" data-i18n="footer.contacts.item3">blu.diamond.rent@gmail.com</a></li>
+              <hr>
+              <li><i class="fa-brands fa-whatsapp" aria-hidden="true"></i> <a href="https://wa.me/393421355874" target="_blank" rel="noopener noreferrer">WhatsApp +39 342 1355874</a></li>
+              <hr>
+              <li><i class="fa-solid fa-id-card" aria-hidden="true"></i> <span>P. IVA IT 02896170905</span></li>
               <li><i class="fa-solid fa-clock" aria-hidden="true"></i> <span data-i18n="footer.contacts.item4">Lun–Dom 09:00–19:00</span></li>
             </ul>
           </div>
         </div>
 
-        
+
         <!-- FOOTER: DIVISORE COLONNE -->
         <div class="footer-divider"></div>
 
-        
+
         <!-- FOOTER: COLONNA NEWSLETTER -->
         <div class="footer-column newsletter">
-          
+
           <!-- NEWSLETTER: ETICHETTA -->
           <div class="footer-label" data-i18n="footer.newsletter.label">Newsletter</div>
-          
+
           <!-- NEWSLETTER: TITOLO -->
           <h4 data-i18n="footer.newsletter.title">Resta aggiornato</h4>
-          
+
           <!-- NEWSLETTER: TESTO -->
           <p data-i18n="footer.newsletter.text">Offerte esclusive, nuove rotte e promozioni private.</p>
 
-          
+
           <!-- NEWSLETTER: FORM ISCRIZIONE -->
           <form class="newsletter-form" action="#" method="post">
-            
+
             <!-- NEWSLETTER: INPUT WRAPPER -->
             <div class="input-wrap">
-              
+
               <!-- NEWSLETTER: ICONA INPUT -->
               <i class="fa-solid fa-envelope" aria-hidden="true"></i>
-              
+
               <!-- NEWSLETTER: CAMPO EMAIL -->
               <input type="email" name="email" placeholder="La tua email" data-i18n-placeholder="footer.newsletter.placeholder" required />
             </div>
-            
+
             <!-- NEWSLETTER: BOTTONE INVIO -->
             <button type="submit"><i class="fa-solid fa-paper-plane" aria-hidden="true"></i> <span data-i18n="footer.newsletter.button">Iscriviti</span></button>
           </form>
 
-          
+
           <!-- NEWSLETTER: NOTA -->
           <small data-i18n="footer.newsletter.note">Puoi disiscriverti quando vuoi.</small>
         </div>
       </div>
 
-      
+
       <!-- FOOTER: BARRA INFERIORE -->
       <div class="footer-bottom">
-        
+
         <!-- FOOTER BOTTOM: COPYRIGHT -->
-        <span data-i18n="footer.bottom.copy">© 2026 WaveToGo. Tutti i diritti riservati.</span>
-        
+        <span data-i18n="footer.bottom.copy">© 2026 Blu Diamond Rent. Tutti i diritti riservati.</span>
+
         <!-- FOOTER BOTTOM: LINK SECONDARI -->
         <div class="footer-bottom-links">
           <a href="#" data-i18n="footer.bottom.cookie">Cookie</a>
@@ -445,28 +448,19 @@
       </div>
     </div>
 
-    
+
     <!-- SCRIPT: DATA -->
     <script src="./assets/js/data.js" defer></script>
-    
-    <!-- SCRIPT: STATE -->
-    <script src="./assets/js/state.js" defer></script>
-    
-    <!-- SCRIPT: TEMPLATES -->
-    <script src="./assets/js/templates.js" defer></script>
-    
+
     <!-- SCRIPT: NAVIGATION -->
     <script src="./assets/js/navigation.js" defer></script>
-    
+
     <!-- SCRIPT: TRANSLATE -->
     <script src="./assets/js/translate.js" defer></script>
-    
+
     <!-- SCRIPT: EFFECTS -->
     <script src="./assets/js/effect.js" defer></script>
-    
-    <!-- SCRIPT: APP -->
-    <script src="./assets/js/app.js" defer></script>
-    
+
     <!-- SCRIPT: BOOKING -->
     <script src="./assets/js/booking.js" defer></script>
   </body>

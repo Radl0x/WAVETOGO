@@ -252,7 +252,7 @@
   width: 300px;     /* patch sotto la rende min(300px,100%) */
   overflow: hidden;
   position: relative;
-  margin: 10px 0;
+  margin: 10px auto;
 }
 
 .cta.primary:hover{ background: #0773c9; }
@@ -875,7 +875,486 @@
 
 
 /* -----------------------------------------------------
-   4.4) BLOCK E — Gallery (wtg-gallery)
+   4.4) BLOCK E — Fleet carousel (wtg-fleet)
+   ----------------------------------------------------- */
+.wtg-fleet{
+  border-radius: var(--wtg-r1);
+  border: 1px solid rgba(255,255,255,.12);
+  background:
+    radial-gradient(circle at 18% 0%, rgba(57,198,210,.12), transparent 56%),
+    radial-gradient(circle at 92% 18%, rgba(15,163,177,.10), transparent 60%),
+    var(--wtg-glass);
+  box-shadow: var(--wtg-shadow2);
+  backdrop-filter: blur(10px);
+  padding: 18px;
+  display: grid;
+  gap: 16px;
+  margin-top: 10px;
+}
+
+.wtg-fleet__header{
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 12px;
+}
+
+.wtg-fleet__intro{
+  display: grid;
+  gap: 8px;
+}
+
+.wtg-fleet__intro h3{
+  margin: 0;
+  font-weight: 950;
+  letter-spacing: -0.01em;
+  font-size: 1.2rem;
+}
+
+.wtg-fleet__controls{
+  display: inline-flex;
+  gap: 8px;
+}
+
+.wtg-fleet__nav{
+  width: 42px;
+  height: 42px;
+  display: inline-grid;
+  place-items: center;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,.12);
+  background: rgba(255,255,255,.06);
+  color: rgba(255,255,255,.92);
+  cursor: pointer;
+  transition: transform .18s ease, border-color .18s ease, background .18s ease;
+}
+
+@media (hover:hover){
+  .wtg-fleet__nav:hover{
+    transform: translateY(-1px);
+    border-color: rgba(15,163,177,.26);
+    background: rgba(255,255,255,.08);
+  }
+}
+
+.wtg-fleet__viewport{
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding-bottom: 8px;
+}
+
+.wtg-fleet__viewport::-webkit-scrollbar{ display: none; }
+
+.wtg-fleet__track{
+  display: flex;
+  gap: 14px;
+  width: max-content;
+  padding: 4px 0 8px;
+}
+
+.wtg-fleet__card{
+  flex: 0 0 clamp(240px, 68vw, 330px);
+  min-height: 290px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 18px 18px 14px;
+  border-radius: 20px;
+  border: 1px solid rgba(255,255,255,.12);
+  background:
+    radial-gradient(circle at 18% 0%, rgba(57,198,210,.12), transparent 56%),
+    radial-gradient(circle at 92% 18%, rgba(15,163,177,.10), transparent 60%),
+    var(--wtg-glass);
+  box-shadow: var(--wtg-shadow2);
+  transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease;
+  scroll-snap-align: start;
+}
+
+@media (max-width: 767px) {
+  .wtg-fleet__viewport {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x proximity;
+  }
+  .wtg-fleet__track {
+    gap: 12px;
+    padding-inline: 4px;
+  }
+  .wtg-fleet__card {
+    flex-basis: min(78vw, 290px);
+  }
+}
+
+@media (hover:hover){
+  .wtg-fleet__card:hover{
+    transform: translateY(-3px);
+    border-color: rgba(15,163,177,.30);
+    box-shadow: 0 22px 58px rgba(4,27,46,.32);
+  }
+}
+
+.wtg-fleet__cardTop{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.wtg-fleet__badge{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: rgba(15,163,177,.14);
+  border: 1px solid rgba(15,163,177,.20);
+  color: rgba(255,255,255,.90);
+  font-size: .68rem;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.wtg-fleet__icon{
+  width: 52px;
+  height: 52px;
+  display: grid;
+  place-items: center;
+  border-radius: 18px;
+  background: linear-gradient(180deg, rgba(15,163,177,.18), rgba(57,198,210,.08));
+  border: 1px solid rgba(15,163,177,.22);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.10);
+  color: rgba(57,198,210,.95);
+  font-size: 18px;
+}
+
+.wtg-fleet__meta,
+.wtg-fleet__specs,
+.wtg-fleet__footer,
+.wtg-fleet__note {
+  margin: 0;
+}
+
+.wtg-fleet__meta{
+  display: grid;
+  gap: 6px;
+}
+
+.wtg-fleet__label{
+  margin: 0;
+  font-size: .68rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.62);
+}
+
+.wtg-fleet__meta h4{
+  margin: 0;
+  font-size: clamp(1.1rem, 1.8vw, 1.45rem);
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+.wtg-fleet__specs{
+  list-style: none;
+  padding: 0;
+  display: grid;
+  gap: 8px;
+}
+
+.wtg-fleet__specs li{
+  display: grid;
+  grid-template-columns: 18px 1fr auto;
+  gap: 8px;
+  align-items: center;
+  padding: 7px 0;
+  border-bottom: 1px solid rgba(255,255,255,.08);
+  color: rgba(255,255,255,.82);
+  font-size: .9rem;
+  line-height: 1.35;
+}
+
+.wtg-fleet__specs li i {
+  color: rgba(57,198,210,.95);
+  font-size: .82rem;
+}
+
+.wtg-fleet__specs strong{
+  color: rgba(255,255,255,.95);
+  font-weight: 700;
+}
+
+.wtg-fleet__note{
+  color: rgba(255,255,255,.7);
+  line-height: 1.5;
+  font-size: .82rem;
+}
+
+.wtg-fleet__footer{
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: auto;
+}
+
+.wtg-fleet__price{
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  flex-wrap: wrap;
+  font-weight: 800;
+  font-size: 1.4rem;
+  letter-spacing: -0.03em;
+}
+
+.wtg-fleet__price small{
+  font-size: .7rem;
+  color: rgba(255,255,255,.72);
+}
+
+.wtg-fleet__cta{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 92px;
+  padding: 10px 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,.12);
+  background: rgba(255,255,255,.06);
+  color: rgba(255,255,255,.92);
+  text-decoration: none;
+  font-weight: 800;
+  transition: border-color .18s ease, background .18s ease, transform .18s ease;
+}
+
+@media (hover:hover){
+  .wtg-fleet__cta:hover{
+    transform: translateY(-1px);
+    border-color: rgba(15,163,177,.26);
+    background: rgba(255,255,255,.08);
+  }
+}
+
+.wtg-fleet-modal {
+  position: fixed;
+  inset: 0;
+  display: none;
+  z-index: 99999;
+}
+
+.wtg-fleet-modal.is-open {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.wtg-fleet-modal__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(4, 27, 46, 0.78);
+  backdrop-filter: blur(6px);
+}
+
+.wtg-fleet-modal__panel {
+  position: relative;
+  z-index: 1;
+  width: min(92vw, 960px);
+  max-height: 90vh;
+  overflow: auto;
+  border-radius: 26px;
+  border: 1px solid rgba(255,255,255,.12);
+  background:
+    radial-gradient(circle at 18% 0%, rgba(57,198,210,.10), transparent 52%),
+    rgba(4,27,46,.75);
+  box-shadow: 0 30px 90px rgba(4,27,46,.45);
+}
+
+.wtg-fleet-modal__close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,.12);
+  background: rgba(255,255,255,.05);
+  color: rgba(255,255,255,.92);
+  cursor: pointer;
+  z-index: 2;
+}
+
+.wtg-fleet-modal__content {
+  padding: 24px 22px 20px;
+  display: grid;
+  gap: 18px;
+}
+
+.wtg-fleet-modal__header {
+  display: grid;
+  gap: 10px;
+  padding-right: 48px;
+}
+
+.wtg-fleet-modal__badge {
+  display: inline-flex;
+  width: fit-content;
+  align-items: center;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: rgba(15,163,177,.14);
+  border: 1px solid rgba(15,163,177,.22);
+  font-size: .68rem;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  color: rgba(255,255,255,.9);
+}
+
+.wtg-fleet-modal__header h3 {
+  margin: 0;
+  font-size: clamp(1.8rem, 3vw, 2.5rem);
+  letter-spacing: -0.04em;
+  line-height: 1.1;
+}
+
+.wtg-fleet-modal__body {
+  display: grid;
+  gap: 18px;
+}
+
+.wtg-fleet-modal__visual {
+  display: grid;
+  gap: 14px;
+  padding: 18px;
+  border-radius: 18px;
+  border: 1px solid rgba(255,255,255,.10);
+  background: rgba(255,255,255,.04);
+}
+
+.wtg-fleet-modal__icon {
+  width: 72px;
+  height: 72px;
+  display: grid;
+  place-items: center;
+  border-radius: 22px;
+  background: linear-gradient(180deg, rgba(15,163,177,.18), rgba(57,198,210,.08));
+  border: 1px solid rgba(15,163,177,.22);
+  color: rgba(57,198,210,.95);
+  font-size: 2rem;
+}
+
+.wtg-fleet-modal__price-wrap {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  color: rgba(255,255,255,.9);
+}
+
+.wtg-fleet-modal__price {
+  font-weight: 900;
+  font-size: clamp(2rem, 4vw, 2.8rem);
+  letter-spacing: -0.05em;
+}
+
+.wtg-fleet-modal__visual p {
+  margin: 0;
+  color: rgba(255,255,255,.72);
+  line-height: 1.6;
+}
+
+.wtg-fleet-modal__specs {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.wtg-fleet-modal__stat {
+  display: grid;
+  gap: 8px;
+  padding: 14px 14px 12px;
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,.10);
+  background: rgba(255,255,255,.04);
+  color: rgba(255,255,255,.78);
+}
+
+.wtg-fleet-modal__stat i {
+  color: rgba(57,198,210,.95);
+  font-size: 1.1rem;
+}
+
+.wtg-fleet-modal__stat span {
+  font-size: .75rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.62);
+}
+
+.wtg-fleet-modal__stat strong {
+  font-size: 1.08rem;
+  color: rgba(255,255,255,.96);
+}
+
+.wtg-fleet-modal__footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding-top: 6px;
+  border-top: 1px solid rgba(255,255,255,.08);
+}
+
+.wtg-fleet-modal__meta {
+  display: grid;
+  gap: 6px;
+  color: rgba(255,255,255,.7);
+}
+
+.wtg-fleet-modal__meta a {
+  color: rgba(57,198,210,.95);
+}
+
+.wtg-fleet-modal__cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 140px;
+  padding: 12px 18px;
+  border-radius: 12px;
+  background: rgba(15,163,177,.16);
+  border: 1px solid rgba(15,163,177,.2);
+  color: rgba(255,255,255,.96);
+  text-decoration: none;
+  font-weight: 800;
+}
+
+body.wtg-fleet-modal-lock {
+  overflow: hidden;
+}
+
+@media (max-width: 767px) {
+  .wtg-fleet-modal__panel {
+    width: min(94vw, 720px);
+    max-height: 90vh;
+  }
+  .wtg-fleet-modal__specs {
+    grid-template-columns: 1fr;
+  }
+  .wtg-fleet-modal__content {
+    padding: 22px 16px 16px;
+  }
+  .wtg-fleet-modal__footer {
+    align-items: stretch;
+  }
+  .wtg-fleet-modal__cta {
+    width: 100%;
+  }
+}
+
+/* -----------------------------------------------------
+   4.5) BLOCK F — Gallery (wtg-gallery)
    ----------------------------------------------------- */
 .wtg-gallery{
   border-radius: var(--wtg-r1);
@@ -1000,7 +1479,7 @@
   justify-content: space-between;
 }
 .wtg-gallery__hint i{ color: rgba(57,198,210,.9); }
- 
+
 @media (max-width:900px) {
   .wtg-gallery__hint {
     display: block;

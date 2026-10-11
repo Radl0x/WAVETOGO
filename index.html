@@ -8,18 +8,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- META: THEME COLOR (USA VARIABILE, NON HEX) -->
     <meta name="theme-color" content="--primary" />
-    <!-- FAVICON: ICONA SITO -->
-    <link rel="icon" href="./assets/images/favicon.ico" />
     <!-- SEO: TITOLO PAGINA -->
     <title data-i18n="meta.title">
-      WaveToGo – Noleggio Gommoni Golfo Aranci
+      Blu Diamond Rent – Noleggio gommoni e moto d'acqua in Sardegna
     </title>
     <!-- SEO: DESCRIZIONE PAGINA -->
     <meta
       name="description"
       data-i18n-attr="content"
       data-i18n="meta.description"
-      content="Noleggio gommoni premium senza patente a Golfo Aranci. Scopri Tavolara e Molara in libertà."
+      content="Blu Diamond Rent: noleggio di gommoni e moto d'acqua in Sardegna, tra Tavolara, Costa Smeralda e Arcipelago della Maddalena."
     />
     <!-- CSS: BASE -->
     <link rel="stylesheet" href="./assets/css/base.css" />
@@ -120,7 +118,7 @@
             <!-- HERO > BADGE: ICONA -->
             <i class="fas fa-anchor" aria-hidden="true"></i>
             <!-- HERO > BADGE: TESTO -->
-            <span data-i18n="hero.badge">Marina di Golfo Aranci</span>
+            <span data-i18n="hero.badge">Blu Diamond Rent • Golfo Aranci &amp; Portisco</span>
           </span>
           <!-- HERO > TITOLO: H1 PRINCIPALE -->
           <h1 class="hero-title">
@@ -232,8 +230,8 @@
           <div class="wtg-why__divider" aria-hidden="true"></div>
           <br />
 
-          <!-- ===================================================== 
-           BluDiamondRent — WHY US (Premium Section) 
+          <!-- =====================================================
+           BluDiamondRent — WHY US (Premium Section)
           ===================================================== -->
           <h1 class="hero-title">
             <!-- HERO > TITOLO: RIGA 1 -->
@@ -257,7 +255,7 @@
           <section
             class="wtg-why"
             id="wtgWhy"
-            aria-label="Perché scegliere WaveToGo"
+            aria-label="Perché scegliere Blu Diamond Rent"
           >
             <div class="wtg-why__wrap">
               <!-- 2) BLOCCO A — PERCHÉ SCEGLIERCI -->
@@ -370,7 +368,7 @@
                   <button
                     class="wtg-card__btn"
                     type="button"
-                    data-wtg-scroll="#tab-supporto"
+                    data-wtg-scroll="#wtg-panel-supporto"
                   >
                     Garanzie
                     <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
@@ -425,6 +423,27 @@
                     </div>
                   </li>
                 </ol>
+
+                <section class="wtg-fleet" aria-label="Flotta Blu Diamond Rent">
+                  <div class="wtg-fleet__header">
+                    <div class="wtg-fleet__intro">
+                      <span class="wtg-badge">Flotta Blu Diamond Rent</span>
+                      <h3>Scopri i nostri modelli preferiti</h3>
+                    </div>
+                    <div class="wtg-fleet__controls" aria-label="Navigazione flotta">
+                      <button class="wtg-fleet__nav wtg-fleet__nav--prev" type="button" aria-label="Vai indietro">
+                        <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
+                      </button>
+                      <button class="wtg-fleet__nav wtg-fleet__nav--next" type="button" aria-label="Vai avanti">
+                        <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="wtg-fleet__viewport">
+                    <div class="wtg-fleet__track" id="fleetCarousel" aria-live="polite"></div>
+                  </div>
+                </section>
+
                 <a
                   class="cta primary"
                   id="heroPrenota"
@@ -435,7 +454,7 @@
                 </a>
               </section>
 
-              <!-- 6) BLOCCO E — MINI GALLERY -->
+              <!-- 6) BLOCCO F — MINI GALLERY -->
               <section
                 class="wtg-gallery"
                 id="gallery"
@@ -666,7 +685,7 @@
               <!-- 4) BLOCCO C — TABS: PERCHÉ TORNANO -->
               <section class="wtg-tabs" aria-label="Perché i clienti tornano">
                 <div class="wtg-tabs__head">
-                  <h3 class="wtg-tabs__title">Perché tornano da WaveToGo</h3>
+                  <h3 class="wtg-tabs__title">Perché tornano da Blu Diamond Rent</h3>
                   <p class="wtg-tabs__sub">
                     Tre motivi, sempre gli stessi: esperienza, chiarezza,
                     presenza.
@@ -706,7 +725,7 @@
                     class="wtg-tab"
                     role="tab"
                     aria-selected="false"
-                    aria-controls="tab-supporto"
+                    aria-controls="wtg-panel-supporto"
                     id="tab-supporto-btn"
                     type="button"
                   >
@@ -805,7 +824,7 @@
                   <article
                     class="wtg-panel"
                     role="tabpanel"
-                    id="tab-supporto"
+                    id="wtg-panel-supporto"
                     aria-labelledby="tab-supporto-btn"
                     tabindex="0"
                   >
@@ -913,11 +932,13 @@
           <!-- FOOTER BRAND: ETICHETTA -->
           <div class="footer-label" data-i18n="footer.location">Noleggio</div>
           <!-- FOOTER BRAND: LOGO -->
-          <h1 class="logo"><a href="">Wave<span>To</span>Go</a></h1>
+          <h1 class="logo"><a href="">Blu<span>Diamond</span>Rent</a></h1>
           <!-- FOOTER BRAND: TESTO -->
           <p data-i18n="footer.brand.text">
-            Esperienze nautiche premium, prenotazioni rapide e assistenza
-            dedicata.
+            Blu Diamond Rent è una società specializzata nel noleggio di
+            gommoni e moto d'acqua. Offre la possibilità di esplorare le acque
+            della Sardegna, visitando l'Area Marina Protetta di Tavolara, la
+            Costa Smeralda e l'Arcipelago della Maddalena.
           </p>
           <!-- FOOTER BRAND: SOCIAL -->
           <div class="footer-social">
@@ -1025,26 +1046,32 @@
             <ul>
               <li>
                 <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
-                <span data-i18n="footer.contacts.item1"
-                  >Marina di Golfo Aranci</span
-                >
+                <span data-i18n="footer.contacts.item1">Golfo Aranci • Portisco</span>
               </li>
               <hr />
               <li>
                 <i class="fa-solid fa-phone" aria-hidden="true"></i>
-                <span data-i18n="footer.contacts.item2">+39 389 629 8553</span>
+                <a href="tel:+393421355874" data-i18n="footer.contacts.item2">+39 342 1355874</a>
               </li>
               <hr />
               <li>
                 <i class="fa-solid fa-envelope" aria-hidden="true"></i>
-                <span data-i18n="footer.contacts.item3">info@wavetogo.it</span>
+                <a href="mailto:blu.diamond.rent@gmail.com" data-i18n="footer.contacts.item3">blu.diamond.rent@gmail.com</a>
+              </li>
+              <hr />
+              <li>
+                <i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
+                <a href="https://wa.me/393421355874" target="_blank" rel="noopener noreferrer">WhatsApp +39 342 1355874</a>
+              </li>
+              <hr />
+              <li>
+                <i class="fa-solid fa-id-card" aria-hidden="true"></i>
+                <span>P. IVA IT 02896170905</span>
               </li>
               <hr />
               <li>
                 <i class="fa-solid fa-clock" aria-hidden="true"></i>
-                <span data-i18n="footer.contacts.item4"
-                  >Lun–Dom 09:00–19:00</span
-                >
+                <span data-i18n="footer.contacts.item4">Lun–Dom 09:00–19:00</span>
               </li>
             </ul>
           </div>
@@ -1094,7 +1121,7 @@
       <div class="footer-bottom">
         <!-- FOOTER BOTTOM: COPYRIGHT -->
         <span data-i18n="footer.bottom.copy"
-          >© 2026 WaveToGo. Tutti i diritti riservati.</span
+          >© 2026 Blu Diamond Rent. Tutti i diritti riservati.</span
         >
         <!-- FOOTER BOTTOM: LINK SECONDARI -->
         <div class="footer-bottom-links">
@@ -1110,6 +1137,8 @@
     <script src="./assets/js/navigation.js" defer></script>
     <!-- SCRIPT: TRANSLATE -->
     <script src="./assets/js/translate.js" defer></script>
+    <!-- SCRIPT: FLEET CAROUSEL -->
+    <script src="./assets/js/fleet.js" defer></script>
     <!-- SCRIPT: EFFECTS -->
     <script src="./assets/js/effect.js" defer></script>
     <!-- SCRIPT: BOOKING -->

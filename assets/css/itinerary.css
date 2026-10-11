@@ -194,7 +194,7 @@
    4) GRID
    ========================= */
 #pm-it .pm-it-body{ padding: var(--pm-pad);
-  position: relative; 
+  position: relative;
 }
 
 
@@ -248,7 +248,7 @@
   background-position: 0%;
 }
 #img4-card{
-  background-image: url("../../figari3.jpg"); 
+  background-image: url("../../figari3.jpg");
   background-size: cover;
   background-position: 0% 30%;
 }

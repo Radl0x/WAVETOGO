@@ -1,4 +1,6 @@
+/* TRADUZIONI: DIZIONARI, APPLICAZIONE TESTI E MENU LINGUA */
 (() => {
+  // Lingua persistita e opzioni del selettore.
   const STORAGE_KEY = "site_lang";
   const DEFAULT_LANGUAGE = "it";
 
@@ -10,11 +12,12 @@
     { code: "pl", label: "Polski", flagUrl: "https://flagcdn.com/w40/pl.png" },
   ];
 
+  // Dizionari condivisi dalle pagine del sito.
   const translations = {
     it: {
-      "meta.title": "WaveToGo – Noleggio Gommoni Golfo Aranci",
-      "meta.description": "Noleggio gommoni premium senza patente a Golfo Aranci. Scopri Tavolara e Molara in libertà.",
-      "hero.badge": "Marina di Golfo Aranci",
+      "meta.title": "Blu Diamond Rent – Noleggio gommoni e moto d'acqua in Sardegna",
+      "meta.description": "Blu Diamond Rent: noleggio di gommoni e moto d'acqua in Sardegna, tra Tavolara, Costa Smeralda e Arcipelago della Maddalena.",
+      "hero.badge": "Blu Diamond Rent • Golfo Aranci & Portisco",
       "hero.title.line1": "Scopri la",
       "hero.title.line2": "SARDEGNA",
       "hero.title.line3": "mare",
@@ -27,7 +30,7 @@
       "hero.cta.primary": "Prenota ora",
       "hero.cta.secondary": "Itinerari",
       "footer.location": "Noleggio",
-      "footer.brand.text": "Esperienze nautiche premium, prenotazioni rapide e assistenza dedicata.",
+      "footer.brand.text": "Blu Diamond Rent è una società specializzata nel noleggio di gommoni e moto d'acqua. Offre la possibilità di esplorare le acque della Sardegna, visitando l'Area Marina Protetta di Tavolara, la Costa Smeralda e l'Arcipelago della Maddalena.",
       "footer.sections.label": "Indice",
       "footer.tabs.services": "Servizi",
       "footer.tabs.support": "Supporto",
@@ -39,9 +42,9 @@
       "footer.support.item2": "Assistenza clienti",
       "footer.support.item3": "Termini & condizioni",
       "footer.support.item4": "Privacy policy",
-      "footer.contacts.item1": "Marina di Golfo Aranci",
-      "footer.contacts.item2": "+39 389 629 8553",
-      "footer.contacts.item3": "info@wavetogo.it",
+      "footer.contacts.item1": "Golfo Aranci • Portisco",
+      "footer.contacts.item2": "+39 342 1355874",
+      "footer.contacts.item3": "blu.diamond.rent@gmail.com",
       "footer.contacts.item4": "Lun–Dom 09:00–19:00",
       "footer.newsletter.label": "Newsletter",
       "footer.newsletter.title": "Resta aggiornato",
@@ -49,7 +52,7 @@
       "footer.newsletter.placeholder": "La tua email",
       "footer.newsletter.button": "Iscriviti",
       "footer.newsletter.note": "Puoi disiscriverti quando vuoi.",
-      "footer.bottom.copy": "© 2026 WaveToGo. Tutti i diritti riservati.",
+      "footer.bottom.copy": "© 2026 Blu Diamond Rent. Tutti i diritti riservati.",
       "footer.bottom.cookie": "Cookie",
       "footer.bottom.security": "Sicurezza",
       "footer.bottom.accessibility": "Accessibilità",
@@ -165,9 +168,9 @@
       "home.trust.skipper.sub": "Per ogni tua meta"
     },
     en: {
-      "meta.title": "WaveToGo – Boat Rental in Golfo Aranci",
-      "meta.description": "Premium boat rental without a license in Golfo Aranci. Discover Tavolara and Molara at your own pace.",
-      "hero.badge": "Golfo Aranci Marina",
+      "meta.title": "Blu Diamond Rent – Boat rental in Sardinia",
+      "meta.description": "Blu Diamond Rent offers boat and water scooter rental in Sardinia, with trips around Tavolara, Costa Smeralda and the Maddalena Archipelago.",
+      "hero.badge": "Blu Diamond Rent • Golfo Aranci & Portisco",
       "hero.title.line1": "Discover the",
       "hero.title.line2": "SARDINIA",
       "hero.title.line3": "sea",
@@ -192,9 +195,9 @@
       "footer.support.item2": "Customer support",
       "footer.support.item3": "Terms & conditions",
       "footer.support.item4": "Privacy policy",
-      "footer.contacts.item1": "Golfo Aranci Marina",
-      "footer.contacts.item2": "+39 389 629 8553",
-      "footer.contacts.item3": "info@wavetogo.it",
+      "footer.contacts.item1": "Golfo Aranci • Portisco",
+      "footer.contacts.item2": "+39 342 1355874",
+      "footer.contacts.item3": "blu.diamond.rent@gmail.com",
       "footer.contacts.item4": "Mon–Sun 09:00–19:00",
       "footer.newsletter.label": "Newsletter",
       "footer.newsletter.title": "Stay updated",
@@ -202,7 +205,7 @@
       "footer.newsletter.placeholder": "Your email",
       "footer.newsletter.button": "Subscribe",
       "footer.newsletter.note": "You can unsubscribe anytime.",
-      "footer.bottom.copy": "© 2026 WaveToGo. All rights reserved.",
+      "footer.bottom.copy": "© 2026 Blu Diamond Rent. All rights reserved.",
       "footer.bottom.cookie": "Cookies",
       "footer.bottom.security": "Security",
       "footer.bottom.accessibility": "Accessibility",
@@ -313,7 +316,7 @@
       "home.trust.skipper.sub": "For every destination"
     },
     es: {
-      "meta.title": "WaveToGo – Alquiler de lanchas en Golfo Aranci",
+      "meta.title": "Blu Diamond Rent – Alquiler de lanchas en Cerdeña",
       "meta.description": "Alquiler de lanchas premium sin licencia en Golfo Aranci. Descubre Tavolara y Molara en libertad.",
       "hero.badge": "Puerto de Golfo Aranci",
       "hero.title.line1": "Descubre la",
@@ -341,8 +344,8 @@
       "footer.support.item3": "Términos y condiciones",
       "footer.support.item4": "Política de privacidad",
       "footer.contacts.item1": "Puerto de Golfo Aranci",
-      "footer.contacts.item2": "+39 389 629 8553",
-      "footer.contacts.item3": "info@wavetogo.it",
+      "footer.contacts.item2": "+39 342 1355874",
+      "footer.contacts.item3": "blu.diamond.rent@gmail.com",
       "footer.contacts.item4": "Lun–Dom 09:00–19:00",
       "footer.newsletter.label": "Boletín",
       "footer.newsletter.title": "Mantente al día",
@@ -350,7 +353,7 @@
       "footer.newsletter.placeholder": "Tu correo",
       "footer.newsletter.button": "Suscribirse",
       "footer.newsletter.note": "Puedes darte de baja cuando quieras.",
-      "footer.bottom.copy": "© 2026 WaveToGo. Todos los derechos reservados.",
+      "footer.bottom.copy": "© 2026 Blu Diamond Rent. Todos los derechos reservados.",
       "footer.bottom.cookie": "Cookies",
       "footer.bottom.security": "Seguridad",
       "footer.bottom.accessibility": "Accesibilidad",
@@ -461,7 +464,7 @@
       "home.trust.skipper.sub": "Para cada destino"
     },
     ru: {
-      "meta.title": "WaveToGo – Аренда катеров в Гольфо Аранчи",
+      "meta.title": "Blu Diamond Rent – Аренда катеров в Сардинии",
       "meta.description": "Премиальная аренда катеров без лицензии в Гольфо Аранчи. Откройте для себя Таволара и Молара в свободе.",
       "hero.badge": "Марина Гольфо Аранчи",
       "hero.title.line1": "Откройте для себя",
@@ -489,8 +492,8 @@
       "footer.support.item3": "Условия и положения",
       "footer.support.item4": "Политика конфиденциальности",
       "footer.contacts.item1": "Марина Гольфо Аранчи",
-      "footer.contacts.item2": "+39 389 629 8553",
-      "footer.contacts.item3": "info@wavetogo.it",
+      "footer.contacts.item2": "+39 342 1355874",
+      "footer.contacts.item3": "blu.diamond.rent@gmail.com",
       "footer.contacts.item4": "Пн–Вс 09:00–19:00",
       "footer.newsletter.label": "Рассылка",
       "footer.newsletter.title": "Будьте в курсе",
@@ -498,7 +501,7 @@
       "footer.newsletter.placeholder": "Ваш email",
       "footer.newsletter.button": "Подписаться",
       "footer.newsletter.note": "Можно отписаться в любое время.",
-      "footer.bottom.copy": "© 2026 WaveToGo. Все права защищены.",
+      "footer.bottom.copy": "© 2026 Blu Diamond Rent. Все права защищены.",
       "footer.bottom.cookie": "Cookie",
       "footer.bottom.security": "Безопасность",
       "footer.bottom.accessibility": "Доступность",
@@ -609,7 +612,7 @@
       "home.trust.skipper.sub": "Для любого маршрута"
     },
     pl: {
-      "meta.title": "WaveToGo – Wynajem łodzi w Golfo Aranci",
+      "meta.title": "Blu Diamond Rent – Wynajem łodzi na Sardynii",
       "meta.description": "Premium wynajem łodzi bez licencji w Golfo Aranci. Odkryj Tavolara i Molara w pełni.",
       "hero.badge": "Marina Golfo Aranci",
       "hero.title.line1": "Odkryj",
@@ -637,8 +640,8 @@
       "footer.support.item3": "Regulamin",
       "footer.support.item4": "Polityka prywatności",
       "footer.contacts.item1": "Marina Golfo Aranci",
-      "footer.contacts.item2": "+39 389 629 8553",
-      "footer.contacts.item3": "info@wavetogo.it",
+      "footer.contacts.item2": "+39 342 1355874",
+      "footer.contacts.item3": "blu.diamond.rent@gmail.com",
       "footer.contacts.item4": "Pn–Nd 09:00–19:00",
       "footer.newsletter.label": "Newsletter",
       "footer.newsletter.title": "Bądź na bieżąco",
@@ -646,7 +649,7 @@
       "footer.newsletter.placeholder": "Twój e-mail",
       "footer.newsletter.button": "Zapisz się",
       "footer.newsletter.note": "Możesz zrezygnować w dowolnym momencie.",
-      "footer.bottom.copy": "© 2026 WaveToGo. Wszelkie prawa zastrzeżone.",
+      "footer.bottom.copy": "© 2026 Blu Diamond Rent. Wszelkie prawa zastrzeżone.",
       "footer.bottom.cookie": "Ciasteczka",
       "footer.bottom.security": "Bezpieczeństwo",
       "footer.bottom.accessibility": "Dostępność",
@@ -758,18 +761,21 @@
     }
   };
 
+  // Elemento di mount e lingua iniziale.
   const box = document.getElementById("lingue-box");
   if (!box) return;
 
   const resolveLanguage = (code) => languages.find((lang) => lang.code === code) || languages[0];
   let current = resolveLanguage(localStorage.getItem(STORAGE_KEY) || DEFAULT_LANGUAGE);
 
+  // Ricerca chiave con fallback alla lingua predefinita.
   function getTranslation(langCode, key, fallback = "") {
     const langTranslations = translations[langCode] || translations[DEFAULT_LANGUAGE];
     const value = langTranslations?.[key];
     return typeof value === "string" && value.length ? value : fallback;
   }
 
+  // Rendering delle lingue alternative disponibili.
   function renderMenu() {
     const langMenu = document.getElementById("langMenu");
     if (!langMenu) return;
@@ -784,6 +790,7 @@
       .join("");
   }
 
+  // Applicazione di testo, placeholder e attributi traducibili.
   function applyTranslations() {
     document.documentElement.lang = current.code;
     document.body?.setAttribute("data-lang", current.code);
@@ -851,21 +858,7 @@
     window.dispatchEvent(new CustomEvent("site-language-change", { detail: { lang: current.code } }));
   }
 
-  function setLanguage(code) {
-    const lang = resolveLanguage(code).code;
-    current = resolveLanguage(lang);
-
-    const currentFlagImg = document.getElementById("currentFlagImg");
-    if (currentFlagImg) {
-      currentFlagImg.src = current.flagUrl;
-      currentFlagImg.alt = current.label;
-    }
-
-    localStorage.setItem(STORAGE_KEY, current.code);
-    renderMenu();
-    applyTranslations();
-  }
-
+  // Creazione del selettore e associazione degli eventi.
   box.innerHTML = `
     <div class="lang-switch">
       <button class="lang-btn" id="langBtn" type="button">
@@ -883,7 +876,6 @@
   renderMenu();
   applyTranslations();
 
-  const openMenu = () => langMenu?.classList.add("open");
   const closeMenu = () => langMenu?.classList.remove("open");
 
   langBtn?.addEventListener("click", (e) => {

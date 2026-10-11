@@ -1,4 +1,6 @@
+/* ITINERARI: STIME, FILTRI, CARD E INTERAZIONI */
 (() => {
+  // Selettori locali e parametri usati per le stime.
   const $ = (sel, root = document) => root.querySelector(sel);
   const $$ = (sel, root = document) => [...root.querySelectorAll(sel)];
 
@@ -22,6 +24,7 @@
 
   const fmt = (n, d = 1) => (Number.isFinite(n) ? n : 0).toFixed(d);
 
+  // Stima navigazione, carburante e costo per distanza.
   function estimate(distanceNm) {
     const { fuelPrice, consumption, speedKn, reservePct } = DEFAULTS;
     const hours = distanceNm / Math.max(1, speedKn);
@@ -32,6 +35,7 @@
     return { hours, litersTotal, cost };
   }
 
+  // Lettura dei dati configurati sulla card.
   function readCardData(card) {
     const distanceNm = Number(card.dataset.distanceNm || 0);
     const title = card.dataset.title || $(".it-title", card)?.textContent?.trim() || "Itinerario";
@@ -51,6 +55,7 @@
     return { distanceNm, title, tagline, duration, difficulty, windOk, windAvoid, windTips, snorkel, selfie, nearby, hazards };
   }
 
+  // Aggiornamento dei valori sintetici mostrati nella card.
   function updateKPIs(card) {
     const distanceNm = Number(card.dataset.distanceNm || 0);
     const est = estimate(distanceNm);
@@ -66,6 +71,7 @@
     if (cEl) cEl.textContent = fmt(est.cost, 0);
   }
 
+  // Verifica dei criteri di ricerca e filtro.
   function matchesFilters(card) {
     const q = (qEl?.value || "").trim().toLowerCase();
     const hours = hoursEl?.value || "all";
@@ -95,6 +101,7 @@
     return true;
   }
 
+  // Visibilità delle card e stato senza risultati.
   function applyFilters() {
     const cards = $$(".it-card", grid);
     let anyVisible = false;
@@ -123,6 +130,7 @@
     empty.style.display = anyVisible ? "none" : "";
   }
 
+  // Apertura dettagli e copia del riepilogo itinerario.
   function wireInteractions() {
     grid.addEventListener("click", (e) => {
       const btn = e.target.closest("[data-toggle]");
@@ -162,6 +170,7 @@
     });
   }
 
+  // Inizializzazione card, filtri e testi localizzati.
   $$(".it-card", grid).forEach(updateKPIs);
 
   [qEl, hoursEl, diffEl].filter(Boolean).forEach((el) => {

@@ -1,3 +1,4 @@
+/* DATI STATICI DEGLI ITINERARI */
 const ITINERARIES_DB = [
   {
     id: "tavolara_pro",
@@ -145,10 +146,233 @@ const ITINERARIES_DB = [
   },
 ];
 
-/**
- *
- * 1. CONFIGURAZIONE E STATO
- */
+const FLEET_DB = [
+  {
+    id: "golfo-kardis-7-5m",
+    location: "Golfo Aranci",
+    name: "KARDIS 7.5 m",
+    power: "200 HP",
+    price: 650,
+    capacity: 8,
+    licenseRequired: true,
+    year: null,
+    url: "https://www.bludiamondrent.com/flotta/kardis-7-5m-150hp-patente-nautica-obbligatoria/",
+    reference: "Catalogo e scheda tecnica",
+    notes: "Potenza indicata come 200 HP nel catalogo; l'URL riporta 150 HP da verificare."
+  },
+  {
+    id: "golfo-original-5-70",
+    location: "Golfo Aranci",
+    name: "ORIGINAL 5.70",
+    power: "40 HP",
+    price: 350,
+    capacity: 6,
+    licenseRequired: false,
+    year: null,
+    url: "https://www.bludiamondrent.com/flotta/original-5-70-40hp/",
+    reference: "Scheda prodotto",
+    notes: "Dotazioni: cuscineria, dotazioni di emergenza, tendalino parasole, doccetta e stereo Bluetooth."
+  },
+  {
+    id: "golfo-seadoo-rxt-x",
+    location: "Golfo Aranci",
+    name: "Sea-Doo RXT-X",
+    power: "325 HP",
+    price: 700,
+    capacity: 3,
+    licenseRequired: true,
+    year: 2025,
+    url: "https://www.bludiamondrent.com/flotta/",
+    reference: "Catalogo flotta",
+    notes: "Moto d'acqua da 3 posti, patente obbligatoria."
+  },
+  {
+    id: "golfo-2-bar-68",
+    location: "Golfo Aranci",
+    name: "2 BAR 68",
+    power: "115 HP",
+    price: 550,
+    capacity: 8,
+    licenseRequired: true,
+    year: null,
+    url: "https://www.bludiamondrent.com/flotta/2-bar-68-115-hp-patente-nautica-obbligatoria/",
+    reference: "Scheda prodotto",
+    notes: "Patente nautica obbligatoria."
+  },
+  {
+    id: "golfo-2-bar-82",
+    location: "Golfo Aranci",
+    name: "2 BAR 82",
+    power: "300 HP",
+    price: 900,
+    capacity: 10,
+    licenseRequired: true,
+    year: null,
+    url: "https://www.bludiamondrent.com/flotta/2-bar-82/",
+    reference: "Scheda prodotto",
+    notes: "Gommone capiente da 10 persone, patente richiesta."
+  },
+  {
+    id: "golfo-2-bar-62-yellow",
+    location: "Golfo Aranci",
+    name: "2 BAR 62 Yellow",
+    power: "40 HP",
+    price: 350,
+    capacity: 6,
+    licenseRequired: false,
+    year: null,
+    url: "https://www.bludiamondrent.com/flotta/",
+    reference: "Catalogo flotta",
+    notes: "Patente da verificare: nel sito indicata come non necessaria."
+  },
+  {
+    id: "golfo-2-bar-62-orange",
+    location: "Golfo Aranci",
+    name: "2 BAR 62 Orange",
+    power: "40 HP",
+    price: 350,
+    capacity: 6,
+    licenseRequired: false,
+    year: null,
+    url: "https://www.bludiamondrent.com/flotta/",
+    reference: "Catalogo flotta",
+    notes: "Patente da verificare: nel sito indicata come non necessaria."
+  },
+  {
+    id: "golfo-2-bar-62-red",
+    location: "Golfo Aranci",
+    name: "2 BAR 62 Red",
+    power: "40 HP",
+    price: 350,
+    capacity: 6,
+    licenseRequired: false,
+    year: null,
+    url: "https://www.bludiamondrent.com/flotta/",
+    reference: "Catalogo flotta",
+    notes: "Patente da verificare: nel sito indicata come non necessaria."
+  },
+  {
+    id: "golfo-2-bar-62-cookie",
+    location: "Golfo Aranci",
+    name: "2 BAR 62 Cookie",
+    power: "40 HP",
+    price: 350,
+    capacity: 6,
+    licenseRequired: false,
+    year: null,
+    url: "https://www.bludiamondrent.com/flotta/",
+    reference: "Catalogo flotta",
+    notes: "Patente da verificare: nel sito indicata come non necessaria."
+  },
+  {
+    id: "golfo-seadoo-gti-se",
+    location: "Golfo Aranci",
+    name: "Sea-Doo GTI SE",
+    power: "170 HP",
+    price: 550,
+    capacity: 3,
+    licenseRequired: true,
+    year: 2024,
+    url: "https://www.bludiamondrent.com/flotta/",
+    reference: "Catalogo flotta",
+    notes: "Patente richiesta, da verificare tra le informazioni raccolte."
+  },
+  {
+    id: "portisco-mar-sea-7-5m",
+    location: "Portisco",
+    name: "MAR SEA 7.5 m",
+    power: "200 CV",
+    price: 650,
+    capacity: 8,
+    licenseRequired: true,
+    year: null,
+    url: "https://www.bludiamondrent.com/flotta-portisco/mar-sea-7-5m-200cv-patente-nautica-obbligatoria/",
+    reference: "Scheda prodotto",
+    notes: "Gommone da 8 posti, patente nautica obbligatoria."
+  },
+  {
+    id: "portisco-2-bar-68",
+    location: "Portisco",
+    name: "2 BAR 68",
+    power: "115 HP",
+    price: 550,
+    capacity: 8,
+    licenseRequired: true,
+    year: null,
+    url: "https://www.bludiamondrent.com/flotta-portisco/2-bar-68-115hp-patente-nautica-obbligatoria/",
+    reference: "Scheda prodotto",
+    notes: "Patente nautica obbligatoria."
+  },
+  {
+    id: "portisco-2-bar-62-cookie",
+    location: "Portisco",
+    name: "2 BAR 62 Cookie",
+    power: "40 CV",
+    price: 350,
+    capacity: 6,
+    licenseRequired: false,
+    year: null,
+    url: "https://www.bludiamondrent.com/flotta-portisco/2-bar-yellow-62/",
+    reference: "Scheda di riferimento",
+    notes: "Patente da verificare; sito indicato come modello standard in Portisco."
+  },
+  {
+    id: "portisco-2-bar-62-orange",
+    location: "Portisco",
+    name: "2 BAR 62 Orange",
+    power: "40 CV",
+    price: 350,
+    capacity: 6,
+    licenseRequired: false,
+    year: null,
+    url: "https://www.bludiamondrent.com/flotta-portisco/2-bar-orange-62/",
+    reference: "Scheda di riferimento",
+    notes: "Patente da verificare; sito indicato come modello standard in Portisco."
+  },
+  {
+    id: "portisco-2-bar-62-red",
+    location: "Portisco",
+    name: "2 BAR 62 Red",
+    power: "40 CV",
+    price: 350,
+    capacity: 6,
+    licenseRequired: false,
+    year: null,
+    url: "https://www.bludiamondrent.com/flotta-portisco/2-bar-black-62-2/",
+    reference: "Scheda di riferimento",
+    notes: "Patente da verificare; sito indicato come modello standard in Portisco."
+  },
+  {
+    id: "portisco-2-bar-62-lime",
+    location: "Portisco",
+    name: "2 BAR 62 Lime",
+    power: "40 CV",
+    price: 350,
+    capacity: 6,
+    licenseRequired: false,
+    year: null,
+    url: "https://www.bludiamondrent.com/flotta-portisco/2-bar-white-62/",
+    reference: "Scheda di riferimento",
+    notes: "Patente da verificare; sito indicato come modello standard in Portisco."
+  },
+  {
+    id: "portisco-2-bar-62-magenta",
+    location: "Portisco",
+    name: "2 BAR 62 Magenta",
+    power: "40 CV",
+    price: 350,
+    capacity: 6,
+    licenseRequired: false,
+    year: null,
+    url: "https://www.bludiamondrent.com/flotta-portisco/2-bar-white-62/",
+    reference: "Scheda di riferimento",
+    notes: "Patente da verificare; sito indicato come modello standard in Portisco."
+  }
+];
+window.FLEET_DB = FLEET_DB;
+
+
+/* CONFIGURAZIONE E STATO DEL BOOKING */
 const CONFIG = {
   months: [
     "Gennaio",

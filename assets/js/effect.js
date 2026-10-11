@@ -1,6 +1,9 @@
+/* EFFETTI HERO: ARTWORK E BOLLE */
+// Riferimenti agli elementi decorativi della hero.
 const heroArt = document.querySelector('.hero-scroll-art');
 const topArt = document.querySelector('.hero-top-art');
 
+// Aggiornamento delle variabili di movimento dell'artwork.
 const updateFloatVars = (el, x, y, rot, opacity) => {
   if (!el) return;
   el.style.setProperty('--float-x', x);
@@ -16,6 +19,7 @@ if (heroArt) {
   heroArt.style.opacity = '1';
 }
 
+// Movimento scroll dell'artwork superiore.
 if (topArt) {
   const updateTopArt = () => {
     const scrollY = window.scrollY || window.pageYOffset;
@@ -42,6 +46,7 @@ if (topArt) {
 // =========================
 const layer = document.querySelector('.hero .bubbles'); // layer dove generare le bolle
 
+// Punto della cresta SVG più vicino alla bolla.
 function getWaveSurfaceTop(bubbleX, layerRect) {
   const desktop = window.innerWidth >= 1050;
   const waveSvg = document.querySelector(desktop ? '#desktopsvg' : '#mobilesvg');
@@ -83,6 +88,7 @@ function getWaveSurfaceTop(bubbleX, layerRect) {
 // =========================
 // CREA UNA BOLLA SINGOLA
 // =========================
+// Crea una bolla e la dissolve al contatto con la superficie.
 function spawnBubble() {
   const b = document.createElement('span');
   b.className = 'bubble';
