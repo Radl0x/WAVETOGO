@@ -1,4 +1,4 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="it">
    <!-- HEAD: META, SEO, CSS, FONT/ICONE -->
    <head>
@@ -11,9 +11,9 @@
       <!-- FAVICON: ICONA SITO -->
       <link rel="icon" href="./assets/images/favicon.ico" />
       <!-- SEO: TITOLO PAGINA -->
-      <title data-i18n="meta.title">Blu Diamond Rent - Noleggio Gommoni Portisco</title>
+      <title data-i18n="meta.title">WaveToGo – Noleggio Gommoni Golfo Aranci</title>
       <!-- SEO: DESCRIZIONE PAGINA -->
-      <meta name="description" data-i18n-attr="content" data-i18n="meta.description" content="Noleggio gommoni e imbarcazioni da Portisco. Scopri Tavolara, Costa Smeralda e Arcipelago della Maddalena con Blu Diamond Rent." />
+      <meta name="description" data-i18n-attr="content" data-i18n="meta.description" content="Noleggio gommoni premium senza patente a Golfo Aranci. Scopri Tavolara e Molara in libertà." />
       <!-- CSS: BASE -->
       <link rel="stylesheet" href="./assets/css/base.css" />
       <!-- CSS: LAYOUT -->
@@ -41,8 +41,9 @@
          <div class="container header-inner">
             <!-- HEADER > LOGO: BRAND -->
             <h1 class="logo">
+               <img src="Blu-Diamond-Rent-3 copy.png" width="50px" alt="">
                <!-- HEADER > LOGO LINK: LINK HOME (VUOTO COME ORIGINALE) -->
-               <a href="./index.html">Blu<span>Diamond</span> Rent</a>
+               <a href="./index.html">Blu<span>Diamond</span>Rent</a>
             </h1>
             <div id="lingue-box">
             </div>
@@ -120,8 +121,8 @@
                         </a>
                      </div>
                      <div>
-                        <h2 class="pm-it-title">Itinerari da Golfo Aranci</h2>
-                        <p class="pm-it-sub">
+                        <h2 class="pm-it-title" data-i18n="itinerary.heading">Itinerari da Golfo Aranci</h2>
+                        <p class="pm-it-sub" data-i18n="itinerary.description">
                            Salpa verso acque che sembrano irreali, cala dopo cala, dove il turchese incontra la roccia e ogni sosta diventa un ricordo.
                         </p>
                      </div>
@@ -129,28 +130,28 @@
                   <!-- TOOLBAR (FILTRI) -->
                   <div class="pm-it-toolbar">
                      <div class="pm-it-field">
-                        <label class="pm-it-lbl" for="itQ">Cerca</label>
-                        <input id="itQ" class="pm-it-in" type="search" placeholder="Es: Tavolara, Molara, Figari..." />
+                        <label class="pm-it-lbl" for="itQ" data-i18n="itinerary.search">Cerca</label>
+                        <input id="itQ" class="pm-it-in" type="search" placeholder="Es: Tavolara, Molara, Figari..." data-i18n-placeholder="itinerary.search.placeholder" />
                      </div>
                      <div class="pm-it-field">
-                        <label class="pm-it-lbl" for="itHours">Durata</label>
+                        <label class="pm-it-lbl" for="itHours" data-i18n="itinerary.filter.duration">Durata</label>
                         <select id="itHours" class="pm-it-in">
-                           <option value="all">Tutte</option>
-                           <option value="half">Mezza giornata</option>
-                           <option value="full">Giornata intera</option>
+                           <option value="all" data-i18n="itinerary.filter.all">Tutte</option>
+                           <option value="half" data-i18n="itinerary.filter.half">Mezza giornata</option>
+                           <option value="full" data-i18n="itinerary.filter.full">Giornata intera</option>
                         </select>
                      </div>
                      <div class="pm-it-field">
-                        <label class="pm-it-lbl" for="itDifficulty">Difficoltà</label>
+                        <label class="pm-it-lbl" for="itDifficulty" data-i18n="itinerary.filter.difficulty">Difficoltà</label>
                         <select id="itDifficulty" class="pm-it-in">
-                           <option value="all">Tutte</option>
-                           <option value="easy">Facile</option>
-                           <option value="medium">Media</option>
-                           <option value="hard">Impegnativa</option>
+                           <option value="all" data-i18n="itinerary.filter.all">Tutte</option>
+                           <option value="easy" data-i18n="itinerary.filter.easy">Facile</option>
+                           <option value="medium" data-i18n="itinerary.filter.medium">Media</option>
+                           <option value="hard" data-i18n="itinerary.filter.hard">Impegnativa</option>
                         </select>
                      </div>
                      <div class="pm-it-hint">
-                        <span><i class="fa-solid fa-gas-pump" aria-hidden="true"></i> 40cv • 12 kn • 9.5 L/h </span>
+                        <span data-i18n="itinerary.hint"><i class="fa-solid fa-gas-pump" aria-hidden="true"></i> 40cv • 12 kn • 9.5 L/h </span>
                      </div>
                   </div>
                   <!-- GRID (STATICO: NO innerHTML) -->
@@ -756,9 +757,9 @@
                <!-- FOOTER BRAND: ETICHETTA -->
                <div class="footer-label" data-i18n="footer.location">Noleggio</div>
                <!-- FOOTER BRAND: LOGO -->
-               <h1 class="logo"><a href="">Blu<span>Diamond</span> Rent</a></h1>
+               <h1 class="logo"><a href="">Wave<span>To</span>Go</a></h1>
                <!-- FOOTER BRAND: TESTO -->
-               <p data-i18n="footer.brand.text">Noleggio gommoni e moto d'acqua con sedi a Golfo Aranci e Portisco.</p>
+               <p data-i18n="footer.brand.text">Esperienze nautiche premium, prenotazioni rapide e assistenza dedicata.</p>
                <!-- FOOTER BRAND: SOCIAL -->
                <div class="footer-social">
                   <!-- SOCIAL: INSTAGRAM -->
@@ -812,11 +813,11 @@
                <!-- FOOTER TAB PANEL: CONTATTI -->
                <div class="tab-panel" id="tab-contatti">
                   <ul>
-                     <li><i class="fa-solid fa-location-dot" aria-hidden="true"></i> <span data-i18n="footer.contacts.item1">Marina di Portisco, molo 3</span></li>
+                     <li><i class="fa-solid fa-location-dot" aria-hidden="true"></i> <span data-i18n="footer.contacts.item1">Marina di Golfo Aranci</span></li>
                      <hr>
-                     <li><i class="fa-solid fa-phone" aria-hidden="true"></i> <span data-i18n="footer.contacts.item2">+39 342 135 5874</span></li>
+                     <li><i class="fa-solid fa-phone" aria-hidden="true"></i> <span data-i18n="footer.contacts.item2">+39 389 629 8553</span></li>
                      <hr>
-                     <li><i class="fa-solid fa-envelope" aria-hidden="true"></i> <span data-i18n="footer.contacts.item3">blu.diamond.rent@gmail.com</span></li>
+                     <li><i class="fa-solid fa-envelope" aria-hidden="true"></i> <span data-i18n="footer.contacts.item3">info@wavetogo.it</span></li>
                      <hr>
                      <li><i class="fa-solid fa-clock" aria-hidden="true"></i> <span data-i18n="footer.contacts.item4">Lun–Dom 09:00–19:00</span></li>
                   </ul>
@@ -831,7 +832,7 @@
                <!-- NEWSLETTER: TITOLO -->
                <h4 data-i18n="footer.newsletter.title">Resta aggiornato</h4>
                <!-- NEWSLETTER: TESTO -->
-               <p data-i18n="footer.newsletter.text">Novità sulla flotta, disponibilità e proposte per la tua giornata in mare.</p>
+               <p data-i18n="footer.newsletter.text">Offerte esclusive, nuove rotte e promozioni private.</p>
                <!-- NEWSLETTER: FORM ISCRIZIONE -->
                <form class="newsletter-form" action="#" method="post">
                   <!-- NEWSLETTER: INPUT WRAPPER -->
@@ -851,7 +852,7 @@
          <!-- FOOTER: BARRA INFERIORE -->
          <div class="footer-bottom">
             <!-- FOOTER BOTTOM: COPYRIGHT -->
-            <span data-i18n="footer.bottom.copy">© 2026 Blu Diamond Rent. P.IVA IT 02896170905.</span>
+            <span data-i18n="footer.bottom.copy">© 2026 WaveToGo. Tutti i diritti riservati.</span>
             <!-- FOOTER BOTTOM: LINK SECONDARI -->
             <div class="footer-bottom-links">
                <a href="#" data-i18n="footer.bottom.cookie">Cookie</a>

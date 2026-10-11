@@ -1,26 +1,76 @@
+
+/* ============================================================
+   Foglio di stile organizzato per sezioni funzionali.
+   Contiene layout generale, header, hero, tab, bolle e footer.
+   ============================================================ */
+
+
+/* ============================================================
+   1. VARIABILI GLOBALI
+   Le variabili CSS permettono di riutilizzare colori e valori.
+   Possono essere richiamate con la sintassi var(--nome).
+   ============================================================ */
+
+:root {
+  --primary-color: #0f2e46; /* Colore primario del tema */
+  --accent-color: #5ec9cd; /* Colore di accento, per dettagli e hover */
+  --bg-light: #f8f9fa;      /* Sfondo chiaro */
+  --text-dark: #333333;     /* Colore del testo scuro */
+  --radius: 8px;            /* Raggio standard degli angoli arrotondati */
+  --success: #276749;       /* Colore per messaggi o stati positivi */
+}
+
+
+/* ============================================================
+   2. VISIBILITÀ E STRUTTURA GENERALE
+   Regole che influenzano la visibilità e il contenitore pagina.
+   ============================================================ */
+
+/* Nasconde completamente gli elementi con classe section2 */
 .section2 {
   display: none;
 }
 
-/* Contenitore centrale con larghezza max e padding laterale */
+/* Contenitore centrale: occupa tutta la larghezza disponibile,
+   ma non supera 1100 px. I margini automatici lo centrano. */
 .container {
   width: 100%;
   max-width: 1100px;
   margin: auto;
   padding: 0 20px;
-  min-height: 0;
+  height: 100%;
 }
 
-/* Header fissato in alto sopra tutto il resto */
+/* Spaziatura verticale standard delle sezioni */
+.section {
+  padding: 64px 0;
+}
+
+/* Rende la prima sezione un riferimento per eventuali
+   elementi posizionati in modo assoluto al suo interno */
+#section1 {
+  position: relative;
+}
+
+
+/* ============================================================
+   3. HEADER E LOGO
+   Intestazione della pagina e disposizione del logo.
+   ============================================================ */
+
+/* Posiziona l'header in cima alla pagina, sopra la hero.
+   z-index ne determina la priorità rispetto agli altri livelli. */
 .header {
-  position: absolute;         /* lo posiziona sopra la hero */
+  position: absolute;
   top: 0;
   left: 0;
   width: 100%;
-  z-index: 1000;              /* sempre sopra agli altri layer */
+  padding: 10px;
+  z-index: 1000;
 }
 
-/* Layout interno header con logo a sinistra e nav a destra */
+/* Dispone logo e navigazione sulla stessa riga,
+   lasciando lo spazio disponibile tra i due elementi. */
 .header-inner {
   display: flex;
   justify-content: space-between;
@@ -28,117 +78,117 @@
   height: 60px;
 }
 
-/* Stile del logo */
+/* Stile generale del logo: testo in grassetto,
+   allineamento orizzontale e spazio tra i suoi elementi. */
 .logo {
   font-weight: 700;
   color: var(--bg);
   font-size: 1.6rem;
+  display: flex;
+  gap: 10px;
+  align-items: center;
 }
 
-/* Colore secondario per la parte span del logo */
+/* Colora diversamente la parte del logo racchiusa in uno span */
 .logo span {
   color: var(--accent);
 }
 
-/* Padding generale delle sezioni */
-.section {
-  padding: 64px 0;
-}
 
-/* HERO principale */
+/* ============================================================
+   4. HERO: SEZIONE PRINCIPALE INIZIALE
+   Area iniziale della pagina con sfondo sfumato e contenuti.
+   ============================================================ */
+
+/* Imposta la hero a pieno schermo, con sfondo sfumato,
+   testo bianco e contenuti che non escono dai suoi confini. */
 .hero {
-  background: linear-gradient(220deg, var(--primary), var(--accent)); /* sfondo sfumato */
-  color: var(--white);          /* testo bianco */
-  text-align: center;           /* testo centrato */
-  min-height: 100vh;            /* altezza minima pieno schermo */
-  height: auto;
-  padding-bottom: 100px;        /* spazio per contenuti */
-  position: relative;           /* crea contesto per elementi assoluti */
-  overflow: hidden;             /* taglia elementi che escono */
-  z-index: 0;                   /* stacking context base */
+  background: linear-gradient(220deg, var(--primary), var(--accent));
+  color: var(--white);
+  text-align: center;
+  height: 100vh;
+  padding-bottom: 100px;
+  position: relative;
+  overflow: hidden;
+  z-index: 0;
 }
 
-/* Contenitore onde nella hero (se usato) */
+/* Livello delle onde nella hero.
+   Le onde vengono posizionate in alto e non intercettano i click. */
 .hero .hero-waves {
-  position: absolute;           /* onde posizionate sopra la hero */
+  position: absolute;
   top: 0;
   left: 0;
   width: 100%;
-  z-index: 1;                   /* onde sotto i contenuti */
-  pointer-events: none;         /* non blocca click */
+  z-index: 1;
+  pointer-events: none;
 }
 
-/* Contenuti della hero sopra le onde */
+/* Posiziona i contenuti principali sopra le onde.
+   La regola si applica a entrambe le classi indicate. */
 .hero-content,
 .trust-showcase {
-  position: relative;           /* necessario per z-index */
-  z-index: 2;                   /* contenuti sopra */
+  position: relative;
+  z-index: 2;
 }
 
-/* Livello bolle nella hero */
+/* Contenitore delle bolle appartenenti alla hero.
+   Occupa tutta l'area del contenitore di riferimento. */
 .hero .bubbles {
   position: absolute;
   inset: 0;
   pointer-events: none;
-  z-index: 2;                   /* bolle sopra le onde */
+  z-index: 2;
 }
 
-/* --- FOOTER STYLING --- */
-.main-footer {
-  position: relative;           /* serve per contenuti assoluti interni */
-  background: #041b2e;          /* colore footer */
-  color: #e9f6f8;               /* testo footer */
-  padding-top: 0px;
-}
-
-/* Copre eventuale distacco tra onde e footer */
-#cover-onde {
+/* Stile del livello SVG delle onde della hero.
+   La rotazione di 180 gradi capovolge il disegno. */
+.hero-waves-bg {
+  background: transparent;
   position: absolute;
-  top: -1px;
+  transform: rotate(180deg);
+  opacity: 0.6;
+  top: 0px;
   left: 0;
+  z-index: 0;
   width: 100%;
-  height: 20px;
-  background: #041b2e;
+  height: auto;
+}
+
+/* Classe di supporto per assegnare un livello z-index pari a 1.
+   Non modifica la posizione dell'elemento. */
+.hero-overlay-z1 {
+  z-index: 1;
+}
+
+/* Porta il contenuto della hero sopra i livelli sottostanti */
+.hero-content-z2 {
+  position: relative;
+  z-index: 2;
+}
+
+/* Porta la sezione delle recensioni o degli elementi di fiducia
+   sopra i livelli con z-index inferiore */
+.trust-showcase-z3 {
+  position: relative;
   z-index: 3;
 }
 
-/* Posizionamento onde footer */
-.footer-waves .wave {
-  position: absolute;
-  left: 0;
-  z-index: 0;
-  top: -120px;
-  width: 100%;
-  height: 20%;
+
+
+#info-noleggio {
+  font-size: 10px;
+  color: var(--accent);
+  font-weight: bold;
 }
 
+/* ============================================================
+   5. NAVIGAZIONE A SCHEDE (TAB)
+   Barra delle schede e relativi contenuti.
+   ============================================================ */
 
-/* Griglia principale del footer */
-.footer-content {
-  position: relative;
-  z-index: 3;                   /* sopra le onde */
-  display: grid;
-  gap: 2.5rem;
-  padding: 3rem 8%;
-  grid-template-columns: 1.2fr 0.05fr 1.6fr 0.05fr 1.2fr;
-  align-items: start;
-}
-
-/* =====================================================
-   page2.css â€” cleaned (duplicate rules removed)
-   ===================================================== */
-
-/* --- 1. CONFIGURAZIONE GENERALE & WIDGET --- */
-:root {
-  --primary-color: #0f2e46;
-  --accent-color: #5ec9cd;
-  --bg-light: #f8f9fa;
-  --text-dark: #333333;
-  --radius: 8px;
-  --success: #276749;
-}
-
-
+/* Dispone le schede in orizzontale.
+   Se non entrano nello spazio disponibile, consente lo scorrimento. */
 .tabs-nav {
   display: flex;
   gap: 20px;
@@ -146,7 +196,8 @@
   padding-bottom: 0px;
 }
 
-/* Stile tab (consolidato, duplicati rimossi) */
+/* Aspetto standard dei pulsanti delle schede.
+   white-space impedisce che le etichette vadano a capo. */
 .tab-btn {
   background: transparent;
   border: none;
@@ -159,40 +210,57 @@
   white-space: nowrap;
   cursor: pointer;
 }
+
+/* Evidenzia la scheda attiva e quella sotto il puntatore.
+   Cambia il colore del testo e la linea inferiore. */
 .tab-btn.active,
 .tab-btn:hover {
   color: white;
   border-bottom: 3px solid var(--accent-color);
 }
 
-/* Contenuto Tabs */
+/* Nasconde inizialmente i contenuti delle schede.
+   L'animazione fadeIn viene usata quando sono mostrati. */
 .tab-content,
 .tab-panel {
   display: none;
   padding: 15px;
   animation: fadeIn 0.3s ease;
 }
+
+/* Mostra il contenuto che possiede la classe active */
 .tab-content.active,
 .tab-panel.active {
   display: block;
 }
+
+/* Rimuove i marcatori predefiniti dagli elenchi delle schede */
 .tab-panel ul {
   list-style: none;
 }
+
+/* Colora le icone presenti negli elementi degli elenchi
+   e aggiunge spazio tra icona e testo */
 .tab-panel ul li i {
   color: var(--accent-color);
   margin-right: 10px;
 }
+
+/* Personalizza le linee orizzontali dentro le schede */
 .tab-panel hr {
   border: none;
   border-top: 1px solid rgba(0, 217, 255, 0.1);
   margin: 10px 0;
 }
+
+/* Animazione di comparsa: il contenuto passa da trasparente
+   a visibile e si sposta leggermente verso la posizione finale. */
 @keyframes fadeIn {
   from {
     opacity: 0;
     transform: translateY(5px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -200,9 +268,65 @@
 }
 
 
+/* ============================================================
+   6. FOOTER: CONTENITORE E ONDE
+   Struttura di base della parte inferiore della pagina.
+   ============================================================ */
+
+/* Contenitore principale del footer.
+   position: relative permette di posizionare elementi assoluti
+   rispetto al footer stesso. */
+.main-footer {
+  position: relative;
+  background: #041b2e;
+  color: #e9f6f8;
+  padding-top: 0px;
+}
+
+/* Copre un eventuale piccolo spazio tra le onde e il footer.
+   Il posizionamento leggermente negativo evita una fessura visibile. */
+#cover-onde {
+  position: absolute;
+  top: -1px;
+  left: 0;
+  width: 100%;
+  height: 20px;
+  background: #041b2e;
+  z-index: 3;
+}
+
+/* Posiziona le onde del footer sopra il bordo superiore.
+   L'altezza percentuale dipende dall'altezza del contenitore. */
+.footer-waves .wave {
+  position: absolute;
+  left: 0;
+  z-index: 0;
+  top: -120px;
+  width: 100%;
+  height: 20%;
+}
 
 
-/* Etichetta categoria footer */
+/* ============================================================
+   7. FOOTER: GRIGLIA E COLONNE
+   Organizzazione delle aree interne del footer.
+   ============================================================ */
+
+/* Crea la griglia del footer con tre colonne di contenuto
+   e due colonne strette che possono fungere da divisori.
+   Il contenuto resta sopra le onde grazie allo z-index. */
+.footer-content {
+  position: relative;
+  z-index: 3;
+  display: grid;
+  gap: 2.5rem;
+  padding: 3rem 8%;
+  grid-template-columns: 1.2fr 0.05fr 1.6fr 0.05fr 1.2fr;
+  align-items: start;
+}
+
+/* Etichetta introduttiva delle colonne del footer:
+   lettere maiuscole, spaziatura aumentata e colore turchese. */
 .footer-label {
   display: inline-block;
   font-size: 0.75rem;
@@ -212,14 +336,15 @@
   margin-bottom: 0.6rem;
 }
 
-/* Titoli nel footer */
+/* Colore bianco e distanza inferiore per i titoli delle colonne */
 .footer-column h3,
 .footer-column h4 {
   color: #ffffff;
   margin-bottom: 0.8rem;
 }
 
-/* Testi generici del footer */
+/* Stile condiviso da paragrafi, elementi di lista e testi piccoli
+   presenti nelle colonne del footer */
 .footer-column p,
 .footer-column li,
 .footer-column small {
@@ -227,21 +352,29 @@
   font-size: 0.95rem;
 }
 
-/* Divisore verticale tra colonne */
+/* Divisore verticale tra le colonne.
+   L'altezza segue quella dell'area che lo contiene. */
 .footer-divider {
   width: 1px;
   background: rgba(255, 255, 255, 0.15);
   height: 100%;
 }
 
-/* Icone social */
+
+/* ============================================================
+   8. FOOTER: ICONE SOCIAL
+   Disposizione e aspetto dei collegamenti social.
+   ============================================================ */
+
+/* Allinea le icone social in orizzontale e le distanzia */
 .footer-social {
   display: flex;
   gap: 0.6rem;
   margin-top: 1rem;
 }
 
-/* Stile dei bottoni social */
+/* Crea pulsanti social circolari con icona centrata.
+   La transizione rende più fluido il cambio di aspetto. */
 .footer-social a {
   width: 36px;
   height: 36px;
@@ -253,20 +386,28 @@
   transition: transform 0.2s ease, background 0.2s ease;
 }
 
-/* Hover social */
+/* Al passaggio del puntatore ingrandisce leggermente l'icona
+   e cambia il colore di sfondo in bianco. */
 .footer-social a:hover {
   transform: scale(1.08);
   background: #ffffff;
 }
 
-/* Form newsletter */
+
+/* ============================================================
+   9. FOOTER: FORM NEWSLETTER
+   Aspetto del modulo di iscrizione alla newsletter.
+   ============================================================ */
+
+/* Dispone i campi del form in verticale, con spaziatura uniforme */
 .newsletter-form {
   display: grid;
   gap: 0.6rem;
   margin: 1rem 0;
 }
 
-/* Campo input con icona */
+/* Contenitore di input e icona.
+   Lo sfondo scuro e il padding distinguono il campo dal footer. */
 .input-wrap {
   display: flex;
   align-items: center;
@@ -276,12 +417,13 @@
   border-radius: 6px;
 }
 
-/* Icona nel campo input */
+/* Colora l'icona all'interno del campo newsletter */
 .input-wrap i {
   color: #0fa3b1;
 }
 
-/* Input email */
+/* Campo di inserimento email:
+   sfondo trasparente, testo chiaro e larghezza disponibile. */
 .newsletter-form input {
   border: none;
   background: transparent;
@@ -290,7 +432,7 @@
   outline: none;
 }
 
-/* Bottone invio */
+/* Pulsante di invio del modulo newsletter */
 .newsletter-form button {
   background: #0fa3b1;
   color: #041b2e;
@@ -301,12 +443,20 @@
   transition: background 0.2s ease;
 }
 
-/* Hover bottone */
+/* Cambia lo sfondo del pulsante quando il puntatore passa sopra */
 .newsletter-form button:hover {
   background: #ffffff;
 }
 
-/* Sezione finale footer */
+
+/* ============================================================
+   10. FOOTER: BARRA FINALE E LINK
+   Area inferiore con copyright e collegamenti aggiuntivi.
+   ============================================================ */
+
+/* Barra finale del footer.
+   Il bordo superiore la separa dal contenuto precedente.
+   flex-wrap permette agli elementi di andare a capo. */
 .footer-bottom {
   position: relative;
   z-index: 3;
@@ -319,41 +469,27 @@
   font-size: 0.9rem;
 }
 
-/* Link footer bottom */
+/* Spazio a sinistra di ogni link nella barra finale */
 .footer-bottom-links a {
   margin-left: 1rem;
   color: #cfe7ef;
 }
 
-/* Hover link footer */
+/* Evidenzia i link della barra finale al passaggio del puntatore */
 .footer-bottom-links a:hover {
   color: #0fa3b1;
 }
 
-/* Layout responsive footer */
-@media (max-width: 1024px) {
-  .footer-content {
-    grid-template-columns: 1fr;
-  }
-  .footer-divider {
-    display: none;
-  }
-}
 
-/* Layout responsive bottom footer */
-@media (max-width: 768px) {
-  .footer-bottom {
-    flex-direction: column;
-    text-align: center;
-  }
-  .footer-bottom-links a {
-    margin: 0 0.5rem;
-  }
-}
+/* ============================================================
+   11. BOLLE ANIMATE
+   Contenitore, forma, colori e animazioni delle bolle decorative.
+   ============================================================ */
 
-/* =========================
-   LAYER BOLLE (contenitore)
-   ========================= */
+/* Contenitore generale delle bolle.
+   fixed lo mantiene rispetto alla finestra del browser;
+   inset: 0 lo estende su tutti i lati.
+   pointer-events evita che ostacoli i click. */
 .bubbles {
   position: fixed;
   inset: 0;
@@ -362,9 +498,9 @@
   overflow: hidden;
 }
 
-/* =========================
-   STILE DI UNA BOLLA
-   ========================= */
+/* Aspetto di una singola bolla.
+   Dimensioni e opacità vengono lette dalle variabili CSS
+   --size e --opacity, che devono essere impostate altrove. */
 .bubble {
   position: absolute;
   bottom: 0px;
@@ -382,91 +518,103 @@
   filter: blur(0.2px);
 }
 
-/* Animazione salita bolle */
+/* Animazione verticale di salita.
+   Porta l'elemento verso l'alto oltre l'altezza della finestra.
+   Non è assegnata direttamente alla classe .bubble in questo CSS. */
 @keyframes rise {
-  from { transform: translateY(0); }
-  to   { transform: translateY(calc(-150vh - 10px)); }
+  from {
+    transform: translateY(0);
+  }
+
+  to {
+    transform: translateY(calc(-150vh - 10px));
+  }
 }
 
-/* Oscillazione laterale bolle */
+/* Oscillazione laterale delle bolle.
+   Il margine sinistro aumenta a metà animazione e poi ritorna
+   al valore iniziale, creando un movimento ondeggiante. */
 @keyframes sway {
-  0%,100% { margin-left: 0; }
-  50%     { margin-left: 25px; }
-}
-
-/* Riduce animazioni per accessibilitÃ  */
-@media (prefers-reduced-motion: reduce) {
-  .bubble { animation: none; }
-}
-
-/* =====================================================
-   AGGIUNTE: CSS INLINE ESTRATTO DAL TUO HTML (HERO/LAYER)
-   ===================================================== */
-
-#section1 {
-  position: relative;
-}
-
-/* SVG onde background della hero (prima inline) */
-.hero-waves-bg {
-  background: transparent;
-  position: absolute;
-  transform: rotate(180deg);
-  opacity: 0.6;
-  top: 0px;
-  left: 0;
-  z-index: 0;
-  width: 100%;
-  height: auto;
-}
-
-/* overlay sopra onde (prima inline) */
-.hero-overlay-z1 {
-  z-index: 1;
-}
-
-/* contenuto hero sopra overlay (prima inline) */
-.hero-content-z2 {
-  position: relative;
-  z-index: 2;
-}
-
-/* trust showcase sopra (prima inline) */
-.trust-showcase-z3 {
-  position: relative;
-  z-index: 3;
-}
-
-/* titoli hero (prima inline) */
-.hero-title-line1 { color: #f3f3f3; }
-.hero-title-line2 { font-size: 3.4rem; }
-.hero-title-line4 { font-size: 1.5rem; display: inline; color: #f3f3f3; }
-.hero-title-line3 { font-size: 1.5rem; display: inline; }
-  
-
-@media (min-width:800px) {
-    .wave-front {
-      display: none;
-    }
-    .wave-back {
-      display: none;
-    }
-}
-
-@media (max-width: 640px) {
-  .container {
-    padding-inline: 14px;
+  0%, 100% {
+    margin-left: 0;
   }
 
+  50% {
+    margin-left: 25px;
+  }
+}
+
+
+/* ============================================================
+   12. RESPONSIVE: TABLET E SCHERMI MEDI
+   Regole applicate quando la larghezza è al massimo 1024 px.
+   ============================================================ */
+
+/* Su schermi medi e piccoli il footer passa a una sola colonna.
+   I divisori verticali vengono nascosti perché non sono più utili. */
+@media (max-width: 1024px) {
+  .footer-content {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-divider {
+    display: none;
+  }
+}
+
+
+/* ============================================================
+   13. RESPONSIVE: MOBILE
+   Regole per schermi larghi al massimo 800 px e 768 px.
+   ============================================================ */
+
+/* Riduce la dimensione del logo sui dispositivi più piccoli */
+@media (max-width: 800px) {
   .logo {
-    font-size: clamp(1.2rem, 7vw, 1.6rem);
+    font-size: 1.1rem;
+  }
+}
+
+/* Su schermi larghi al massimo 768 px la barra finale del footer
+   dispone gli elementi in verticale e centra il testo.
+   I link ricevono margini più piccoli. */
+@media (max-width: 768px) {
+  .footer-bottom {
+    flex-direction: column;
+    text-align: center;
   }
 
-  .header-inner {
-    height: 56px;
+  .footer-bottom-links a {
+    margin: 0 0.5rem;
+  }
+}
+
+
+/* ============================================================
+   14. RESPONSIVE: SCHERMI LARGHI
+   Nasconde le due classi delle onde indicate da 800 px in su.
+   ============================================================ */
+
+@media (min-width: 800px) {
+  .wave-front {
+    display: none;
   }
 
-  .section {
-    padding: 42px 0;
+  .wave-back {
+    display: none;
+  }
+}
+
+
+/* ============================================================
+   15. ACCESSIBILITÀ: RIDUZIONE DELLE ANIMAZIONI
+   Rispetta la preferenza di sistema per il movimento ridotto.
+   ============================================================ */
+
+/* Disattiva l'animazione delle bolle per gli utenti che hanno
+   richiesto una riduzione delle animazioni nel sistema operativo. */
+@media (prefers-reduced-motion: reduce) {
+  .bubble {
+    animation: none;
   }
 }
