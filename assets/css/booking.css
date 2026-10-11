@@ -44,9 +44,15 @@
   text-rendering: optimizeLegibility;
 
   width: 98%;
-  margin:auto;
+  margin: 70px auto 0;
   color: var(--pm-text);
   z-index: 3;
+}
+
+@media (min-width: 800px) {
+  #pm-book {
+    margin-top: 80px;
+  }
 }
 
 #pm-book *{ box-sizing:border-box; }

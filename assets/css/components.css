@@ -93,12 +93,81 @@
   );
 }
 
+.hero-top-art{
+  position: absolute;
+  top: 40vh;
+  right: clamp(-150px, -12vw, -30px);
+  width: 40vw;
+  max-width: 520px;
+  min-width: 240px;
+  height: auto;
+  object-fit: contain;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.85;
+  filter: drop-shadow(0 18px 24px rgba(2, 14, 27, 0.28));
+  --float-x: 0px;
+  --float-y: 0px;
+  --float-rot: 0deg;
+  transform: translate3d(var(--float-x), var(--float-y), 0) rotate(var(--float-rot));
+  animation: heroFloat 9s ease-in-out infinite;
+}
+
+.hero-scroll-art{
+  position: absolute;
+  left: clamp(-220px, -18vw, -80px);
+  right: auto;
+  top: 80vh;
+  width: 32vw;
+  max-width: 420px;
+  min-width: 180px;
+  height: auto;
+  object-fit: contain;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.95;
+  filter: drop-shadow(0 28px 32px rgba(2, 14, 27, 0.42));
+  --float-x: 15%;
+  --float-y: 0px;
+  --float-rot: -20deg;
+  transform: translate3d(var(--float-x), var(--float-y), 0) rotate(var(--float-rot));
+  transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.8s ease;
+  will-change: transform, opacity;
+  animation: heroFloat 9s ease-in-out infinite;
+}
+
+.hero-scroll-art-secondary{
+  left: auto;
+  right: 0;
+  top: 180vh;
+  --float-x: 15%;
+  --float-rot: 20deg;
+}
+
+@keyframes heroFloat {
+  0%, 100% {
+    transform: translate3d(var(--float-x), var(--float-y), 0) rotate(var(--float-rot));
+  }
+  50% {
+    transform: translate3d(calc(var(--float-x) + 10px), calc(var(--float-y) - 12px), 0) rotate(calc(var(--float-rot) + 3deg));
+  }
+}
+
 /* contenuto hero */
 .hero-content{
   position: relative;
   z-index: 2;
+  align-self: flex-start;
   max-width: 900px; /* patch sotto lo rende fluido */
   padding: 40px 20px;
+  margin-top: calc(16.666667vw - 50px);
+  margin-bottom: 0;
+}
+
+@media (min-width: 1050px){
+  .hero-content{
+    margin-top: calc(8.333333vw - 80px);
+  }
 }
 
 /* badge (Marina di Golfo Aranci) */
@@ -1416,6 +1485,10 @@ body.wtg-lb-lock{
   }
 }
 @media (max-width: 1024px){
+  .hero-top-art,
+  .hero-scroll-art {
+    display: none;
+  }
   .footer-content{
     grid-template-columns: 1fr;
     gap: 1.6rem;
