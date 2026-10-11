@@ -1,0 +1,721 @@
+/* =====================================================
+   PM CHECKOUT â€” WATER / MARINE (Pure Marine)
+   Richieste:
+   1) SFONDO dei container (rail/widget/summary) = --pm-primary (#041b2e71)
+   2) ULTIMA section (ultimo .pm-panel) piÃ¹ chiara per risaltare
+   3) INPUT con sfondo in gradient acqua (accent -> accent2)
+   4) Commenti su ogni blocco per trovarlo subito
+   ===================================================== */
+
+/* =========================
+   0) ROOT WIDGET (PALETTE + TYPO)
+   ========================= */
+#pm-book{
+  /* --- colori richiesti --- */
+  --pm-primary:#041b2e71;        /* sfondo container (semi trasparente) */
+  --pm-accent:#0fa3b1;           /* acqua */
+  --pm-accent2:#39c6d2;          /* acqua chiara */
+  --pm-bg:#e8eef4;               /* sfondo pagina */
+  --pm-surface:#ffffff;          /* superici chiare (solo per ultima section) */
+  --pm-surface2:#ffffff;
+
+  --pm-text:#1f2933;
+  --pm-muted:#6b7280;
+
+  --pm-line:rgba(4,27,46,.14);
+  --pm-line2:rgba(15,163,177,.22);
+
+  --pm-ok:#1ea97c;
+  --pm-warn:#f2b84b;
+
+  /* --- misure --- */
+  --pm-r: 10px;
+  --pm-r2: 8px;
+  --pm-pad: 14px;
+  --pm-gap: 10px;
+
+  /* --- shadow --- */
+  --pm-shadow: 0 8px 22px rgba(4,27,46,.10);
+
+  /* --- typography --- */
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, "Apple Color Emoji","Segoe UI Emoji";
+  line-height: 1.35;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+
+  width: 98%;
+  margin:auto;
+  color: var(--pm-text);
+  z-index: 3;
+}
+
+#pm-book *{ box-sizing:border-box; }
+
+/* =========================
+   1) LAYOUT (GRID)
+   ========================= */
+#pm-book .pm-layout{
+  padding: 22px 10px;
+  display:grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  align-items:start;
+}
+
+/* =========================
+   2) CONTAINER (RAIL / WIDGET / SUMMARY)
+   SFONDO = --pm-primary (come richiesto)
+   ========================= */
+#pm-book .pm-rail,
+#pm-book .pm-widget,
+#pm-book .pm-summary .pm-sCard{
+  background: var(--pm-primary);           /* âœ… richiesto */
+  border: 1px solid var(--pm-line);
+  border-radius: var(--pm-r);
+  box-shadow: var(--pm-shadow);
+  backdrop-filter: blur(6px);              /* migliora la resa del semi-trasparente */
+}
+
+/* =========================
+   3) RAIL (SINISTRA)
+   ========================= */
+#pm-book .pm-rail{ padding: var(--pm-pad); }
+
+/* --- Brand (logo + testi) --- */
+#pm-book .pm-railBrand{
+  display:flex;
+  gap: 10px;
+  align-items:center;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--pm-line);
+}
+
+/* --- Box logo --- */
+#pm-book .pm-railLogo{
+  width: 38px; height: 38px;
+  border-radius: 10px;
+  display:grid;
+  place-items:center;
+  background: rgba(15,163,177,.14);
+  border: 1px solid var(--pm-line2);
+  color: #fff;
+  font-weight: 900;
+  letter-spacing: .4px;
+}
+
+/* --- Titolo / Sottotitolo --- */
+#pm-book .pm-railTitle{
+  display:block;
+  text-align: left;
+  font-weight: 950;
+  letter-spacing: -0.01em;
+  color: #fff;
+}
+#pm-book .pm-railSub{
+  display:block;
+  margin-top:2px;
+  color: rgba(255,255,255,.78);
+  font-weight: 700;
+  font-size: .86rem;
+}
+
+/* --- Lista step --- */
+#pm-book .pm-railSteps{
+  margin-top: 12px;
+  display:grid;
+  gap: 8px;
+}
+
+/* --- Bottone step --- */
+#pm-book .pm-rStep{
+  width:100%;
+  display:flex;
+  align-items:center;
+  gap: 10px;
+  padding: 10px 10px;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,.18);
+  background: rgba(255,255,255,.06);
+  color: rgba(255,255,255,.82);
+  font-weight: 850;
+  font-size: .92rem;
+  cursor:pointer;
+  position: relative;
+}
+
+/* --- Dot step --- */
+#pm-book .pm-rStep .pm-dot{
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.32);
+}
+
+/* --- Step attivo --- */
+#pm-book .pm-rStep.pm-on{
+  border-color: rgba(15,163,177,.55);
+  background: rgba(15,163,177,.16);
+  color:#fff;
+}
+#pm-book .pm-rStep.pm-on::before{
+  content:"";
+  position:absolute;
+  left:-1px;
+  top:-1px;
+  bottom:-1px;
+  width: 4px;
+  border-radius: 10px 0 0 10px;
+  background: var(--pm-accent);
+}
+#pm-book .pm-rStep.pm-on .pm-dot{ background: var(--pm-accent2); }
+
+/* --- Step disabilitato --- */
+#pm-book .pm-rStep:disabled{
+  opacity: .55;
+  cursor:not-allowed;
+}
+
+/* --- Barra progress --- */
+#pm-book .pm-railProg{
+  margin-top: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: rgba(255,255,255,.10);
+  border: 1px solid rgba(255,255,255,.16);
+  overflow:hidden;
+}
+#pm-book .pm-railProg span{
+  display:block;
+  height:100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--pm-accent), var(--pm-accent2));
+  transition: width .2s ease;
+}
+
+
+
+/* =========================
+   4) WIDGET (CENTRO)
+   ========================= */
+#pm-book .pm-widget{ padding: var(--pm-pad); }
+
+/* --- Header widget --- */
+#pm-book .pm-widgetHead{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap: 12px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(255,255,255,.18);
+}
+
+/* --- Titolo H1 --- */
+#pm-book .pm-h1{
+  margin:0;
+  text-align: start;
+  font-size: clamp(1.15rem, 2.2vw, 1.55rem);
+  font-weight: 950;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  color: #fff;
+}
+
+/* --- Sottotitolo --- */
+#pm-book .pm-sub{
+  margin: 8px 0 0;
+  color: rgba(255,255,255,.78);
+  font-weight: 650;
+  font-size: .95rem;
+  line-height: 1.45;
+  max-width: 60ch;
+  text-align: start;
+}
+
+/* --- Pill status (Step) --- */
+#pm-book .pm-statusPill{
+  display:inline-flex;
+  align-items:center;
+  gap: 8px;
+  padding: 8px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,.18);
+  background: rgba(255,255,255,.06);
+  color: rgba(255,255,255,.82);
+  font-weight: 850;
+  font-size: .86rem;
+  white-space:nowrap;
+}
+#pm-book .pm-spin{
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  background: var(--pm-accent2);
+}
+
+/* --- Chips info (piccole) --- */
+#pm-book .pm-chips{
+  margin-top: 12px;
+  display:flex;
+  justify-content: center;
+  flex-wrap:wrap;
+  gap: 8px;
+}
+#pm-book .pm-chip{
+  display:inline-flex;
+  align-items:center;
+  gap: 8px;
+  padding: 7px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,.18);
+  background: rgba(255,255,255,.06);
+  color: rgba(255,255,255,.82);
+  font-weight: 800;
+  font-size: .82rem;
+}
+#pm-book .pm-chip i{ color: var(--pm-accent2); opacity: 1; }
+
+/* --- Panels (step content) --- */
+#pm-book .pm-panel{ display:none; margin-top: 12px; }
+#pm-book .pm-panel.pm-show{ display:block; }
+
+/* =========================
+   5) ULTIMA SECTION (ultimo panel) PIÃ™ CHIARA
+   (risalta sul background scuro dei container)
+   ========================= */
+#pm-book .pm-panel:last-of-type{
+  background: #00f5fd27;           /* âœ… piÃ¹ chiaro */
+  border: 1px solid var(--pm-line);
+  border-radius: var(--pm-r);
+  padding: 12px;
+  color: var(--pm-bg);
+}
+#pm-book .pm-panel:last-of-type .pm-blockTitle{
+  border-top: none;
+  padding-top: 4px;
+}
+
+.pm-review {
+  margin-top: 10px;
+  text-align: start;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  gap: 21px;
+}
+.pm-review .pm-row {
+  border:1px solid red;
+  padding: 10px;
+  width: 43%;
+  height: 70px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* =========================
+   6) TITOLI BLOCCO (nel widget)
+   ========================= */
+#pm-book .pm-blockTitle{
+  display:flex;
+  align-items:baseline;
+  justify-content:space-between;
+  gap: 10px;
+  padding: 12px 0 10px;
+  border-top: 1px solid rgba(255,255,255,.18);
+}
+#pm-book .pm-blockTitle b{
+  font-weight: 950;
+  font-size: 1.02rem;
+  letter-spacing: -0.01em;
+  color: #fff;
+}
+#pm-book .pm-blockTitle small{
+  color: rgba(255,255,255,.72);
+  font-weight: 650;
+  font-size: .86rem;
+}
+
+/* =========================
+   7) GRID FORM
+   ========================= */
+#pm-book .pm-grid{
+  display:grid;
+  grid-template-columns: 1fr;
+  gap: var(--pm-gap);
+}
+
+/* =========================
+   8) LABEL / HINT
+   ========================= */
+#pm-book .pm-lbl{
+  display:block;
+  margin: 0 0 6px;
+  color: rgba(255,255,255,.78);
+  font-weight: 850;
+  font-size: .82rem;
+  text-align: start;
+  letter-spacing: .01em;
+}
+#pm-book .pm-hint{
+  margin-top: 6px;
+  color: rgba(255,255,255,.74);
+  font-weight: 650;
+  font-size: .82rem;
+}
+
+/* =========================
+   9) INPUT (sfondo acqua: accent -> accent2)
+   ========================= */
+#pm-book .pm-in{
+  width: 100%;
+  padding: 11px 12px;
+  border-radius: var(--pm-r2);
+  border: 1px solid rgba(255,255,255,.22);
+
+  /* âœ… richiesto: sfondo input acqua */
+  background: linear-gradient(180deg, #0fa3b165, #39c5d250);
+
+  color: #ffffff;
+  outline:none;
+  font-weight: 800;
+}
+#pm-book .pm-in option{
+  background-color: #0c4c52bd;
+}
+/* placeholder */
+#pm-book .pm-in::placeholder{ color: rgba(255,255,255,.82); }
+
+/* focus input */
+#pm-book .pm-in:focus{
+  border-color: rgba(255,255,255,.38);
+  box-shadow: 0 0 0 4px rgba(15,163,177,.18);
+}
+
+/* select arrow */
+#pm-book select.pm-in{
+  appearance: none;
+  background-repeat: no-repeat;
+  background-position:
+    0 0,
+    calc(100% - 18px) 52%,
+    calc(100% - 12px) 52%;
+  background-size:
+    100% 100%,
+    6px 6px,
+    6px 6px;
+  padding-right: 34px;
+}
+
+/* =========================
+   10) ERROR BOX
+   ========================= */
+#pm-book .pm-err{
+  display:none;
+  margin-top: 12px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(220,38,38,.25);
+  background: #9b1c1c8e;
+  color: #d8d8d8;
+  font-weight: 900;
+  font-size: .9rem;
+}
+#pm-book .pm-err.pm-show{ display:block; }
+
+/* =========================
+   11) EXTRA LIST
+   ========================= */
+#pm-book .pm-extras{ display:grid; gap: 8px; }
+
+/* riga extra */
+#pm-book .pm-extra{
+  width:100%;
+  text-align:left;
+  display:grid;
+  grid-template-columns: 18px 40px 1fr auto auto;
+  gap: 10px;
+  align-items:center;
+  padding: 10px 10px;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,.18);
+  background: rgba(255,255,255,.06);
+  cursor:pointer;
+}
+
+/* checkbox */
+#pm-book .pm-cb{
+  width:18px;height:18px;
+  border-radius: 5px;
+  border: 1px solid rgba(255,255,255,.30);
+  background: rgba(255,255,255,.08);
+  position:relative;
+}
+#pm-book .pm-cb::after{
+  content:"";
+  width: 9px; height: 5px;
+  border-left:2px solid transparent;
+  border-bottom:2px solid transparent;
+  transform: rotate(-45deg);
+  position:absolute;
+  left: 3px;
+  top: 3px;
+}
+
+/* icona */
+#pm-book .pm-ico{
+  width:40px;height:40px;
+  border-radius: 10px;
+  display:grid;
+  place-items:center;
+  background: rgba(15,163,177,.18);
+  border: 1px solid rgba(15,163,177,.30);
+  color: #fff;
+  font-weight: 900;
+}
+
+/* testo extra */
+#pm-book .pm-extraTxt b{
+  display:block;
+  font-weight: 950;
+  letter-spacing: -0.01em;
+  color: #fff;
+}
+#pm-book .pm-extraTxt small{
+  display:block;
+  margin-top: 2px;
+  color: rgba(255,255,255,.74);
+  font-weight: 650;
+  font-size: .82rem;
+  line-height: 1.25;
+}
+#pm-book .pm-price{
+  font-weight: 950;
+  color: #fff;
+}
+
+/* qty */
+#pm-book .pm-qty{
+  display:flex;
+  align-items:center;
+  gap: 6px;
+  padding: 4px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,.18);
+  background: rgba(255,255,255,.06);
+}
+#pm-book .pm-qty button{
+  width: 28px; height: 28px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,.22);
+  background: rgba(0,0,0,.12);
+  color: #fff;
+  font-weight: 950;
+  cursor:pointer;
+}
+#pm-book .pm-qty span{
+  min-width: 18px;
+  text-align:center;
+  font-weight: 950;
+  color: #fff;
+}
+
+
+/* selected extra */
+#pm-book .pm-extra[data-checked="true"]{
+  border-color: rgba(15,163,177,.55);
+  background: rgba(15,163,177,.16);
+}
+#pm-book .pm-extra[data-checked="true"] .pm-cb{
+  background: var(--pm-accent);
+  border-color: var(--pm-accent);
+}
+#pm-book .pm-extra[data-checked="true"] .pm-cb::after{
+  border-left-color:#fff;
+  border-bottom-color:#fff;
+}
+
+/* =========================
+   12) RULES / FAQ
+   ========================= */
+#pm-book .pm-ruleBox{
+  border: 1px solid rgba(255,255,255,.18);
+  border-radius: 10px;
+  overflow:hidden;
+  background: rgba(255,255,255,.06);
+}
+#pm-book .pm-ruleRow{
+  padding: 12px;
+  display:flex;
+  justify-content:space-between;
+  gap: 10px;
+  border-top: 1px solid rgba(255,255,255,.16);
+  color: rgba(255,255,255,.78);
+  font-weight: 700;
+  font-size: .9rem;
+}
+#pm-book .pm-ruleRow:first-child{ border-top:none; }
+#pm-book .pm-ruleRow b{
+  color: #fff;
+  font-weight: 950;
+  display:inline-flex;
+  align-items:center;
+  gap: 8px;
+}
+
+
+/* FAQ */
+#pm-book .pm-faq{
+  margin-top: 10px;
+  border: 1px solid rgba(255,255,255,.18);
+  border-radius: 10px;
+  background: rgba(255,255,255,.06);
+  overflow:hidden;
+}
+#pm-book .pm-faq summary{
+  cursor:pointer;
+  padding: 12px;
+  font-weight: 950;
+  font-size: .95rem;
+  color: #fff;
+  list-style:none;
+  background: rgba(0,0,0,.08);
+  border-bottom: 1px solid rgba(255,255,255,.16);
+}
+#pm-book .pm-faq summary::-webkit-details-marker{display:none;}
+#pm-book .pm-faqBody{
+  padding: 10px 12px 12px;
+  color: rgba(255,255,255,.74);
+  font-weight: 650;
+  font-size: .9rem;
+}
+#pm-book .pm-faqBody ul{ margin:0; padding-left:18px; line-height:1.45; }
+#pm-book .pm-faqBody li{ margin: 6px 0; }
+
+/* =========================
+   13) ACTIONS (BOTTONI)
+   ========================= */
+#pm-book .pm-actions{
+  margin-top: 12px;
+  display:flex;
+  gap: 10px;
+}
+#pm-book .pm-btn{
+  flex:1;
+  padding: 12px 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,.20);
+  background: rgba(255,255,255,.06);
+  color: #fff;
+  font-weight: 950;
+  font-size: .95rem;
+  letter-spacing: -0.01em;
+  cursor:pointer;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap: 10px;
+}
+#pm-book .pm-btn:disabled{ opacity:.55; cursor:not-allowed; }
+
+/* bottone principale */
+#pm-book .pm-main{
+  background: linear-gradient(90deg, var(--pm-accent), var(--pm-accent2));
+  border-color: transparent;
+  color:#fff;
+}
+
+/* bottone secondario */
+#pm-book .pm-ghost{
+  background: rgba(0,0,0,.10);
+}
+
+/* =========================
+   14) SUMMARY (DESTRA)
+   ========================= */
+#pm-book .pm-summary{ display:grid; gap: 12px; }
+
+/* card summary (giÃ  prende background primary) */
+#pm-book .pm-sCard{ padding: var(--pm-pad); }
+
+/* header summary */
+#pm-book .pm-sHead{
+  display:flex;
+  align-items:baseline;
+  justify-content:space-between;
+  gap: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(255,255,255,.16);
+  margin-bottom: 10px;
+}
+#pm-book .pm-sHead b{
+  font-weight: 950;
+  letter-spacing: -0.01em;
+  color: #fff;
+}
+#pm-book .pm-sSub{
+  color: rgba(255,255,255,.74);
+  font-weight: 650;
+  font-size:.82rem;
+}
+
+/* righe prezzo */
+#pm-book .pm-lines{ display:grid; gap: 6px; }
+#pm-book .pm-line{
+  display:flex;
+  justify-content:space-between;
+  gap: 10px;
+  color: rgba(255,255,255,.78);
+  font-weight: 800;
+  font-size: .92rem;
+}
+#pm-book .pm-line b{ color: #fff; font-weight: 950; }
+
+/* totale */
+#pm-book .pm-total{
+  margin-top: 8px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(255,255,255,.16);
+  display:flex;
+  justify-content:space-between;
+  font-weight: 950;
+  font-size: 1.02rem;
+  color:#fff;
+}
+
+/* note */
+#pm-book .pm-sFine{
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(255,255,255,.16);
+  display:grid;
+  gap: 8px;
+  color: rgba(255,255,255,.78);
+  font-weight: 800;
+  font-size: .9rem;
+}
+#pm-book .pm-sFine span{
+  display:inline-flex;
+  align-items:center;
+  gap: 8px;
+}
+
+/* lista tips summary */
+#pm-book .pm-miniTips{
+  margin:0;
+  padding-left: 18px;
+  color: rgba(255,255,255,.74);
+  font-weight: 650;
+  font-size: .9rem;
+  line-height: 1.45;
+}
+#pm-book .pm-miniTips li{ margin: 6px 0; }
+
+/* =========================
+   15) RESPONSIVE
+   ========================= */
+@media (min-width: 980px){
+  #pm-book .pm-layout{
+    grid-template-columns: 260px 1fr 360px;
+  }
+  #pm-book .pm-rail{ position: sticky; top: 16px; }
+  #pm-book .pm-summary{ position: sticky; top: 16px; }
+  #pm-book .pm-grid{ grid-template-columns: 1fr 1fr; }
+}

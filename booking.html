@@ -1,0 +1,553 @@
+<!doctype html>
+<html lang="it">
+  
+  <!-- HEAD: META, SEO, CSS, FONT/ICONE -->
+  <head>
+    
+    <!-- META: CHARSET -->
+    <meta charset="UTF-8" />
+    
+    <!-- META: VIEWPORT RESPONSIVE -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <!-- META: THEME COLOR (USA VARIABILE, NON HEX) -->
+    <meta name="theme-color" content="--primary" />
+    
+    <!-- FAVICON: ICONA SITO -->
+    <link rel="icon" href="./assets/images/favicon.ico" />
+
+    
+    <!-- SEO: TITOLO PAGINA -->
+    <title data-i18n="meta.title">WaveToGo – Noleggio Gommoni Golfo Aranci</title>
+    
+    <!-- SEO: DESCRIZIONE PAGINA -->
+    <meta name="description" data-i18n-attr="content" data-i18n="meta.description" content="Noleggio gommoni premium senza patente a Golfo Aranci. Scopri Tavolara e Molara in libertà." />
+
+    
+    <!-- CSS: BASE -->
+    <link rel="stylesheet" href="./assets/css/base.css" />
+    
+    <!-- CSS: LAYOUT -->
+    <link rel="stylesheet" href="./assets/css/layout.css" />
+    
+    <!-- CSS: COMPONENTI -->
+    <link rel="stylesheet" href="./assets/css/components.css" />
+    
+    <!-- CSS: TEMPLATE CHECKOUT -->
+    <link rel="stylesheet" href="./assets/css/checkout-template.css" />
+    
+    
+    <!-- CSS: BOOKING -->
+    <link rel="stylesheet" href="./assets/css/booking.css" />
+    
+    <!-- CSS: TRANSLATE -->
+    <link rel="stylesheet" href="./assets/css/translate.css" />
+
+    <!-- ICONE: FONTAWESOME CDN CSS (COESISTE CON KIT SOPRA) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+   
+    <!-- FONT: GOOGLE FONTS MONTSERRAT -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet" />
+  </head>
+
+  <body>
+    
+    <!-- BODY: CONTENUTO PAGINA -->
+    
+    <!-- HEADER: TESTATA PRINCIPALE -->
+    <header class="header">
+      
+      <!-- HEADER > CONTAINER: ALLINEAMENTO INTERNO -->
+      <div class="container header-inner">
+        
+        <!-- HEADER > LOGO: BRAND -->
+        <h1 class="logo">
+          <img src="Blu-Diamond-Rent-3 copy.png" width="50px" alt="">
+          <!-- HEADER > LOGO LINK: LINK HOME (VUOTO COME ORIGINALE) -->
+          <a href="./index.html">Blu<span>Diamond</span>Rent</a>
+        </h1>
+
+        <div id="lingue-box">
+
+        </div>
+      </div>
+    </header>
+    
+    <!-- MAIN: CONTENUTO PRINCIPALE -->
+    <main>
+      
+      <!-- HERO: SEZIONE HOME -->
+        <section data-page="home" class="hero" id="section1" style="position: relative">
+        
+        <!-- HERO > SVG ONDE: SFONDO ANIMATO (PATH CON ANIMATE) -->
+        <svg
+          id="mobilesvg"
+          viewBox="0 0 1200 200"
+          xmlns="http://www.w3.org/2000/svg"
+          style="
+            background: transparent;
+            position: absolute;
+            transform: rotate(180deg);
+            opacity: 0.6;
+            top: 0px;
+            left: 0;
+            z-index: 0;
+            width: 100%;
+            height: auto;
+          "
+          aria-hidden="true"
+        >
+          <!-- HERO > ONDA 1: LIVELLO BACKGROUND -->
+          <path fill="#0a1e3b">
+            <!-- HERO > ONDA 1: ANIMAZIONE FORMA (ATTRIBUTE d) -->
+            <animate
+              attributeName="d"
+              dur="6s"
+              repeatCount="indefinite"
+              values=" M0,100 C150,130 350,70 600,100 C850,130 1050,70 1200,100 L1200,200 L0,200 Z; M0,90 C150,60 350,140 600,90 C850,40 1050,120 1200,90 L1200,200 L0,200 Z; M0,100 C150,130 350,70 600,100 C850,130 1050,70 1200,100 L1200,200 L0,200 Z "
+            />
+          </path>
+          <!-- HERO > ONDA 2: LIVELLO FOREGROUND (CON OPACITÀ) -->
+          <path fill="#0fa3b1" opacity="0.65">
+            <!-- HERO > ONDA 2: ANIMAZIONE FORMA (ATTRIBUTE d) -->
+            <animate
+              attributeName="d"
+              dur="4s"
+              repeatCount="indefinite"
+              values=" M0,120 C200,150 400,90 600,120 C800,150 1000,90 1200,120 L1200,200 L0,200 Z; M0,110 C200,80 400,160 600,110 C800,60 1000,140 1200,110 L1200,200 L0,200 Z; M0,120 C200,150 400,90 600,120 C800,150 1000,90 1200,120 L1200,200 L0,200 Z "
+            />
+          </path>
+        </svg>
+        <!-- HERO > SVG ONDE DESKTOP: SFONDO ANIMATO (PATH CON ANIMATE) -->
+        <svg
+          id="desktopsvg"
+          viewBox="0 -50 1200 200"
+          xmlns="http://www.w3.org/2000/svg"
+          style="
+            background: transparent;
+            position: absolute;
+            transform: rotate(180deg);
+            opacity: 0.6;
+            top: 0px;
+            left: 0;
+            z-index: 0;
+            width: 100%;
+            height: auto;
+          "
+          aria-hidden="true"
+        >
+          <!-- HERO > ONDA 1: LIVELLO BACKGROUND -->
+          <path fill="#0a1e3b">
+            <!-- HERO > ONDA 1: ANIMAZIONE FORMA (ATTRIBUTE d) -->
+            <animate
+              attributeName="d"
+              dur="6s"
+              repeatCount="indefinite"
+              values=" M0,100 C150,130 350,70 600,100 C850,130 1050,70 1200,100 L1200,200 L0,200 Z; M0,90 C150,60 350,140 600,90 C850,40 1050,120 1200,90 L1200,200 L0,200 Z; M0,100 C150,130 350,70 600,100 C850,130 1050,70 1200,100 L1200,200 L0,200 Z "
+            />
+          </path>
+          <!-- HERO > ONDA 2: LIVELLO FOREGROUND (CON OPACITÀ) -->
+          <path fill="#0fa3b1" opacity="0.65">
+            <!-- HERO > ONDA 2: ANIMAZIONE FORMA (ATTRIBUTE d) -->
+            <animate
+              attributeName="d"
+              dur="4s"
+              repeatCount="indefinite"
+              values=" M0,120 C200,150 400,90 600,120 C800,150 1000,90 1200,120 L1200,200 L0,200 Z; M0,110 C200,80 400,160 600,110 C800,60 1000,140 1200,110 L1200,200 L0,200 Z; M0,120 C200,150 400,90 600,120 C800,150 1000,90 1200,120 L1200,200 L0,200 Z "
+            />
+          </path>
+        </svg>
+
+            <!-- HERO > OVERLAY: STRATO SCURO DI CONTRASTO -->
+            <div class="hero-overlay" style="z-index: 1" aria-hidden="true"></div>
+        
+            <!-- HERO > BOLLE: STRATO EFFETTO BUBBLES -->
+            <div class="bubbles" aria-hidden="true"></div>
+
+
+              <!-- HERO > CONTENUTO: TESTI E CTA -->
+               <section class="pm-book" id="pm-book">
+                <div class="pm-layout container">
+
+                  <!-- LEFT: slim stepper -->
+                  <aside class="pm-rail" aria-label="Avanzamento prenotazione">
+                    <div class="pm-railBrand">
+                      <a href="./index.html">
+                        <div class="pm-railLogo" aria-hidden="true"><i class="fa-solid fa-angles-left"></i></div>
+                      </a>
+                      <div>
+                        <b class="pm-railTitle" data-i18n="booking.rail.title">Checkout</b>
+                        <small class="pm-railSub" data-i18n="booking.rail.subtitle">Noleggio gommone</small>
+                      </div>
+                    </div>
+
+                    <nav class="pm-railSteps" aria-label="Step">
+                      <button class="pm-rStep pm-on" type="button" data-step="1" id="pm-tab-1" aria-current="step">
+                        <span class="pm-dot"></span><span data-i18n="booking.steps.1">Data & orari</span>
+                      </button>
+                      <button class="pm-rStep" type="button" data-step="2" id="pm-tab-2" disabled>
+                        <span class="pm-dot"></span><span data-i18n="booking.steps.2">Extra</span>
+                      </button>
+                      <button class="pm-rStep" type="button" data-step="3" id="pm-tab-3" disabled>
+                        <span class="pm-dot"></span><span data-i18n="booking.steps.3">Dati</span>
+                      </button>
+                      <button class="pm-rStep" type="button" data-step="4" id="pm-tab-4" disabled>
+                        <span class="pm-dot"></span><span data-i18n="booking.steps.4">Regole</span>
+                      </button>
+                      
+                      <div class="pm-railProg" aria-hidden="true"><span id="pm-progress"></span></div>
+                    </nav>
+                  </aside>
+
+                  <!-- CENTER: widget -->
+                  <main class="pm-widget" aria-label="Prenotazione">
+
+                    <header class="pm-widgetHead">
+                      <div>
+                        <h2 class="pm-h1" id="pm-headTitle" data-i18n="booking.header.title">Prenota il tuo gommone</h2>
+                        <p class="pm-sub" id="pm-headSub" data-i18n="booking.header.subtitle">Completa i passaggi in modo rapido. Totale sempre visibile.</p>
+                      </div>
+                      <div class="pm-statusPill">
+                        <span class="pm-spin" aria-hidden="true"></span>
+                        <span id="pm-status">Step 1</span>
+                      </div>
+                    </header>
+
+                    <!-- STEP 1 -->
+                    <section class="pm-panel pm-show" id="pm-step-1" aria-labelledby="pm-tab-1">
+                      <div class="pm-blockTitle">
+                        <b data-i18n="booking.step1.title">Data & orari</b>
+                        <small data-i18n="booking.step1.subtitle">Seleziona fascia e orario</small>
+                      </div>
+
+                      <div class="pm-grid">
+                        <div class="pm-field">
+                          <label class="pm-lbl" for="pm-date" data-i18n="booking.form.date">Data</label>
+                          <input class="pm-in" id="pm-date" type="date" />
+                        </div>
+
+                        <div class="pm-field">
+                          <label class="pm-lbl" for="pm-slot" data-i18n="booking.form.slot">Fascia</label>
+                          <select class="pm-in" id="pm-slot">
+                            <option value="day" data-i18n="booking.slot.day">Giornata intera (09:00–18:00)</option>
+                            <option value="am" data-i18n="booking.slot.am">Mezza giornata mattina (09:00–13:30)</option>
+                            <option value="pm" data-i18n="booking.slot.pm">Mezza giornata pomeriggio (14:00–18:30)</option>
+                          </select>
+                          <div class="pm-hint" id="pm-baseHint"></div>
+                        </div>
+
+                      </div>
+
+                      <div class="pm-err" id="pm-err-1"></div>
+                    </section>
+
+                    <!-- STEP 2 -->
+                    <section class="pm-panel" id="pm-step-2" aria-labelledby="pm-tab-2">
+                      <div class="pm-blockTitle">
+                        <b data-i18n="booking.step2.title">Extra</b>
+                        <small data-i18n="booking.step2.subtitle">Tocca per aggiungere</small>
+                      </div>
+                      <div class="pm-extras" id="pm-extras"></div>
+                    </section>
+
+                    <!-- STEP 3 -->
+                    <section class="pm-panel" id="pm-step-3" aria-labelledby="pm-tab-3">
+                      <div class="pm-blockTitle">
+                        <b data-i18n="booking.step3.title">Dati cliente</b>
+                        <small data-i18n="booking.step3.subtitle">Per conferma e contatto</small>
+                      </div>
+
+                      <div class="pm-grid">
+                        <div class="pm-field">
+                          <label class="pm-lbl" for="pm-name" data-i18n="booking.form.name">Nome e cognome</label>
+                          <input class="pm-in" id="pm-name" type="text" data-i18n-placeholder="booking.placeholder.name" placeholder="Es. Mario Rossi" />
+                        </div>
+                        <div class="pm-field">
+                          <label class="pm-lbl" for="pm-phone" data-i18n="booking.form.phone">Telefono</label>
+                          <input class="pm-in" id="pm-phone" type="tel" data-i18n-placeholder="booking.placeholder.phone" placeholder="+39 3xx xxx xxxx" />
+                        </div>
+                        <div class="pm-field">
+                          <label class="pm-lbl" for="pm-email" data-i18n="booking.form.email">Email</label>
+                          <input class="pm-in" id="pm-email" type="email" data-i18n-placeholder="booking.placeholder.email" placeholder="nome@email.com" />
+                        </div>
+                      </div>
+
+                      <div class="pm-err" id="pm-err-3"></div>
+                    </section>
+
+                    <!-- STEP 4 -->
+                    <section class="pm-panel" id="pm-step-4" aria-labelledby="pm-tab-4">
+                      <div class="pm-blockTitle">
+                        <b data-i18n="booking.step4.title">Regole</b>
+                        <small data-i18n="booking.step4.subtitle">Caparra & cauzione</small>
+                      </div>
+
+                      <div class="pm-ruleBox">
+                        <div class="pm-ruleRow">
+                          <b><i class="fa-solid fa-receipt"></i> <span data-i18n="booking.rule.caparra">Caparra 50€</span></b>
+                          <span data-i18n="booking.rule.caparra.text">Scalata dal totale al saldo</span>
+                        </div>
+                        <div class="pm-ruleRow">
+                          <b><i class="fa-solid fa-shield-halved"></i> <span data-i18n="booking.rule.deposit">Cauzione 400€</span></b>
+                          <span data-i18n="booking.rule.deposit.text">Blocco carta o contanti in loco</span>
+                        </div>
+                      </div>
+
+                      <details class="pm-faq" open>
+                        <summary data-i18n="booking.faq.title">Arrivo e documenti</summary>
+                        <div class="pm-faqBody">
+                          <ul>
+                            <li data-i18n="booking.faq.item1">Arrivo consigliato 15 minuti prima.</li>
+                            <li data-i18n="booking.faq.item2">Documento d’identità valido.</li>
+                            <li data-i18n="booking.faq.item3">Briefing sicurezza incluso.</li>
+                          </ul>
+                        </div>
+                      </details>
+                    </section>
+
+                    <!-- actions -->
+                    <footer class="pm-actions" aria-label="Azioni">
+                      <button class="pm-btn pm-ghost" id="pm-back" type="button" disabled>
+                        <i class="fa-solid fa-arrow-left"></i> <span data-i18n="booking.actions.back">Indietro</span>
+                      </button>
+                      <button class="pm-btn pm-main" id="pm-next" type="button">
+                        <span data-i18n="booking.actions.next">Continua</span> <i class="fa-solid fa-arrow-right"></i>
+                      </button>
+                    </footer>
+
+                  </main>
+
+                  <!-- RIGHT: price summary -->
+                  <aside class="pm-summary" aria-label="Riepilogo">
+                    <section class="pm-sCard">
+                      <div class="pm-sHead">
+                        <b data-i18n="booking.summary.total">Totale</b>
+                      </div>
+
+                      <div class="pm-lines">
+                        <div class="pm-line"><span data-i18n="booking.summary.boat">Gommone</span><b id="pm-miniBase">—</b></div>
+                        <div class="pm-line"><span data-i18n="booking.summary.extra">Extra</span><b id="pm-miniExtra">0€</b></div>
+                        <div class="pm-total"><span data-i18n="booking.summary.total">Totale</span><b id="pm-miniTotal">—</b></div>
+                      </div>
+
+                      <div class="pm-sFine">
+                    <div class="pm-chips" aria-label="Consigli rapidi">
+                      <span class="pm-chip"><i class="fa-solid fa-shield-halved"></i> <span data-i18n="booking.summary.chips.caution">Cauzione in loco</span></span>
+                      <span class="pm-chip"><i class="fa-solid fa-receipt"></i> <span data-i18n="booking.summary.chips.deposit">Caparra scalata al saldo</span></span>
+                    </div>
+                      </div>
+                    </section>
+
+                  </aside>
+
+                </div>
+              </section>
+        </section>
+    </main>
+
+    
+    <!-- FOOTER: PIE DI PAGINA -->
+    <div class="main-footer">
+      
+      <!-- FOOTER: CONTENUTO (GRIGLIA COLONNE) -->
+      <div class="footer-content">
+        
+        <!-- FOOTER: COLONNA BRAND -->
+        <div class="footer-column brand">
+          
+          <!-- FOOTER BRAND: ETICHETTA -->
+          <div class="footer-label" data-i18n="footer.location">Noleggio</div>
+          
+          <!-- FOOTER BRAND: LOGO -->
+          <h1 class="logo"><a href="">Wave<span>To</span>Go</a></h1>
+          
+          <!-- FOOTER BRAND: TESTO -->
+          <p data-i18n="footer.brand.text">Esperienze nautiche premium, prenotazioni rapide e assistenza dedicata.</p>
+
+          
+          <!-- FOOTER BRAND: SOCIAL -->
+          <div class="footer-social">
+            
+            <!-- SOCIAL: INSTAGRAM -->
+            <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram" aria-hidden="true"></i></a>
+            
+            <!-- SOCIAL: FACEBOOK -->
+            <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f" aria-hidden="true"></i></a>
+            
+            <!-- SOCIAL: LINKEDIN -->
+            <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in" aria-hidden="true"></i></a>
+            
+            <!-- SOCIAL: YOUTUBE -->
+            <a href="#" aria-label="YouTube"><i class="fa-brands fa-youtube" aria-hidden="true"></i></a>
+          </div>
+        </div>
+
+        
+        <!-- FOOTER: DIVISORE COLONNE -->
+        <div class="footer-divider"></div>
+
+        
+        <!-- FOOTER: COLONNA SEZIONI (TAB) -->
+        <div class="footer-column tabs">
+          
+          <!-- FOOTER TAB: ETICHETTA -->
+          <div class="footer-label" data-i18n="footer.sections.label">Indice</div>
+
+          
+          <!-- FOOTER TAB: BOTTONI -->
+          <div class="tab-buttons">
+            
+            <!-- FOOTER TAB BTN: SERVIZI -->
+            <button class="tab-btn active" data-tab="tab-servizi" data-i18n="footer.tabs.services">Servizi</button>
+            
+            <!-- FOOTER TAB BTN: SUPPORTO -->
+            <button class="tab-btn" data-tab="tab-supporto" data-i18n="footer.tabs.support">Supporto</button>
+            
+            <!-- FOOTER TAB BTN: CONTATTI -->
+            <button class="tab-btn" data-tab="tab-contatti" data-i18n="footer.tabs.contacts">Contatti</button>
+          </div>
+
+          
+          <!-- FOOTER TAB PANEL: SERVIZI -->
+          <div class="tab-panel active" id="tab-servizi">
+            
+            <!-- FOOTER SERVIZI: LISTA -->
+            <ul>
+              <li><i class="fa-solid fa-ship" aria-hidden="true"></i> <span data-i18n="footer.services.item1">Noleggio barche</span></li>
+              <hr>
+              <li><i class="fa-solid fa-water" aria-hidden="true"></i> <span data-i18n="footer.services.item2">Tour privati</span></li>
+              <hr>
+              <li><i class="fa-solid fa-gift" aria-hidden="true"></i> <span data-i18n="footer.services.item4">Gift card</span></li>
+            </ul>
+          </div>
+
+          
+          <!-- FOOTER TAB PANEL: SUPPORTO -->
+          <div class="tab-panel" id="tab-supporto">
+            <ul>
+              <li><i class="fa-solid fa-circle-question" aria-hidden="true"></i> <span data-i18n="footer.support.item1">FAQ</span></li>
+              <hr>
+              <li><i class="fa-solid fa-headset" aria-hidden="true"></i> <span data-i18n="footer.support.item2">Assistenza clienti</span></li>
+              <hr>
+              <li><i class="fa-solid fa-file-contract" aria-hidden="true"></i> <span data-i18n="footer.support.item3">Termini & condizioni</span></li>
+              <hr>
+              <li><i class="fa-solid fa-user-shield" aria-hidden="true"></i> <span data-i18n="footer.support.item4">Privacy policy</span></li>
+            </ul>
+          </div>
+
+          
+          <!-- FOOTER TAB PANEL: CONTATTI -->
+          <div class="tab-panel" id="tab-contatti">
+            <ul>
+              <li><i class="fa-solid fa-location-dot" aria-hidden="true"></i> <span data-i18n="footer.contacts.item1">Marina di Golfo Aranci</span></li>
+              <hr>
+              <li><i class="fa-solid fa-phone" aria-hidden="true"></i> <span data-i18n="footer.contacts.item2">+39 389 629 8553</span></li>
+              <hr>
+              <li><i class="fa-solid fa-envelope" aria-hidden="true"></i> <span data-i18n="footer.contacts.item3">info@wavetogo.it</span></li>
+              <li><i class="fa-solid fa-clock" aria-hidden="true"></i> <span data-i18n="footer.contacts.item4">Lun–Dom 09:00–19:00</span></li>
+            </ul>
+          </div>
+        </div>
+
+        
+        <!-- FOOTER: DIVISORE COLONNE -->
+        <div class="footer-divider"></div>
+
+        
+        <!-- FOOTER: COLONNA NEWSLETTER -->
+        <div class="footer-column newsletter">
+          
+          <!-- NEWSLETTER: ETICHETTA -->
+          <div class="footer-label" data-i18n="footer.newsletter.label">Newsletter</div>
+          
+          <!-- NEWSLETTER: TITOLO -->
+          <h4 data-i18n="footer.newsletter.title">Resta aggiornato</h4>
+          
+          <!-- NEWSLETTER: TESTO -->
+          <p data-i18n="footer.newsletter.text">Offerte esclusive, nuove rotte e promozioni private.</p>
+
+          
+          <!-- NEWSLETTER: FORM ISCRIZIONE -->
+          <form class="newsletter-form" action="#" method="post">
+            
+            <!-- NEWSLETTER: INPUT WRAPPER -->
+            <div class="input-wrap">
+              
+              <!-- NEWSLETTER: ICONA INPUT -->
+              <i class="fa-solid fa-envelope" aria-hidden="true"></i>
+              
+              <!-- NEWSLETTER: CAMPO EMAIL -->
+              <input type="email" name="email" placeholder="La tua email" data-i18n-placeholder="footer.newsletter.placeholder" required />
+            </div>
+            
+            <!-- NEWSLETTER: BOTTONE INVIO -->
+            <button type="submit"><i class="fa-solid fa-paper-plane" aria-hidden="true"></i> <span data-i18n="footer.newsletter.button">Iscriviti</span></button>
+          </form>
+
+          
+          <!-- NEWSLETTER: NOTA -->
+          <small data-i18n="footer.newsletter.note">Puoi disiscriverti quando vuoi.</small>
+        </div>
+      </div>
+
+      
+      <!-- FOOTER: BARRA INFERIORE -->
+      <div class="footer-bottom">
+        
+        <!-- FOOTER BOTTOM: COPYRIGHT -->
+        <span data-i18n="footer.bottom.copy">© 2026 WaveToGo. Tutti i diritti riservati.</span>
+        
+        <!-- FOOTER BOTTOM: LINK SECONDARI -->
+        <div class="footer-bottom-links">
+          <a href="#" data-i18n="footer.bottom.cookie">Cookie</a>
+          <a href="#" data-i18n="footer.bottom.security">Sicurezza</a>
+          <a href="#" data-i18n="footer.bottom.accessibility">Accessibilità</a>
+        </div>
+      </div>
+    </div>
+
+    
+    <!-- SCRIPT: DATA -->
+    <script src="./assets/js/data.js" defer></script>
+    
+    <!-- SCRIPT: STATE -->
+    <script src="./assets/js/state.js" defer></script>
+    
+    <!-- SCRIPT: TEMPLATES -->
+    <script src="./assets/js/templates.js" defer></script>
+    
+    <!-- SCRIPT: NAVIGATION -->
+    <script src="./assets/js/navigation.js" defer></script>
+    
+    <!-- SCRIPT: TRANSLATE -->
+    <script src="./assets/js/translate.js" defer></script>
+    
+    <!-- SCRIPT: EFFECTS -->
+    <script src="./assets/js/effect.js" defer></script>
+    
+    <!-- SCRIPT: APP -->
+    <script src="./assets/js/app.js" defer></script>
+    
+    <!-- SCRIPT: BOOKING -->
+    <script src="./assets/js/booking.js" defer></script>
+  </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
