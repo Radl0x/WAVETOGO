@@ -55,7 +55,7 @@
    1) LAYOUT (GRID)
    ========================= */
 #pm-book .pm-layout{
-  padding: 22px 0;
+  padding: 22px 10px;
   display:grid;
   grid-template-columns: 1fr;
   gap: 12px;

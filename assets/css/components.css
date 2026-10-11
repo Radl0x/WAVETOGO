@@ -1228,8 +1228,9 @@ body.wtg-lb-lock{
 }
 .text-group p{
   font-size: 0.8rem;
-  color: var(--muted);
+  color: var(--shadow);
   margin: 0;
+  opacity: 0.5 ;
   line-height: 1.2;
 }
 
