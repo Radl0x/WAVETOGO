@@ -43,7 +43,7 @@
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 
-  width: 98%;
+  width: min(1180px, calc(100% - 28px));
   margin:auto;
   color: var(--pm-text);
   z-index: 3;
@@ -55,7 +55,7 @@
    1) LAYOUT (GRID)
    ========================= */
 #pm-book .pm-layout{
-  padding: 22px 10px;
+  padding: 22px 0;
   display:grid;
   grid-template-columns: 1fr;
   gap: 12px;
@@ -301,10 +301,11 @@
   gap: 21px;
 }
 .pm-review .pm-row {
-  border:1px solid red;
+  border:1px solid rgba(255,255,255,.16);
   padding: 10px;
-  width: 43%;
-  height: 70px;
+  width: min(100%, 260px);
+  min-height: 70px;
+  height: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -718,4 +719,40 @@
   #pm-book .pm-rail{ position: sticky; top: 16px; }
   #pm-book .pm-summary{ position: sticky; top: 16px; }
   #pm-book .pm-grid{ grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 760px) {
+  #pm-book {
+    width: calc(100% - 24px);
+  }
+
+  #pm-book .pm-layout {
+    padding-top: 76px;
+  }
+
+  #pm-book .pm-widgetHead,
+  #pm-book .pm-blockTitle,
+  #pm-book .pm-sHead,
+  #pm-book .pm-line,
+  #pm-book .pm-total,
+  #pm-book .pm-ruleRow {
+    flex-wrap: wrap;
+  }
+
+  #pm-book .pm-statusPill {
+    white-space: normal;
+  }
+
+  #pm-book .pm-extra {
+    grid-template-columns: 18px 36px minmax(0, 1fr);
+  }
+
+  #pm-book .pm-price,
+  #pm-book .pm-qty {
+    grid-column: 3;
+  }
+
+  #pm-book .pm-actions {
+    flex-direction: column;
+  }
 }

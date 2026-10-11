@@ -1,14 +1,20 @@
 (() => {
-  const PRICES = { day: 250, am: 170, pm: 170 };
-  const DEPOSIT = 50;
-  const CAUTION = 400;
+  const FLEET = {
+    "mar-sea-75": { name:"MAR SEA 7.5M 200CV", price:650, license:"Patente nautica obbligatoria" },
+    "2bar-68": { name:"2 BAR 68 115HP", price:550, license:"Patente nautica obbligatoria" },
+    "2bar-62-cookie": { name:"2 Bar 62 Cookie 40CV", price:350, license:"Senza patente" },
+    "2bar-62-orange": { name:"2 Bar 62 Orange 40CV", price:350, license:"Senza patente" },
+    "2bar-62-red": { name:"2 Bar 62 Red 40CV", price:350, license:"Senza patente" },
+    "2bar-62-lime": { name:"2 Bar 62 Lime 40CV", price:350, license:"Senza patente" },
+    "2bar-62-magenta": { name:"2 Bar 62 Magenta 40CV", price:350, license:"Senza patente" },
+  };
 
   const EXTRAS = [
-    { id:"skipper", label:"Skipper professionista", desc:"Ideale per prime esperienze", price:120, icon:"fa-solid fa-user-tie", type:"toggle" },
-    { id:"snorkel", label:"Set snorkeling", desc:"Maschera + boccaglio", price:10, icon:"fa-solid fa-mask", type:"qty", min:0, max:8, step:1 },
-    { id:"social", label:"Social Ready", desc:"GoPro + accessori", price:10, icon:"fa-solid fa-camera", type:"toggle" },
-    { id:"cooler", label:"Borsa frigo + ghiaccio", desc:"Bibite fresche", price:15, icon:"fa-solid fa-snowflake", type:"toggle" },
-    { id:"insurance", label:"Assicurazione estesa", desc:"Copertura extra", price:35, icon:"fa-solid fa-shield-halved", type:"toggle" },
+    { id:"skipper", label:"Skipper su richiesta", desc:"Disponibile sui mezzi che lo prevedono", price:0, priceLabel:"Su richiesta", icon:"fa-solid fa-user-tie", type:"toggle" },
+    { id:"pets", label:"Animali di piccola taglia", desc:"Ammessi secondo condizioni ufficiali", price:0, priceLabel:"Ammessi", icon:"fa-solid fa-paw", type:"toggle" },
+    { id:"cooler", label:"Igloo ghiacciaia", desc:"Presente sulle schede dei mezzi 2 BAR", price:0, priceLabel:"Dotazione", icon:"fa-solid fa-snowflake", type:"toggle" },
+    { id:"stereo", label:"Stereo Bluetooth", desc:"Dotazione indicata nelle schede ufficiali", price:0, priceLabel:"Dotazione", icon:"fa-solid fa-music", type:"toggle" },
+    { id:"shower", label:"Doccetta", desc:"Acqua dolce a bordo dove prevista", price:0, priceLabel:"Dotazione", icon:"fa-solid fa-shower", type:"toggle" },
   ];
 
   // tabs/panels (âœ… solo 1..4)
@@ -22,6 +28,7 @@
   const btnNext = document.getElementById("pm-next");
 
   // step1
+  const boatSel = document.getElementById("pm-boat");
   const dateInp = document.getElementById("pm-date");
   const slotSel = document.getElementById("pm-slot");
   const baseHint = document.getElementById("pm-baseHint");
@@ -60,11 +67,17 @@
   EXTRAS.forEach(x => extraState[x.id] = (x.type === "qty") ? 0 : false);
 
   const euro = (n) => `${Math.round(n)}€`;
+  const boatValue = () => boatSel?.value || "mar-sea-75";
+  const selectedBoat = () => FLEET[boatValue()] || FLEET["mar-sea-75"];
   const slotValue = () => (document.getElementById("pm-slot")?.value || "day");
-  const basePrice = () => PRICES[slotValue()] ?? 0;
+  const isHalfDay = () => slotValue() !== "day";
+  const basePrice = () => selectedBoat().price ?? 0;
 
   function setDefaults(){
-    baseHint.textContent = `Prezzo base: ${euro(basePrice())}`;
+    const boat = selectedBoat();
+    baseHint.textContent = isHalfDay()
+      ? `${boat.name}: mezza giornata su richiesta`
+      : `${boat.name}: da ${euro(basePrice())} - ${boat.license}`;
   }
 
   function extraTotal(){
@@ -102,7 +115,7 @@
             <button type="button" data-q="inc" aria-label="Aumenta">+</button>
           </span>
         ` : `<span></span>`}
-        <span class="pm-price">+${euro(x.price)}</span>
+        <span class="pm-price">${x.priceLabel || `+${euro(x.price)}`}</span>
       `;
       extrasWrap.appendChild(row);
     });
@@ -129,12 +142,13 @@
     const miniExtra = document.getElementById("pm-miniExtra");
     if (!miniTotal || !miniBase || !miniExtra) return;
 
+    const boat = selectedBoat();
     const b = basePrice();
     const e = extraTotal();
     const t = total();
-    miniBase.textContent = euro(b);
-    miniExtra.textContent = euro(e);
-    miniTotal.textContent = euro(t);
+    miniBase.textContent = isHalfDay() ? `${boat.name} · su richiesta` : `${boat.name} · da ${euro(b)}`;
+    miniExtra.textContent = e ? euro(e) : "Dotazioni / richiesta";
+    miniTotal.textContent = isHalfDay() ? "Su richiesta" : `Da ${euro(t)}`;
   }
 
   function setProgress(){
@@ -145,8 +159,8 @@
 
   function setHeader(){
     const map = {
-      1: ["Seleziona data ", "Mezza giornata o giornata intera"],
-      2: ["Scegli gli extra", "Aggiungi servizi opzionali."],
+      1: ["Scegli gommone e data", "Prezzi a partire da; mezza giornata su richiesta."],
+      2: ["Dotazioni e richieste", "Indica le preferenze da confermare in quotazione."],
       3: ["Inserisci i tuoi dati", "Servono per confermare la richiesta."],
       4: ["Termini e condizioni", "Conferma per inviare la richiesta."],
     };
@@ -208,9 +222,9 @@
         base: basePrice(),
         extras_total: extraTotal(),
         total: total(),
-        deposit: DEPOSIT,
-        caution: CAUTION
+        note: isHalfDay() ? "Mezza giornata su richiesta" : "Prezzo a partire da, variabile in base alla stagione"
       },
+      boat: selectedBoat(),
       customer: {
         name: nameInp.value.trim(),
         phone: phoneInp.value.trim(),
@@ -256,6 +270,7 @@
   });
 
   // step1 changes
+  boatSel?.addEventListener("change", () => { setDefaults(); updateMini(); });
   slotSel?.addEventListener("change", () => { setDefaults(); updateMini(); });
   dateInp?.addEventListener("change", updateMini);
 
@@ -276,6 +291,8 @@
   });
 
   // init
+  const initialBoat = new URLSearchParams(window.location.search).get("boat");
+  if (initialBoat && FLEET[initialBoat] && boatSel) boatSel.value = initialBoat;
   renderExtras();
   setDefaults();
   setHeader();

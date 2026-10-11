@@ -1152,6 +1152,144 @@ body.wtg-lb-lock{
   margin-top: 6px;
 }
 .wtg-stepsWrap__cta2{ transform: scale(.92); }
+.fleet-showcase {
+display: grid;
+gap: 14px;
+margin-top: 8px;
+width: 100%;
+min-width: 0;
+}
+
+.fleet-showcase__head {
+text-align: center;
+display: grid;
+gap: 6px;
+}
+
+.fleet-showcase__head h3 {
+margin: 0;
+font-weight: 950;
+letter-spacing: -0.01em;
+font-size: 1.2rem;
+}
+
+.fleet-showcase__head p,
+.fleet-showcase__note {
+margin: 0;
+color: var(--wtg-muted);
+font-weight: 650;
+line-height: 1.45;
+font-size: .9rem;
+}
+
+/* CAROSELLO ORIZZONTALE */
+.fleet-carousel {
+display: flex !important;
+flex-direction: row !important;
+flex-wrap: nowrap !important;
+justify-content: flex-start !important;
+align-items: stretch;
+
+gap: 16px;
+
+width: 100%;
+min-width: 0;
+max-width: 100%;
+
+overflow-x: auto !important;
+overflow-y: hidden !important;
+
+padding: 6px 2px 16px;
+box-sizing: border-box;
+
+scroll-snap-type: x mandatory;
+scroll-padding-left: 2px;
+
+-webkit-overflow-scrolling: touch;
+overscroll-behavior-x: contain;
+touch-action: pan-x pan-y;
+}
+
+/* BARRA DI SCORRIMENTO */
+.fleet-carousel::-webkit-scrollbar {
+height: 8px;
+}
+
+.fleet-carousel::-webkit-scrollbar-track {
+background: transparent;
+}
+
+.fleet-carousel::-webkit-scrollbar-thumb {
+background: rgba(57, 198, 210, .35);
+border-radius: 999px;
+}
+
+.fleet-carousel {
+scrollbar-width: thin;
+scrollbar-color: rgba(57, 198, 210, .35) transparent;
+}
+
+/* SINGOLA SCHEDA: NON DEVE RESTRINGERSI */
+.fleet-carousel > .fleet-card {
+display: block;
+
+flex: 0 0 340px !important;
+width: 340px !important;
+min-width: 340px !important;
+max-width: 340px !important;
+
+box-sizing: border-box;
+
+scroll-snap-align: start;
+scroll-snap-stop: normal;
+}
+
+/* CONTENUTO INTERNO DELLE SCHEDE */
+.fleet-card .wtg-card__btn {
+text-decoration: none;
+}
+
+.fleet-card > * {
+box-sizing: border-box;
+min-width: 0;
+max-width: 100%;
+}
+
+.fleet-card img {
+max-width: 100%;
+height: auto;
+object-fit: cover;
+}
+
+/* TABLET */
+@media (min-width: 481px) and (max-width: 900px) {
+.fleet-carousel {
+gap: 14px;
+}
+
+.fleet-carousel > .fleet-card {
+flex: 0 0 320px !important;
+width: 320px !important;
+min-width: 320px !important;
+max-width: 320px !important;
+}
+}
+
+/* SMARTPHONE */
+@media (max-width: 480px) {
+.fleet-carousel {
+gap: 12px;
+padding: 6px 2px 14px;
+}
+
+.fleet-carousel > .fleet-card {
+flex: 0 0 85vw !important;
+width: 85vw !important;
+min-width: 85vw !important;
+max-width: 85vw !important;
+}
+}
+
 
 
 /* =====================================================
@@ -1228,9 +1366,8 @@ body.wtg-lb-lock{
 }
 .text-group p{
   font-size: 0.8rem;
-  color: var(--shadow);
+  color: var(--muted);
   margin: 0;
-  opacity: 0.5 ;
   line-height: 1.2;
 }
 
@@ -1341,7 +1478,7 @@ body.wtg-lb-lock{
   padding: clamp(14px, 2.4vw, 18px);
 }
 .wtg-card__ttl{ font-size: clamp(1.02rem, 1.6vw, 1.12rem); }
-.wtg-card__desc{ font-size: clamp(.74rem, 1.2vw, .6rem); }
+.wtg-card__desc{ font-size: clamp(.74rem, 1.2vw, .86rem); }
 .wtg-card__bullets li{
   font-size: clamp(.86rem, 1.4vw, .90rem);
   overflow-wrap: anywhere;
@@ -1425,3 +1562,74 @@ body.wtg-lb-lock{
 
 /* protezione finale anti-overflow */
 .wtg-why, .hero, .main-footer{ overflow-x: clip; }
+
+/* layout cleanup */
+.hero {
+  padding-inline: 0;
+  overflow-x: clip;
+}
+
+.hero-title {
+  margin-bottom: 0;
+}
+
+.hero-title [data-i18n="hero.title.line2"] {
+  font-size: clamp(2.35rem, 10vw, 3.4rem) !important;
+}
+
+.hero-title [data-i18n="hero.title.line3"],
+.hero-title [data-i18n="hero.title.line4"] {
+  font-size: clamp(1.05rem, 4.2vw, 1.5rem) !important;
+}
+
+.icon-circle {
+  padding: 0;
+  flex: 0 0 42px;
+}
+
+.showcase-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.showcase-item {
+  min-width: 0;
+}
+
+.text-group {
+  width: 100%;
+  text-align: center;
+}
+
+.text-group h4,
+.text-group p {
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 640px) {
+  .hero-content {
+    padding: 76px 14px 34px;
+  }
+
+  .wtg-why {
+    padding-top: 24px;
+  }
+
+  .wtg-card {
+    flex-basis: min(86vw, 340px);
+  }
+
+  .wtg-step2 {
+    grid-template-columns: 44px 1fr;
+    padding: 12px;
+  }
+
+  .trust-showcase {
+    padding: 14px 0;
+  }
+
+  .showcase-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+}
+
