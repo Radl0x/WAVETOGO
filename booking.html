@@ -161,10 +161,13 @@
 
                         <div class="pm-field">
                           <label class="pm-lbl" for="pm-date" data-i18n="booking.form.date">Data</label>
-                          <input class="pm-in" id="pm-date" type="date" />
+                          <div class="pm-dateControl">
+                            <i class="fa-regular fa-calendar-days" aria-hidden="true"></i>
+                            <input class="pm-in" id="pm-date" type="date" />
+                          </div>
                         </div>
 
-                        <div class="pm-field">
+                        <div class="pm-field pm-field--slot">
                           <label class="pm-lbl" for="pm-slot" data-i18n="booking.form.slot">Fascia</label>
                           <select class="pm-in" id="pm-slot">
                             <option value="day" data-i18n="booking.slot.day">Giornata intera (09:00–18:00)</option>
@@ -307,16 +310,10 @@
           <div class="footer-social">
 
             <!-- SOCIAL: INSTAGRAM -->
-            <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram" aria-hidden="true"></i></a>
+            <a href="https://www.instagram.com/blu_diamond_rent_boat/" aria-label="Instagram" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-instagram" aria-hidden="true"></i></a>
 
             <!-- SOCIAL: FACEBOOK -->
-            <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f" aria-hidden="true"></i></a>
-
-            <!-- SOCIAL: LINKEDIN -->
-            <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in" aria-hidden="true"></i></a>
-
-            <!-- SOCIAL: YOUTUBE -->
-            <a href="#" aria-label="YouTube"><i class="fa-brands fa-youtube" aria-hidden="true"></i></a>
+            <a href="https://www.facebook.com/profile.php?id=100067326787639" aria-label="Facebook" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-facebook-f" aria-hidden="true"></i></a>
           </div>
         </div>
 
@@ -367,9 +364,6 @@
               <hr>
               <li><i class="fa-solid fa-headset" aria-hidden="true"></i> <span data-i18n="footer.support.item2">Assistenza clienti</span></li>
               <hr>
-              <li><i class="fa-solid fa-file-contract" aria-hidden="true"></i> <span data-i18n="footer.support.item3">Termini & condizioni</span></li>
-              <hr>
-              <li><i class="fa-solid fa-user-shield" aria-hidden="true"></i> <span data-i18n="footer.support.item4">Privacy policy</span></li>
             </ul>
           </div>
 
@@ -441,9 +435,8 @@
 
         <!-- FOOTER BOTTOM: LINK SECONDARI -->
         <div class="footer-bottom-links">
-          <a href="#" data-i18n="footer.bottom.cookie">Cookie</a>
-          <a href="#" data-i18n="footer.bottom.security">Sicurezza</a>
-          <a href="#" data-i18n="footer.bottom.accessibility">Accessibilità</a>
+          <a href="./privacy-policy.html" data-i18n="footer.support.item4">Privacy policy</a>
+          <a href="./termini-e-condizioni.html" data-i18n="footer.support.item3">Termini &amp; condizioni</a>
         </div>
       </div>
     </div>
@@ -465,12 +458,6 @@
     <script src="./assets/js/booking.js" defer></script>
   </body>
 </html>
-
-
-
-
-
-
 
 
 

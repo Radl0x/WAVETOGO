@@ -323,12 +323,63 @@ items.forEach(item => observer.observe(item));
   }
 
   // =====================================================
+  // Manifesto reveal + subtle pointer light
+  // =====================================================
+  function initManifesto(section) {
+    const manifesto = $("[data-manifesto]", section);
+    if (!manifesto) return;
+
+    if (reduceMotion || !("IntersectionObserver" in window)) {
+      manifesto.classList.add("is-visible");
+      return;
+    }
+
+    manifesto.setAttribute("data-motion-ready", "true");
+    let revealFallback;
+
+    const reveal = () => {
+      manifesto.classList.add("is-visible");
+      window.clearTimeout(revealFallback);
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        reveal();
+        observer.unobserve(manifesto);
+      });
+    }, { threshold: 0.18, rootMargin: "0px 0px -6% 0px" });
+
+    observer.observe(manifesto);
+    revealFallback = window.setTimeout(() => {
+      reveal();
+      observer.disconnect();
+    }, 2500);
+
+    if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
+
+    manifesto.addEventListener("pointermove", event => {
+      const bounds = manifesto.getBoundingClientRect();
+      const x = ((event.clientX - bounds.left) / bounds.width) * 100;
+      const y = ((event.clientY - bounds.top) / bounds.height) * 100;
+      manifesto.style.setProperty("--manifesto-light-x", `${x}%`);
+      manifesto.style.setProperty("--manifesto-light-y", `${y}%`);
+    });
+
+    manifesto.addEventListener("pointerleave", () => {
+      manifesto.style.setProperty("--manifesto-light-x", "82%");
+      manifesto.style.setProperty("--manifesto-light-y", "18%");
+    });
+  }
+
+  // =====================================================
   // Boot
   // =====================================================
   const section = document.getElementById("wtgWhy");
   if (!section) return;
 
   initScrollButtons(section);
+  initManifesto(section);
   initInView(section);
 
   const tabsSection = section.querySelector(".wtg-tabs");

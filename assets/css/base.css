@@ -18,6 +18,65 @@
   user-select: none;
 }
 
+html {
+  scrollbar-color: #39c6d2 #041b2e;
+  scrollbar-width: thin;
+}
+
+* {
+  scrollbar-color: #39c6d2 transparent;
+  scrollbar-width: thin;
+}
+
+body {
+  scrollbar-color: #39c6d2 #041b2e;
+  scrollbar-width: thin;
+}
+
+html::-webkit-scrollbar,
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+html::-webkit-scrollbar-track,
+body::-webkit-scrollbar-track,
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+html::-webkit-scrollbar-track-piece,
+body::-webkit-scrollbar-track-piece,
+*::-webkit-scrollbar-track-piece {
+  background: transparent;
+}
+
+html::-webkit-scrollbar-corner,
+*::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+html::-webkit-scrollbar-track,
+html::-webkit-scrollbar-track-piece,
+body::-webkit-scrollbar-track,
+body::-webkit-scrollbar-track-piece {
+  background-color: #041b2e;
+}
+
+*::-webkit-scrollbar-button {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+html::-webkit-scrollbar-thumb,
+*::-webkit-scrollbar-thumb {
+  border: 2px solid transparent;
+  border-radius: 999px;
+  background: #39c6d2;
+  background-clip: padding-box;
+}
+
 /* DEFAULT DOCUMENTO */
 body {
   font-family: "Montserrat", sans-serif;

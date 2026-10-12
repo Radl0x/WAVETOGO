@@ -5,10 +5,7 @@
   const $$ = (sel, root = document) => [...root.querySelectorAll(sel)];
 
   const DEFAULTS = {
-    fuelPrice: 2.1,
-    consumption: 9.5,
     speedKn: 12,
-    reservePct: 35,
   };
 
   const getTranslation = (key, fallback) => {
@@ -20,19 +17,23 @@
   const qEl = $("#itQ");
   const hoursEl = $("#itHours");
   const diffEl = $("#itDifficulty");
+  const resetEl = $("#itReset");
+  const resultsCountEl = $("#itResultsCount");
+  const resultsLabelEl = $("#itResultsLabel");
+  const detailsDialog = $("#itineraryDialog");
+  const detailsDialogTitle = $("#itineraryDialogTitle");
+  const detailsDialogContent = $("#itineraryDialogContent");
+  const closeDetailsButton = $(".pm-it-dialog-close", detailsDialog || document);
+  let activeDetails = null;
   if (!grid) return;
 
   const fmt = (n, d = 1) => (Number.isFinite(n) ? n : 0).toFixed(d);
 
-  // Stima navigazione, carburante e costo per distanza.
+  // Stima della sola durata di navigazione.
   function estimate(distanceNm) {
-    const { fuelPrice, consumption, speedKn, reservePct } = DEFAULTS;
+    const { speedKn } = DEFAULTS;
     const hours = distanceNm / Math.max(1, speedKn);
-    const liters = hours * consumption;
-    const reserve = liters * (Math.max(0, Math.min(80, reservePct)) / 100);
-    const litersTotal = liters + reserve;
-    const cost = litersTotal * fuelPrice;
-    return { hours, litersTotal, cost };
+    return { hours };
   }
 
   // Lettura dei dati configurati sulla card.
@@ -62,13 +63,9 @@
 
     const dEl = $(".kpi-distance", card);
     const hEl = $(".kpi-hours", card);
-    const lEl = $(".kpi-liters", card);
-    const cEl = $(".kpi-cost", card);
 
     if (dEl) dEl.textContent = fmt(distanceNm, 0);
     if (hEl) hEl.textContent = fmt(est.hours, 1);
-    if (lEl) lEl.textContent = fmt(est.litersTotal, 0);
-    if (cEl) cEl.textContent = fmt(est.cost, 0);
   }
 
   // Verifica dei criteri di ricerca e filtro.
@@ -103,13 +100,13 @@
 
   // Visibilità delle card e stato senza risultati.
   function applyFilters() {
-    const cards = $$(".it-card", grid);
-    let anyVisible = false;
+    const cards = $$(".it-card:not(#itEmptyState)", grid);
+    let visibleCount = 0;
 
     cards.forEach((card) => {
       const ok = matchesFilters(card);
       card.style.display = ok ? "" : "none";
-      if (ok) anyVisible = true;
+      if (ok) visibleCount += 1;
     });
 
     let empty = $("#itEmptyState");
@@ -127,7 +124,13 @@
       grid.appendChild(empty);
     }
 
-    empty.style.display = anyVisible ? "none" : "";
+    empty.style.display = visibleCount ? "none" : "";
+    if (resultsCountEl) resultsCountEl.textContent = String(visibleCount);
+    if (resultsLabelEl) {
+      const key = visibleCount === 1 ? "itinerary.results.singular" : "itinerary.results.plural";
+      const fallback = visibleCount === 1 ? "itinerario disponibile" : "itinerari disponibili";
+      resultsLabelEl.textContent = getTranslation(key, fallback);
+    }
   }
 
   // Apertura dettagli e copia del riepilogo itinerario.
@@ -138,12 +141,32 @@
 
       const id = btn.getAttribute("data-toggle");
       const card = grid.querySelector(`.it-card[data-id="${id}"]`);
-      if (!card) return;
+      const details = card && $(".it-details", card);
+      if (!card || !details || !detailsDialog || !detailsDialogTitle || !detailsDialogContent) return;
 
-      const isOpen = card.classList.toggle("is-open");
-      btn.innerHTML = isOpen
-        ? `<i class="fa-solid fa-layer-group" aria-hidden="true"></i> ${getTranslation("itinerary.close.details", "Chiudi dettagli")}`
-        : `<i class="fa-solid fa-layer-group" aria-hidden="true"></i> ${getTranslation("itinerary.details", "Dettagli")}`;
+      const cardMedia = $(".it-media", card);
+      const mediaStyle = cardMedia && getComputedStyle(cardMedia);
+      const detailsPhoto = cardMedia && document.createElement("div");
+      if (detailsPhoto && mediaStyle) {
+        detailsPhoto.className = "it-dialog-photo";
+        detailsPhoto.setAttribute("role", "img");
+        detailsPhoto.setAttribute("aria-label", cardMedia.getAttribute("aria-label") || "");
+        detailsPhoto.style.backgroundImage = mediaStyle.backgroundImage;
+        detailsPhoto.style.backgroundPosition = mediaStyle.backgroundPosition;
+        detailsPhoto.style.backgroundSize = mediaStyle.backgroundSize;
+        detailsPhoto.style.backgroundRepeat = mediaStyle.backgroundRepeat;
+      }
+
+      const placeholder = document.createComment("itinerary-details");
+      details.before(placeholder);
+      details.setAttribute("aria-hidden", "false");
+      detailsDialogTitle.textContent = $(".it-title", card)?.textContent?.trim() || "Itinerario";
+      detailsDialogContent.replaceChildren(details);
+      if (detailsPhoto) detailsDialogContent.insertBefore(detailsPhoto, details);
+      activeDetails = { details, detailsPhoto, placeholder, trigger: btn };
+      btn.setAttribute("aria-expanded", "true");
+      detailsDialog.showModal();
+      closeDetailsButton?.focus();
     });
 
     grid.addEventListener("click", async (e) => {
@@ -157,7 +180,7 @@
       const data = readCardData(card);
       const est = estimate(data.distanceNm);
 
-      const text = `ITINERARIO: ${data.title}\nDurata: ${data.duration === "half" ? getTranslation("itinerary.filter.half", "Mezza giornata") : getTranslation("itinerary.filter.full", "Giornata intera")} | Difficoltà: ${String(data.difficulty).toUpperCase()}\nDistanza: ${fmt(data.distanceNm, 0)} NM | Navigazione: ${fmt(est.hours, 1)} h\nCarburante stimato: ${fmt(est.litersTotal, 0)} L | Costo stimato: € ${fmt(est.cost, 0)}\n\nVENTO:\nOK: ${data.windOk.join(", ")}\nEVITA: ${data.windAvoid.join(", ")}\nConsiglio: ${data.windTips}\n\nSPOT:\nSnorkeling: ${data.snorkel.join(" • ")}\nSelfie: ${data.selfie.join(" • ")}\nCoste vicine: ${data.nearby.join(" • ")}\n\nRISCHI:\n${data.hazards.map((x) => `- ${x}`).join("\n")}\n`;
+      const text = `ITINERARIO: ${data.title}\nDurata: ${data.duration === "half" ? getTranslation("itinerary.filter.half", "Mezza giornata") : getTranslation("itinerary.filter.full", "Giornata intera")} | Difficoltà: ${String(data.difficulty).toUpperCase()}\nDistanza: ${fmt(data.distanceNm, 0)} NM | Navigazione stimata: ${fmt(est.hours, 1)} h\n\nVENTO:\nOK: ${data.windOk.join(", ")}\nEVITA: ${data.windAvoid.join(", ")}\nConsiglio: ${data.windTips}\n\nSPOT:\nSnorkeling: ${data.snorkel.join(" • ")}\nSelfie: ${data.selfie.join(" • ")}\nCoste vicine: ${data.nearby.join(" • ")}\n\nRISCHI:\n${data.hazards.map((x) => `- ${x}`).join("\n")}\n`;
 
       try {
         await navigator.clipboard.writeText(text);
@@ -168,14 +191,59 @@
         prompt("Copia manualmente:", text);
       }
     });
+
+    closeDetailsButton?.addEventListener("click", () => detailsDialog?.close());
+    detailsDialog?.addEventListener("keydown", (e) => {
+      if (e.key !== "Escape") return;
+      e.preventDefault();
+      detailsDialog.close();
+    });
+    detailsDialog?.addEventListener("cancel", (e) => {
+      e.preventDefault();
+      detailsDialog.close();
+    });
+    detailsDialog?.addEventListener("click", (e) => {
+      if (e.target === detailsDialog) detailsDialog.close();
+    });
+    detailsDialog?.addEventListener("close", () => {
+      if (!activeDetails) return;
+      const { details, detailsPhoto, placeholder, trigger } = activeDetails;
+      details.setAttribute("aria-hidden", "true");
+      detailsPhoto?.remove();
+      if (placeholder.parentNode) {
+        placeholder.parentNode.insertBefore(details, placeholder);
+        placeholder.remove();
+      }
+      trigger.setAttribute("aria-expanded", "false");
+      activeDetails = null;
+      if (trigger.isConnected) trigger.focus({ preventScroll: true });
+    });
   }
 
   // Inizializzazione card, filtri e testi localizzati.
-  $$(".it-card", grid).forEach(updateKPIs);
+  $$(".it-card", grid).forEach((card) => {
+    updateKPIs(card);
+    const details = $(".it-details", card);
+    const toggle = $("[data-toggle]", card);
+    if (details && toggle) {
+      if (!details.id) details.id = `${card.dataset.id}-details`;
+      details.setAttribute("aria-hidden", "true");
+      toggle.setAttribute("aria-controls", details.id);
+      toggle.setAttribute("aria-expanded", "false");
+    }
+  });
 
   [qEl, hoursEl, diffEl].filter(Boolean).forEach((el) => {
     el.addEventListener("input", applyFilters);
     el.addEventListener("change", applyFilters);
+  });
+
+  resetEl?.addEventListener("click", () => {
+    if (qEl) qEl.value = "";
+    if (hoursEl) hoursEl.value = "all";
+    if (diffEl) diffEl.value = "all";
+    applyFilters();
+    qEl?.focus();
   });
 
   window.addEventListener("site-language-change", () => {
@@ -183,10 +251,7 @@
     applyFilters();
     const toggleButtons = $$("[data-toggle]", grid);
     toggleButtons.forEach((button) => {
-      const id = button.getAttribute("data-toggle");
-      const card = grid.querySelector(`.it-card[data-id="${id}"]`);
-      const isOpen = card && card.classList.contains("is-open");
-      button.innerHTML = `<i class="fa-solid fa-layer-group" aria-hidden="true"></i> ${isOpen ? getTranslation("itinerary.close.details", "Chiudi dettagli") : getTranslation("itinerary.details", "Dettagli")}`;
+      button.innerHTML = `<i class="fa-solid fa-layer-group" aria-hidden="true"></i> ${getTranslation("itinerary.details", "Dettagli")}`;
     });
 
     const copyButtons = $$("[data-copy]", grid);

@@ -1,7 +1,8 @@
 /* CHECKOUT: PREZZI, STATO, RENDERING E INTERAZIONI */
 (() => {
   // Tariffe base e limiti economici della prenotazione.
-  const PRICES = { day: 250, am: 170, pm: 170 };
+  const PRICES = { day: 250 };
+  const HALF_DAY_PRICE_RATIO = 0.6;
   const DEPOSIT = 50;
   const CAUTION = 400;
 
@@ -76,16 +77,30 @@
   // Calcolo prezzi e formattazione importi.
   const euro = (n) => `${Math.round(n)}€`;
   const slotValue = () => document.getElementById("pm-slot")?.value || "day";
-  const basePrice = () => PRICES[slotValue()] ?? 0;
+  const selectedBoat = () => fleetOptions.find(
+    (boat) => String(boat.id || boat.name) === String(boatSel?.value || ""),
+  );
+  const dailyPrice = () => {
+    const boatPrice = Number(selectedBoat()?.price);
+    return Number.isFinite(boatPrice) && boatPrice > 0 ? boatPrice : PRICES.day;
+  };
+  const basePrice = () => {
+    return slotValue() === "day"
+      ? dailyPrice()
+      : dailyPrice() * HALF_DAY_PRICE_RATIO;
+  };
 
   function populateBoatSelect() {
     if (!boatSel) return;
 
     const selectedFromQuery = new URLSearchParams(window.location.search).get("boat");
-    const options = fleetOptions.map((boat) => ({ value: String(boat.id || boat.name), label: boat.name || "Barca" }));
-
     boatSel.innerHTML = '<option value="">Scegli la barca</option>' +
-      options.map((boat) => `<option value="${boat.value}">${boat.label}</option>`).join("");
+      fleetOptions.map((boat) => {
+        const option = document.createElement("option");
+        option.value = String(boat.id || boat.name);
+        option.textContent = boat.name || "Barca";
+        return option.outerHTML;
+      }).join("");
 
     const preferred = selectedFromQuery || boatSel.dataset.preselected || "";
     if (preferred) {
@@ -93,6 +108,447 @@
       if (found) {
         boatSel.value = preferred;
       }
+    }
+
+    initBoatPicker();
+  }
+
+  function initBoatPicker() {
+    if (!boatSel || boatSel.dataset.customPicker === "true") return;
+
+    const field = boatSel.closest(".pm-field");
+    if (!field) return;
+
+    const wrapper = document.createElement("div");
+    wrapper.className = "pm-boatPicker";
+    wrapper.innerHTML = `
+      <button class="pm-in pm-boatPicker__trigger" type="button" role="combobox"
+        aria-haspopup="listbox" aria-expanded="false" aria-controls="pm-boat-options"
+        aria-label="Scegli la barca">
+        <span class="pm-boatPicker__selected">Scegli la barca</span>
+        <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
+      </button>
+      <div class="pm-boatPicker__options" id="pm-boat-options" role="listbox" hidden></div>
+    `;
+
+    const trigger = wrapper.querySelector(".pm-boatPicker__trigger");
+    const selectedLabel = wrapper.querySelector(".pm-boatPicker__selected");
+    const listbox = wrapper.querySelector(".pm-boatPicker__options");
+    const options = fleetOptions.map((boat, index) => {
+      const option = document.createElement("div");
+      const optionId = `pm-boat-option-${index}`;
+      const value = String(boat.id || boat.name);
+      const name = boat.name || "Barca";
+      const power = boat.power || "";
+      option.className = "pm-boatPicker__option";
+      option.id = optionId;
+      option.setAttribute("role", "option");
+      option.dataset.value = value;
+      option.setAttribute("aria-label", power ? `${name}, motore ${power}` : name);
+      option.innerHTML = `
+        <span class="pm-boatPicker__name"></span>
+      `;
+      option.querySelector(".pm-boatPicker__name").textContent = name;
+      if (power) {
+        const powerBadge = document.createElement("span");
+        powerBadge.className = "pm-boatPicker__power";
+        powerBadge.innerHTML = '<i class="fa-solid fa-gears" aria-hidden="true"></i><span></span>';
+        powerBadge.querySelector("span").textContent = power;
+        option.appendChild(powerBadge);
+      }
+      listbox.appendChild(option);
+      return option;
+    });
+
+    boatSel.classList.add("pm-boatPicker__native");
+    boatSel.tabIndex = -1;
+    boatSel.setAttribute("aria-hidden", "true");
+    boatSel.dataset.customPicker = "true";
+    boatSel.insertAdjacentElement("afterend", wrapper);
+
+    let activeIndex = -1;
+
+    const updateSelection = () => {
+      const selectedOption = options.find(option => option.dataset.value === boatSel.value);
+      selectedLabel.textContent = selectedOption
+        ? selectedOption.querySelector(".pm-boatPicker__name").textContent
+        : "Scegli la barca";
+      options.forEach(option => {
+        const isSelected = option === selectedOption;
+        option.setAttribute("aria-selected", isSelected ? "true" : "false");
+        option.classList.toggle("is-selected", isSelected);
+      });
+    };
+
+    const setActive = (index) => {
+      if (!options.length) return;
+      activeIndex = Math.max(0, Math.min(index, options.length - 1));
+      options.forEach((option, i) => option.classList.toggle("is-active", i === activeIndex));
+      trigger.setAttribute("aria-activedescendant", options[activeIndex].id);
+      options[activeIndex].scrollIntoView({ block: "nearest" });
+    };
+
+    const close = () => {
+      wrapper.classList.remove("is-open");
+      wrapper.closest(".pm-widget")?.classList.remove("pm-picker-open");
+      listbox.hidden = true;
+      trigger.setAttribute("aria-expanded", "false");
+      trigger.removeAttribute("aria-activedescendant");
+      activeIndex = -1;
+      options.forEach(option => option.classList.remove("is-active"));
+    };
+
+    const open = () => {
+      wrapper.classList.add("is-open");
+      wrapper.closest(".pm-widget")?.classList.add("pm-picker-open");
+      listbox.hidden = false;
+      trigger.setAttribute("aria-expanded", "true");
+      const selectedIndex = options.findIndex(option => option.dataset.value === boatSel.value);
+      setActive(selectedIndex >= 0 ? selectedIndex : 0);
+    };
+
+    const choose = (option) => {
+      if (!option) return;
+      boatSel.value = option.dataset.value;
+      boatSel.dispatchEvent(new Event("change", { bubbles: true }));
+      updateSelection();
+      close();
+    };
+
+    trigger.addEventListener("click", () => {
+      if (listbox.hidden) open();
+      else close();
+    });
+
+    trigger.addEventListener("keydown", event => {
+      if (event.key === "ArrowDown" || event.key === "ArrowUp") {
+        event.preventDefault();
+        if (listbox.hidden) open();
+        else setActive(activeIndex + (event.key === "ArrowDown" ? 1 : -1));
+      } else if (event.key === "Home" && !listbox.hidden) {
+        event.preventDefault();
+        setActive(0);
+      } else if (event.key === "End" && !listbox.hidden) {
+        event.preventDefault();
+        setActive(options.length - 1);
+      } else if ((event.key === "Enter" || event.key === " ") && !listbox.hidden) {
+        event.preventDefault();
+        choose(options[activeIndex]);
+      } else if (event.key === "Escape" && !listbox.hidden) {
+        event.preventDefault();
+        close();
+      }
+    });
+
+    options.forEach(option => {
+      option.addEventListener("pointermove", () => {
+        setActive(options.indexOf(option));
+      });
+      option.addEventListener("click", () => choose(option));
+    });
+
+    document.addEventListener("pointerdown", event => {
+      if (!wrapper.contains(event.target)) close();
+    });
+    boatSel.addEventListener("change", updateSelection);
+    updateSelection();
+  }
+
+  function initSlotPicker() {
+    if (!slotSel || slotSel.dataset.customPicker === "true") return;
+
+    const wrapper = document.createElement("div");
+    wrapper.className = "pm-slotPicker";
+    wrapper.innerHTML = `
+      <button class="pm-in pm-slotPicker__trigger" type="button" role="combobox"
+        aria-haspopup="listbox" aria-expanded="false" aria-controls="pm-slot-options">
+        <span class="pm-slotPicker__selected"></span>
+        <span class="pm-slotPicker__selectedTime"></span>
+        <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
+      </button>
+      <div class="pm-slotPicker__options" id="pm-slot-options" role="listbox" hidden></div>
+    `;
+
+    const trigger = wrapper.querySelector(".pm-slotPicker__trigger");
+    const selectedLabel = wrapper.querySelector(".pm-slotPicker__selected");
+    const selectedTime = wrapper.querySelector(".pm-slotPicker__selectedTime");
+    const listbox = wrapper.querySelector(".pm-slotPicker__options");
+    const slotLabel = slotSel.closest(".pm-field")?.querySelector(".pm-lbl")?.textContent.trim();
+    if (slotLabel) trigger.setAttribute("aria-label", slotLabel);
+    const options = Array.from(slotSel.options).map((nativeOption, index) => {
+      const option = document.createElement("div");
+      option.className = "pm-slotPicker__option";
+      option.id = `pm-slot-option-${index}`;
+      option.dataset.value = nativeOption.value;
+      option.setAttribute("role", "option");
+      option.innerHTML = '<span class="pm-slotPicker__label"></span><span class="pm-slotPicker__time"></span>';
+      option.querySelector(".pm-slotPicker__label").textContent = nativeOption.textContent.replace(/\s*\([^)]*\)\s*$/, "").trim();
+      option.querySelector(".pm-slotPicker__time").textContent = nativeOption.textContent.match(/\([^)]*\)/)?.[0] || "";
+      listbox.appendChild(option);
+      return option;
+    });
+
+    slotSel.classList.add("pm-slotPicker__native");
+    slotSel.tabIndex = -1;
+    slotSel.setAttribute("aria-hidden", "true");
+    slotSel.dataset.customPicker = "true";
+    slotSel.insertAdjacentElement("afterend", wrapper);
+
+    let activeIndex = -1;
+
+    const syncOptions = () => {
+      options.forEach((option, index) => {
+        const nativeOption = slotSel.options[index];
+        option.querySelector(".pm-slotPicker__label").textContent =
+          nativeOption.textContent.replace(/\s*\([^)]*\)\s*$/, "").trim();
+        option.querySelector(".pm-slotPicker__time").textContent =
+          nativeOption.textContent.match(/\([^)]*\)/)?.[0] || "";
+      });
+      updateSelection();
+    };
+
+    const updateSelection = () => {
+      const selectedOption = options.find(option => option.dataset.value === slotSel.value);
+      selectedLabel.textContent = selectedOption?.querySelector(".pm-slotPicker__label").textContent || "";
+      selectedTime.textContent = selectedOption?.querySelector(".pm-slotPicker__time").textContent || "";
+      options.forEach(option => {
+        const selected = option === selectedOption;
+        option.setAttribute("aria-selected", selected ? "true" : "false");
+        option.classList.toggle("is-selected", selected);
+      });
+    };
+
+    const setActive = index => {
+      if (!options.length) return;
+      activeIndex = Math.max(0, Math.min(index, options.length - 1));
+      options.forEach((option, i) => option.classList.toggle("is-active", i === activeIndex));
+      trigger.setAttribute("aria-activedescendant", options[activeIndex].id);
+    };
+
+    const close = () => {
+      wrapper.classList.remove("is-open");
+      wrapper.closest(".pm-widget")?.classList.remove("pm-picker-open");
+      listbox.hidden = true;
+      trigger.setAttribute("aria-expanded", "false");
+      trigger.removeAttribute("aria-activedescendant");
+      activeIndex = -1;
+      options.forEach(option => option.classList.remove("is-active"));
+    };
+
+    const open = () => {
+      wrapper.classList.add("is-open");
+      wrapper.closest(".pm-widget")?.classList.add("pm-picker-open");
+      listbox.hidden = false;
+      trigger.setAttribute("aria-expanded", "true");
+      const selectedIndex = options.findIndex(option => option.dataset.value === slotSel.value);
+      setActive(selectedIndex >= 0 ? selectedIndex : 0);
+    };
+
+    const choose = option => {
+      if (!option) return;
+      slotSel.value = option.dataset.value;
+      slotSel.dispatchEvent(new Event("change", { bubbles: true }));
+      updateSelection();
+      close();
+    };
+
+    trigger.addEventListener("click", () => listbox.hidden ? open() : close());
+    trigger.addEventListener("keydown", event => {
+      if (event.key === "ArrowDown" || event.key === "ArrowUp") {
+        event.preventDefault();
+        if (listbox.hidden) open();
+        else setActive(activeIndex + (event.key === "ArrowDown" ? 1 : -1));
+      } else if (event.key === "Home" && !listbox.hidden) {
+        event.preventDefault();
+        setActive(0);
+      } else if (event.key === "End" && !listbox.hidden) {
+        event.preventDefault();
+        setActive(options.length - 1);
+      } else if ((event.key === "Enter" || event.key === " ") && !listbox.hidden) {
+        event.preventDefault();
+        choose(options[activeIndex]);
+      } else if (event.key === "Escape" && !listbox.hidden) {
+        event.preventDefault();
+        close();
+      }
+    });
+    options.forEach(option => {
+      option.addEventListener("pointermove", () => setActive(options.indexOf(option)));
+      option.addEventListener("click", () => choose(option));
+    });
+    document.addEventListener("pointerdown", event => {
+      if (!wrapper.contains(event.target)) close();
+    });
+    slotSel.addEventListener("change", updateSelection);
+    window.addEventListener("site-language-change", syncOptions);
+    syncOptions();
+  }
+
+  function initDatePicker() {
+    if (!dateInp || dateInp.dataset.customPicker === "true") return;
+
+    const wrapper = dateInp.closest(".pm-dateControl");
+    if (!wrapper) return;
+    wrapper.classList.add("pm-datePicker");
+
+    const field = dateInp.closest(".pm-field");
+    const getDateLabel = () => field?.querySelector(".pm-lbl")?.textContent.trim() || "Data";
+    wrapper.innerHTML = `
+      <button class="pm-in pm-datePicker__trigger" type="button"
+        aria-haspopup="dialog" aria-expanded="false">
+        <span class="pm-datePicker__selected"></span>
+        <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
+      </button>
+      <section class="pm-datePicker__calendar" role="dialog" hidden>
+        <header class="pm-datePicker__header">
+          <button class="pm-datePicker__nav pm-datePicker__prev" type="button" aria-label="Mese precedente">
+            <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
+          </button>
+          <strong class="pm-datePicker__month" aria-live="polite"></strong>
+          <button class="pm-datePicker__nav pm-datePicker__next" type="button" aria-label="Mese successivo">
+            <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
+          </button>
+        </header>
+        <div class="pm-datePicker__weekdays" aria-hidden="true"></div>
+        <div class="pm-datePicker__days"></div>
+      </section>
+    `;
+    wrapper.appendChild(dateInp);
+    dateInp.classList.add("pm-datePicker__native");
+    dateInp.tabIndex = -1;
+    dateInp.setAttribute("aria-hidden", "true");
+    dateInp.dataset.customPicker = "true";
+
+    const trigger = wrapper.querySelector(".pm-datePicker__trigger");
+    const selectedLabel = wrapper.querySelector(".pm-datePicker__selected");
+    const calendar = wrapper.querySelector(".pm-datePicker__calendar");
+    const monthLabel = wrapper.querySelector(".pm-datePicker__month");
+    const weekdayWrap = wrapper.querySelector(".pm-datePicker__weekdays");
+    const daysWrap = wrapper.querySelector(".pm-datePicker__days");
+    const locale = () => window.WaveToGoTranslations?.currentLanguage || document.documentElement.lang || "it";
+    const datePlaceholder = () => getTranslation("booking.date.placeholder", "Scegli una data");
+    const today = new Date();
+    let displayedMonth = dateInp.value
+      ? (() => {
+          const [year, month] = dateInp.value.split("-").map(Number);
+          return new Date(year, month - 1, 1);
+        })()
+      : new Date(today.getFullYear(), today.getMonth(), 1);
+
+    const pad = value => String(value).padStart(2, "0");
+    const toISODate = date => `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}`;
+    const getDateFormat = () => new Intl.DateTimeFormat(locale(), {
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+    });
+
+    const renderCalendar = () => {
+      const language = locale();
+      monthLabel.textContent = new Intl.DateTimeFormat(language, {
+        month: "long",
+        year: "numeric",
+      }).format(displayedMonth);
+      trigger.setAttribute("aria-label", getDateLabel());
+      calendar.setAttribute("aria-label", `${getDateLabel()} - ${monthLabel.textContent}`);
+
+      weekdayWrap.replaceChildren();
+      const monday = new Date(2026, 0, 5);
+      for (let index = 0; index < 7; index += 1) {
+        const day = new Date(monday);
+        day.setDate(monday.getDate() + index);
+        const weekday = document.createElement("span");
+        weekday.textContent = new Intl.DateTimeFormat(language, { weekday: "short" })
+          .format(day)
+          .replace(/\.$/, "")
+          .slice(0, 2);
+        weekdayWrap.appendChild(weekday);
+      }
+
+      daysWrap.replaceChildren();
+      const firstOfMonth = new Date(displayedMonth.getFullYear(), displayedMonth.getMonth(), 1);
+      const startOffset = (firstOfMonth.getDay() + 6) % 7;
+      const gridStart = new Date(firstOfMonth);
+      gridStart.setDate(firstOfMonth.getDate() - startOffset);
+
+      for (let index = 0; index < 42; index += 1) {
+        const day = new Date(gridStart);
+        day.setDate(gridStart.getDate() + index);
+        const isoDate = toISODate(day);
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "pm-datePicker__day";
+        button.textContent = String(day.getDate());
+        button.dataset.date = isoDate;
+        button.setAttribute("aria-label", getDateFormat().format(day));
+        button.setAttribute("aria-pressed", isoDate === dateInp.value ? "true" : "false");
+        if (day.getMonth() !== displayedMonth.getMonth()) button.classList.add("is-outside");
+        if (isoDate === toISODate(today)) button.classList.add("is-today");
+        if (isoDate === dateInp.value) button.classList.add("is-selected");
+        daysWrap.appendChild(button);
+      }
+    };
+
+    const close = () => {
+      wrapper.classList.remove("is-open");
+      wrapper.closest(".pm-widget")?.classList.remove("pm-picker-open");
+      calendar.hidden = true;
+      trigger.setAttribute("aria-expanded", "false");
+    };
+
+    const open = () => {
+      wrapper.classList.add("is-open");
+      wrapper.closest(".pm-widget")?.classList.add("pm-picker-open");
+      calendar.hidden = false;
+      trigger.setAttribute("aria-expanded", "true");
+      renderCalendar();
+    };
+
+    wrapper.querySelector(".pm-datePicker__prev").addEventListener("click", () => {
+      displayedMonth = new Date(displayedMonth.getFullYear(), displayedMonth.getMonth() - 1, 1);
+      renderCalendar();
+    });
+    wrapper.querySelector(".pm-datePicker__next").addEventListener("click", () => {
+      displayedMonth = new Date(displayedMonth.getFullYear(), displayedMonth.getMonth() + 1, 1);
+      renderCalendar();
+    });
+    trigger.addEventListener("click", () => calendar.hidden ? open() : close());
+    trigger.addEventListener("keydown", event => {
+      if (event.key === "Escape" && !calendar.hidden) {
+        event.preventDefault();
+        close();
+      }
+    });
+    daysWrap.addEventListener("click", event => {
+      const dayButton = event.target.closest(".pm-datePicker__day");
+      if (!dayButton) return;
+      dateInp.value = dayButton.dataset.date;
+      dateInp.dispatchEvent(new Event("change", { bubbles: true }));
+      close();
+    });
+    dateInp.addEventListener("change", () => {
+      if (dateInp.value) {
+        const [year, month, day] = dateInp.value.split("-").map(Number);
+        selectedLabel.textContent = getDateFormat().format(new Date(year, month - 1, day));
+        displayedMonth = new Date(year, month - 1, 1);
+      } else {
+        selectedLabel.textContent = datePlaceholder();
+      }
+      renderCalendar();
+    });
+    document.addEventListener("pointerdown", event => {
+      if (!wrapper.contains(event.target)) close();
+    });
+    window.addEventListener("site-language-change", () => {
+      renderCalendar();
+      if (!dateInp.value) selectedLabel.textContent = datePlaceholder();
+    });
+
+    if (dateInp.value) {
+      dateInp.dispatchEvent(new Event("change", { bubbles: true }));
+    } else {
+      selectedLabel.textContent = datePlaceholder();
+      renderCalendar();
     }
   }
 
@@ -351,7 +807,8 @@
     updateMini();
   });
   boatSel?.addEventListener("change", () => {
-    updateBoatSummary();
+    setDefaults();
+    updateMini();
   });
   dateInp?.addEventListener("change", updateMini);
 
@@ -390,6 +847,8 @@
 
   // Stato iniziale del widget.
   populateBoatSelect();
+  initSlotPicker();
+  initDatePicker();
   renderExtras();
   setDefaults();
   setHeader();

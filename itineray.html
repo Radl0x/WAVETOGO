@@ -77,14 +77,14 @@
                ===================================================== -->
             <section id="pm-it" aria-label="Itinerari">
                <div class="pm-it-wrap">
-                  <!-- HEADER -->
                   <header class="pm-it-head">
                      <div class="pm-railBrand">
-                        <a href="./index.html">
-                           <div class="pm-railLogo" aria-hidden="true"><i class="fa-solid fa-angles-left"></i></div>
+                        <a href="./index.html" aria-label="Torna alla home">
+                           <div class="pm-railLogo" aria-hidden="true"><i class="fa-solid fa-arrow-left"></i></div>
                         </a>
                      </div>
-                     <div>
+                     <div class="pm-it-headcopy">
+                        <span class="pm-it-eyebrow"><i class="fa-solid fa-compass" aria-hidden="true"></i> GOLFO ARANCI · SARDEGNA</span>
                         <h2 class="pm-it-title" data-i18n="itinerary.heading">Itinerari da Golfo Aranci</h2>
                         <p class="pm-it-sub" data-i18n="itinerary.description">
                            Salpa verso acque che sembrano irreali, cala dopo cala, dove il turchese incontra la roccia e ogni sosta diventa un ricordo.
@@ -114,9 +114,13 @@
                            <option value="hard" data-i18n="itinerary.filter.hard">Impegnativa</option>
                         </select>
                      </div>
-                     <div class="pm-it-hint">
-                        <span data-i18n="itinerary.hint"><i class="fa-solid fa-gas-pump" aria-hidden="true"></i> 40cv • 12 kn • 9.5 L/h </span>
-                     </div>
+                  </div>
+                  <div class="pm-it-results" aria-live="polite">
+                     <p><i class="fa-solid fa-water" aria-hidden="true"></i> <strong id="itResultsCount">4</strong> <span id="itResultsLabel">itinerari disponibili</span></p>
+                     <button id="itReset" class="pm-it-reset" type="button">
+                        <i class="fa-solid fa-rotate-left" aria-hidden="true"></i>
+                        <span data-i18n="itinerary.reset">Azzera filtri</span>
+                     </button>
                   </div>
                   <!-- GRID (STATICO: NO innerHTML) -->
                   <div class="pm-it-body">
@@ -155,20 +159,6 @@
                                     </div>
                                     <span class="kpi-label">Navigazione stimata</span>
                                  </div>
-                                 <div class="it-pill">
-                                    <div class="kpi-box">
-                                       <span class="kpi-liters">5</span>
-                                       <span class="kpi-unit">L</span>
-                                    </div>
-                                    <span class="kpi-label">Carburante stimato</span>
-                                 </div>
-                                 <div class="it-pill">
-                                    <div class="kpi-box">
-                                       <span class="kpi-cost">11</span>
-                                       <span class="kpi-unit">€</span>
-                                    </div>
-                                    <span class="kpi-label">Costo stimato</span>
-                                 </div>
                               </div>
                               <div class="it-actions">
                                  <button class="pm-it-btn pm-it-main" type="button" data-toggle="capo-figari-moresca">
@@ -187,31 +177,31 @@
                               <div class="it-box">
                                  <ol class="it-timeline">
                                     <li>
-                                       <div style="display:flex;justify-content:space-between;gap:10px;align-items:baseline">
+                                       <div class="it-stop-head">
                                           <span class="it-time">10:00</span><span class="it-place">Partenza Golfo Aranci</span>
                                        </div>
                                        <div class="it-line">Giro corto: ideale con meteo incerto.</div>
                                     </li>
                                     <li>
-                                       <div style="display:flex;justify-content:space-between;gap:10px;align-items:baseline">
+                                       <div class="it-stop-head">
                                           <span class="it-time">10:30</span><span class="it-place">Cala Moresca (bagno)</span>
                                        </div>
                                        <div class="it-line">Sosta tranquilla: rispetta bagnanti/SUP.</div>
                                     </li>
                                     <li>
-                                       <div style="display:flex;justify-content:space-between;gap:10px;align-items:baseline">
+                                       <div class="it-stop-head">
                                           <span class="it-time">11:30</span><span class="it-place">Tratto panoramico sotto Capo Figari</span>
                                        </div>
                                        <div class="it-line">Se c’è risacca, resta più al largo dai frangenti.</div>
                                     </li>
                                     <li>
-                                       <div style="display:flex;justify-content:space-between;gap:10px;align-items:baseline">
+                                       <div class="it-stop-head">
                                           <span class="it-time">12:30</span><span class="it-place">Snorkeling breve</span>
                                        </div>
                                        <div class="it-line">Rimani in zona visibile e poco trafficata.</div>
                                     </li>
                                     <li>
-                                       <div style="display:flex;justify-content:space-between;gap:10px;align-items:baseline">
+                                       <div class="it-stop-head">
                                           <span class="it-time">13:30</span><span class="it-place">Rientro</span>
                                        </div>
                                        <div class="it-line">Consumi contenuti, rientro semplice.</div>
@@ -223,9 +213,9 @@
                                  <small>scelta rotta</small>
                               </div>
                               <div class="it-box">
-                                 <div class="it-row"><b>✅ OK</b><span class="it-note">W/NW moderato, N moderato</span></div>
-                                 <div class="it-row"><b>⛔ Evita</b><span class="it-note">E/NE forte</span></div>
-                                 <div class="it-row"><b>💡 Consiglio</b><span class="it-note">Ottimo quando fuori è mosso: spesso trovi mare più gestibile rimanendo sotto costa.</span></div>
+                                 <div class="it-row"><b>OK</b><span class="it-note">W/NW moderato, N moderato</span></div>
+                                 <div class="it-row"><b>Evita</b><span class="it-note">E/NE forte</span></div>
+                                 <div class="it-row"><b>Consiglio</b><span class="it-note">Ottimo quando fuori è mosso: spesso trovi mare più gestibile rimanendo sotto costa.</span></div>
                               </div>
                               <div class="it-blockTitle">
                                  <b><i class="fa-solid fa-person-swimming" aria-hidden="true"></i> Spot</b>
@@ -244,7 +234,7 @@
                                  <small>secche • traffico</small>
                               </div>
                               <div class="it-box">
-                                 <div class="it-row" style="border-top:none"><b></b><span class="it-note">Scogli affioranti in alcuni tratti</span></div>
+                                 <div class="it-row"><b></b><span class="it-note">Scogli affioranti in alcuni tratti</span></div>
                                  <div class="it-row"><b></b><span class="it-note">Rade affollate</span></div>
                               </div>
                            </div>
@@ -284,20 +274,6 @@
                                     </div>
                                     <span class="kpi-label">Navigazione stimata</span>
                                  </div>
-                                 <div class="it-pill">
-                                    <div class="kpi-box">
-                                       <span class="kpi-liters">12</span>
-                                       <span class="kpi-unit">L</span>
-                                    </div>
-                                    <span class="kpi-label">Carburante stimato</span>
-                                 </div>
-                                 <div class="it-pill">
-                                    <div class="kpi-box">
-                                       <span class="kpi-cost">25</span>
-                                       <span class="kpi-unit">€</span>
-                                    </div>
-                                    <span class="kpi-label">Costo stimato</span>
-                                 </div>
                               </div>
                               <div class="it-actions">
                                  <button class="pm-it-btn pm-it-main" type="button" data-toggle="tavolara-molara">
@@ -317,37 +293,37 @@
                               <div class="it-box">
                                  <ol class="it-timeline">
                                     <li>
-                                       <div style="display:flex;justify-content:space-between;gap:10px;align-items:baseline">
+                                       <div class="it-stop-head">
                                           <span class="it-time">09:30</span><span class="it-place">Partenza Golfo Aranci</span>
                                        </div>
                                        <div class="it-line">Controlla meteo reale, traffico e distanza di sicurezza.</div>
                                     </li>
                                     <li>
-                                       <div style="display:flex;justify-content:space-between;gap:10px;align-items:baseline">
+                                       <div class="it-stop-head">
                                           <span class="it-time">10:15</span><span class="it-place">Prima cala (bagno)</span>
                                        </div>
                                        <div class="it-line">Ormeggio/ancora con calma: occhio alle zone basse.</div>
                                     </li>
                                     <li>
-                                       <div style="display:flex;justify-content:space-between;gap:10px;align-items:baseline">
+                                       <div class="it-stop-head">
                                           <span class="it-time">11:15</span><span class="it-place">Snorkeling spot</span>
                                        </div>
                                        <div class="it-line">Acqua chiara = spesso fondale basso: attenzione a secche/scogli.</div>
                                     </li>
                                     <li>
-                                       <div style="display:flex;justify-content:space-between;gap:10px;align-items:baseline">
+                                       <div class="it-stop-head">
                                           <span class="it-time">13:00</span><span class="it-place">Pausa relax</span>
                                        </div>
                                        <div class="it-line">Idratazione + crema: in barca il sole “spinge” di più.</div>
                                     </li>
                                     <li>
-                                       <div style="display:flex;justify-content:space-between;gap:10px;align-items:baseline">
+                                       <div class="it-stop-head">
                                           <span class="it-time">15:30</span><span class="it-place">Seconda cala / punto foto</span>
                                        </div>
                                        <div class="it-line">Traffico alto: manovre lente e prevedibili.</div>
                                     </li>
                                     <li>
-                                       <div style="display:flex;justify-content:space-between;gap:10px;align-items:baseline">
+                                       <div class="it-stop-head">
                                           <span class="it-time">17:00</span><span class="it-place">Rientro</span>
                                        </div>
                                        <div class="it-line">Rientra prima che il vento salga e con riserva carburante.</div>
@@ -360,9 +336,9 @@
                                  <small>scelta rotta</small>
                               </div>
                               <div class="it-box">
-                                 <div class="it-row"><b>✅ OK</b><span class="it-note">N, NE, E moderato</span></div>
-                                 <div class="it-row"><b>⛔ Evita</b><span class="it-note">S/SE forte, W/NW teso</span></div>
-                                 <div class="it-row"><b>💡 Consiglio</b><span class="it-note">Se il vento rinforza nel pomeriggio: accorcia le tratte esposte, stai sottocosta e rientra con margine.</span></div>
+                                 <div class="it-row"><b>OK</b><span class="it-note">N, NE, E moderato</span></div>
+                                 <div class="it-row"><b>Evita</b><span class="it-note">S/SE forte, W/NW teso</span></div>
+                                 <div class="it-row"><b>Consiglio</b><span class="it-note">Se il vento rinforza nel pomeriggio: accorcia le tratte esposte, stai sottocosta e rientra con margine.</span></div>
                               </div>
                               <!-- SPOT -->
                               <div class="it-blockTitle">
@@ -383,7 +359,7 @@
                                  <small>secche • traffico</small>
                               </div>
                               <div class="it-box">
-                                 <div class="it-row" style="border-top:none"><b></b><span class="it-note">Area protetta (rispetta regole)</span></div>
+                                 <div class="it-row"><b></b><span class="it-note">Area protetta (rispetta regole)</span></div>
                                  <div class="it-row"><b></b><span class="it-note">Traffico barche alta stagione</span></div>
                               </div>
                            </div>
@@ -422,20 +398,6 @@
                                     </div>
                                     <span class="kpi-label">Navigazione stimata</span>
                                  </div>
-                                 <div class="it-pill">
-                                    <div class="kpi-box">
-                                       <span class="kpi-liters">9</span>
-                                       <span class="kpi-unit">L</span>
-                                    </div>
-                                    <span class="kpi-label">Carburante stimato</span>
-                                 </div>
-                                 <div class="it-pill">
-                                    <div class="kpi-box">
-                                       <span class="kpi-cost">19</span>
-                                       <span class="kpi-unit">€</span>
-                                    </div>
-                                    <span class="kpi-label">Costo stimato</span>
-                                 </div>
                               </div>
                               <div class="it-actions">
                                  <button class="pm-it-btn pm-it-main" type="button" data-toggle="capo-ceraso-loop">
@@ -454,37 +416,37 @@
                               <div class="it-box">
                                  <ol class="it-timeline">
                                     <li>
-                                       <div style="display:flex;justify-content:space-between;gap:10px;align-items:baseline">
+                                       <div class="it-stop-head">
                                           <span class="it-time">09:30</span><span class="it-place">Partenza Golfo Aranci</span>
                                        </div>
                                        <div class="it-line">Rotta a vista: mare e traffico sotto controllo.</div>
                                     </li>
                                     <li>
-                                       <div style="display:flex;justify-content:space-between;gap:10px;align-items:baseline">
+                                       <div class="it-stop-head">
                                           <span class="it-time">10:15</span><span class="it-place">Prima caletta</span>
                                        </div>
                                        <div class="it-line">Mattino spesso più calmo: sfruttalo.</div>
                                     </li>
                                     <li>
-                                       <div style="display:flex;justify-content:space-between;gap:10px;align-items:baseline">
+                                       <div class="it-stop-head">
                                           <span class="it-time">11:30</span><span class="it-place">Snorkeling spot</span>
                                        </div>
                                        <div class="it-line">Avvicinati a velocità minima: fondale variabile.</div>
                                     </li>
                                     <li>
-                                       <div style="display:flex;justify-content:space-between;gap:10px;align-items:baseline">
+                                       <div class="it-stop-head">
                                           <span class="it-time">13:00</span><span class="it-place">Pausa pranzo</span>
                                        </div>
                                        <div class="it-line">Tieni sempre un occhio al vento.</div>
                                     </li>
                                     <li>
-                                       <div style="display:flex;justify-content:space-between;gap:10px;align-items:baseline">
+                                       <div class="it-stop-head">
                                           <span class="it-time">15:00</span><span class="it-place">Punto foto</span>
                                        </div>
                                        <div class="it-line">Scegli una rada meno affollata.</div>
                                     </li>
                                     <li>
-                                       <div style="display:flex;justify-content:space-between;gap:10px;align-items:baseline">
+                                       <div class="it-stop-head">
                                           <span class="it-time">16:30</span><span class="it-place">Rientro</span>
                                        </div>
                                        <div class="it-line">Rientro con margine e riserva carburante.</div>
@@ -496,9 +458,9 @@
                                  <small>scelta rotta</small>
                               </div>
                               <div class="it-box">
-                                 <div class="it-row"><b>✅ OK</b><span class="it-note">N/NE moderato</span></div>
-                                 <div class="it-row"><b>⛔ Evita</b><span class="it-note">S/SE forte, W/NW teso</span></div>
-                                 <div class="it-row"><b>💡 Consiglio</b><span class="it-note">Con vento da S/SE scegli cale riparate e rientra prima: su tratti esposti l’onda cresce veloce.</span></div>
+                                 <div class="it-row"><b>OK</b><span class="it-note">N/NE moderato</span></div>
+                                 <div class="it-row"><b>Evita</b><span class="it-note">S/SE forte, W/NW teso</span></div>
+                                 <div class="it-row"><b>Consiglio</b><span class="it-note">Con vento da S/SE scegli cale riparate e rientra prima: su tratti esposti l’onda cresce veloce.</span></div>
                               </div>
                               <div class="it-blockTitle">
                                  <b><i class="fa-solid fa-person-swimming" aria-hidden="true"></i> Spot</b>
@@ -516,7 +478,7 @@
                                  <small>secche • traffico</small>
                               </div>
                               <div class="it-box">
-                                 <div class="it-row" style="border-top:none"><b></b><span class="it-note">Secche e scogli isolati</span></div>
+                                 <div class="it-row"><b></b><span class="it-note">Secche e scogli isolati</span></div>
                                  <div class="it-row"><b></b><span class="it-note">Onda di ritorno su tratti esposti</span></div>
                               </div>
                            </div>
@@ -555,20 +517,6 @@
                                     </div>
                                     <span class="kpi-label">Navigazione stimata</span>
                                  </div>
-                                 <div class="it-pill">
-                                    <div class="kpi-box">
-                                       <span class="kpi-liters">14</span>
-                                       <span class="kpi-unit">L</span>
-                                    </div>
-                                    <span class="kpi-label">Carburante stimato</span>
-                                 </div>
-                                 <div class="it-pill">
-                                    <div class="kpi-box">
-                                       <span class="kpi-cost">29</span>
-                                       <span class="kpi-unit">€</span>
-                                    </div>
-                                    <span class="kpi-label">Costo stimato</span>
-                                 </div>
                               </div>
                               <div class="it-actions">
                                  <button class="pm-it-btn pm-it-main" type="button" data-toggle="figarolo-cale-nascoste">
@@ -588,49 +536,49 @@
                               <div class="it-box">
                                  <ol class="it-timeline">
                                     <li>
-                                       <div style="display:flex;justify-content:space-between;gap:10px;align-items:baseline">
+                                       <div class="it-stop-head">
                                           <span class="it-time">09:15</span><span class="it-place">Partenza Golfo Aranci</span>
                                        </div>
                                        <div class="it-line">Carburante pieno + meteo aggiornato. Con 40cv pianifica margine.</div>
                                     </li>
                                     <li>
-                                       <div style="display:flex;justify-content:space-between;gap:10px;align-items:baseline">
+                                       <div class="it-stop-head">
                                           <span class="it-time">09:45</span><span class="it-place">Isola di Figarolo (lato riparato)</span>
                                        </div>
                                        <div class="it-line">Prima sosta “nascosta”: acqua spesso calma e limpida al mattino.</div>
                                     </li>
                                     <li>
-                                       <div style="display:flex;justify-content:space-between;gap:10px;align-items:baseline">
+                                       <div class="it-stop-head">
                                           <span class="it-time">10:45</span><span class="it-place">Micro-calette sotto costa (snorkel)</span>
                                        </div>
                                        <div class="it-line">Avvicinati piano: fondale variabile e secche vicino riva.</div>
                                     </li>
                                     <li>
-                                       <div style="display:flex;justify-content:space-between;gap:10px;align-items:baseline">
+                                       <div class="it-stop-head">
                                           <span class="it-time">12:00</span><span class="it-place">Cala Sabina (sosta relax)</span>
                                        </div>
                                        <div class="it-line">Acqua chiara: attenzione alle zone basse, ancora con criterio.</div>
                                     </li>
                                     <li>
-                                       <div style="display:flex;justify-content:space-between;gap:10px;align-items:baseline">
+                                       <div class="it-stop-head">
                                           <span class="it-time">13:15</span><span class="it-place">Spiaggia Bianca (pranzo / lunga)</span>
                                        </div>
                                        <div class="it-line">Rada stupenda: traffico alto nelle ore centrali.</div>
                                     </li>
                                     <li>
-                                       <div style="display:flex;justify-content:space-between;gap:10px;align-items:baseline">
+                                       <div class="it-stop-head">
                                           <span class="it-time">14:45</span><span class="it-place">Cala Sassari (solo se mare OK)</span>
                                        </div>
                                        <div class="it-line">Qui può “entrare” onda con E/NE: se cresce, SALTA e rientra sotto costa.</div>
                                     </li>
                                     <li>
-                                       <div style="display:flex;justify-content:space-between;gap:10px;align-items:baseline">
+                                       <div class="it-stop-head">
                                           <span class="it-time">16:00</span><span class="it-place">Punta Marana (ultima sosta)</span>
                                        </div>
                                        <div class="it-line">Chiudi il giro in modo facile: ottimo spot “di rientro”.</div>
                                     </li>
                                     <li>
-                                       <div style="display:flex;justify-content:space-between;gap:10px;align-items:baseline">
+                                       <div class="it-stop-head">
                                           <span class="it-time">17:00</span><span class="it-place">Rientro Golfo Aranci</span>
                                        </div>
                                        <div class="it-line">Rientra con luce e riserva carburante: non tirare l’ultimo litro.</div>
@@ -643,9 +591,9 @@
                                  <small>scelta rotta</small>
                               </div>
                               <div class="it-box">
-                                 <div class="it-row"><b>✅ OK</b><span class="it-note">N/NE debole-moderato stabile</span></div>
-                                 <div class="it-row"><b>⛔ Evita</b><span class="it-note">E/NE forte (onda in aumento), S/SE forte</span></div>
-                                 <div class="it-row"><b>💡 Consiglio</b><span class="it-note">Se il vento sale: Figarolo → Cala Sabina → Spiaggia Bianca → rientro (taglia Cala Sassari).</span></div>
+                                 <div class="it-row"><b>OK</b><span class="it-note">N/NE debole-moderato stabile</span></div>
+                                 <div class="it-row"><b>Evita</b><span class="it-note">E/NE forte (onda in aumento), S/SE forte</span></div>
+                                 <div class="it-row"><b>Consiglio</b><span class="it-note">Se il vento sale: Figarolo → Cala Sabina → Spiaggia Bianca → rientro (taglia Cala Sassari).</span></div>
                               </div>
                               <!-- SPOT -->
                               <div class="it-blockTitle">
@@ -672,7 +620,7 @@
                                  <small>secche • traffico</small>
                               </div>
                               <div class="it-box">
-                                 <div class="it-row" style="border-top:none"><b></b><span class="it-note">Traffico barche alta stagione (manovre lente e prevedibili)</span></div>
+                                 <div class="it-row"><b></b><span class="it-note">Traffico barche alta stagione (manovre lente e prevedibili)</span></div>
                                  <div class="it-row"><b></b><span class="it-note">Secche vicino costa: avvicinati a velocità minima</span></div>
                                  <div class="it-row"><b></b><span class="it-note">Con vento da E/NE cresce onda: accorcia e rientra</span></div>
                               </div>
@@ -687,6 +635,18 @@
                      </small>
                   </footer>
                </div>
+               <dialog id="itineraryDialog" class="pm-it-dialog" aria-labelledby="itineraryDialogTitle">
+                  <header class="pm-it-dialog-head">
+                     <div>
+                        <span class="pm-it-dialog-eyebrow"><i class="fa-solid fa-route" aria-hidden="true"></i> ITINERARIO</span>
+                        <h2 id="itineraryDialogTitle"></h2>
+                     </div>
+                     <button class="pm-it-dialog-close" type="button" aria-label="Chiudi dettagli" title="Chiudi dettagli" data-i18n-title="itinerary.close.details">
+                        <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+                     </button>
+                  </header>
+                  <div id="itineraryDialogContent" class="pm-it-dialog-content"></div>
+               </dialog>
             </section>
             </div>
          </section>
@@ -721,19 +681,15 @@
                <!-- FOOTER BRAND: ETICHETTA -->
                <div class="footer-label" data-i18n="footer.location">Noleggio</div>
                <!-- FOOTER BRAND: LOGO -->
-               <h1 class="logo"><a href="">Wave<span>To</span>Go</a></h1>
+               <h1 class="logo"><a href="">Blu<span>Diamond</span>Rent</a></h1>
                <!-- FOOTER BRAND: TESTO -->
                <p data-i18n="footer.brand.text">Esperienze nautiche premium, prenotazioni rapide e assistenza dedicata.</p>
                <!-- FOOTER BRAND: SOCIAL -->
                <div class="footer-social">
                   <!-- SOCIAL: INSTAGRAM -->
-                  <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram" aria-hidden="true"></i></a>
+                  <a href="https://www.instagram.com/blu_diamond_rent_boat/" aria-label="Instagram" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-instagram" aria-hidden="true"></i></a>
                   <!-- SOCIAL: FACEBOOK -->
-                  <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f" aria-hidden="true"></i></a>
-                  <!-- SOCIAL: LINKEDIN -->
-                  <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in" aria-hidden="true"></i></a>
-                  <!-- SOCIAL: YOUTUBE -->
-                  <a href="#" aria-label="YouTube"><i class="fa-brands fa-youtube" aria-hidden="true"></i></a>
+                  <a href="https://www.facebook.com/profile.php?id=100067326787639" aria-label="Facebook" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-facebook-f" aria-hidden="true"></i></a>
                </div>
             </div>
             <!-- FOOTER: DIVISORE COLONNE -->
@@ -769,9 +725,6 @@
                      <hr>
                      <li><i class="fa-solid fa-headset" aria-hidden="true"></i> <span data-i18n="footer.support.item2">Assistenza clienti</span></li>
                      <hr>
-                     <li><i class="fa-solid fa-file-contract" aria-hidden="true"></i> <span data-i18n="footer.support.item3">Termini & condizioni</span></li>
-                     <hr>
-                     <li><i class="fa-solid fa-user-shield" aria-hidden="true"></i> <span data-i18n="footer.support.item4">Privacy policy</span></li>
                   </ul>
                </div>
                <!-- FOOTER TAB PANEL: CONTATTI -->
@@ -823,9 +776,8 @@
             <span data-i18n="footer.bottom.copy">© 2026 Blu Diamond Rent. Tutti i diritti riservati.</span>
             <!-- FOOTER BOTTOM: LINK SECONDARI -->
             <div class="footer-bottom-links">
-               <a href="#" data-i18n="footer.bottom.cookie">Cookie</a>
-               <a href="#" data-i18n="footer.bottom.security">Sicurezza</a>
-               <a href="#" data-i18n="footer.bottom.accessibility">Accessibilità</a>
+               <a href="./privacy-policy.html" data-i18n="footer.support.item4">Privacy policy</a>
+               <a href="./termini-e-condizioni.html" data-i18n="footer.support.item3">Termini &amp; condizioni</a>
             </div>
          </div>
       </div>

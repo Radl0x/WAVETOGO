@@ -469,6 +469,25 @@
   font-size: 0.9rem;
 }
 
+.footer-bottom-legal {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 20px;
+}
+
+.footer-bottom-vat {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: rgba(207, 231, 239, 0.72);
+  font-size: 0.82rem;
+}
+
+.footer-bottom-vat i {
+  color: #5ec9cd;
+}
+
 /* Spazio a sinistra di ogni link nella barra finale */
 .footer-bottom-links a {
   margin-left: 1rem;
@@ -582,6 +601,12 @@
   .footer-bottom {
     flex-direction: column;
     text-align: center;
+    align-items: center;
+  }
+
+  .footer-bottom-legal {
+    flex-direction: column;
+    gap: 4px;
   }
 
   .footer-bottom-links a {
