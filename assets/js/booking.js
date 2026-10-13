@@ -817,19 +817,34 @@
     };
 
     const selectedExtras = payload.extras
-      .map((extra) => `${extra.label}${extra.type === "qty" ? ` x${extra.value}` : ""}`)
-      .join(", ") || "Nessuno";
+      .map((extra) => `• ${extra.label}${extra.type === "qty" ? ` x${extra.value}` : ""}`)
+      .join("\n") || "• Nessuno";
     const message = [
-      "Buongiorno, vorrei richiedere questa prenotazione:",
-      `Imbarcazione: ${payload.boat_name}`,
-      `Data: ${payload.date}`,
-      `Fascia oraria: ${slotSel?.selectedOptions?.[0]?.textContent.trim() || payload.slot}`,
-      `Extra: ${selectedExtras}`,
-      `Totale: ${payload.pricing.total}€`,
-      `Nome: ${payload.customer.name}`,
-      `Telefono: ${payload.customer.phone}`,
-      `Email: ${payload.customer.email}`,
-      ...(payload.customer.notes ? [`Note: ${payload.customer.notes}`] : []),
+      "🌊 *RICHIESTA PRENOTAZIONE*",
+      "━━━━━━━━━━━━━━━━━━",
+      "",
+      "*ESPERIENZA*",
+      `• Imbarcazione: ${payload.boat_name}`,
+      `• Data: ${payload.date}`,
+      `• Orario: ${slotSel?.selectedOptions?.[0]?.textContent.trim() || payload.slot}`,
+      "",
+      "*EXTRA SELEZIONATI*",
+      selectedExtras,
+      "",
+      "*RIEPILOGO COSTI*",
+      `• Imbarcazione: ${payload.pricing.base}€`,
+      `• Extra: ${payload.pricing.extras_total}€`,
+      `*Totale: ${payload.pricing.total}€*`,
+      `Acconto: 0€ · Cauzione: ${payload.pricing.caution}€ in loco`,
+      "",
+      "*DATI DEL CLIENTE*",
+      `• Nome: ${payload.customer.name}`,
+      `• Telefono: ${payload.customer.phone}`,
+      `• Email: ${payload.customer.email}`,
+      ...(payload.customer.notes ? ["", "*NOTE*", payload.customer.notes] : []),
+      "",
+      "━━━━━━━━━━━━━━━━━━",
+      "Grazie!",
     ].join("\n");
     const whatsappUrl = `https://wa.me/393336495188?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, "_blank", "noopener,noreferrer");
