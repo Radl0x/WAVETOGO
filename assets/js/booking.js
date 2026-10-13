@@ -3,7 +3,6 @@
   // Tariffe base e limiti economici della prenotazione.
   const PRICES = { day: 250 };
   const HALF_DAY_PRICE_RATIO = 0.6;
-  const DEPOSIT = 50;
   const CAUTION = 400;
 
   const BASE_EXTRAS = [
@@ -698,7 +697,7 @@
       1: [getTranslation("booking.step1.title", "Data & orari"), getTranslation("booking.step1.subtitle", "Seleziona fascia e orario")],
       2: [getTranslation("booking.step2.title", "Extra"), getTranslation("booking.step2.subtitle", "Tocca per aggiungere")],
       3: [getTranslation("booking.step3.title", "Dati cliente"), getTranslation("booking.step3.subtitle", "Per conferma e contatto")],
-      4: [getTranslation("booking.step4.title", "Regole"), getTranslation("booking.step4.subtitle", "Caparra & cauzione")],
+      4: [getTranslation("booking.step4.title", "Regole"), getTranslation("booking.step4.subtitle", "Zero acconto & cauzione")],
     };
 
     if (headTitle) headTitle.textContent = map[step][0];
@@ -806,7 +805,7 @@
         base: basePrice(),
         extras_total: extraTotal(),
         total: total(),
-        deposit: DEPOSIT,
+        deposit: 0,
         caution: CAUTION,
       },
       customer: {
@@ -817,8 +816,23 @@
       },
     };
 
-    alert(getTranslation("booking.alert.success", "✅ Richiesta inviata! (guarda la Console)"));
-    console.log("PM BOOKING REQUEST:", payload);
+    const selectedExtras = payload.extras
+      .map((extra) => `${extra.label}${extra.type === "qty" ? ` x${extra.value}` : ""}`)
+      .join(", ") || "Nessuno";
+    const message = [
+      "Buongiorno, vorrei richiedere questa prenotazione:",
+      `Imbarcazione: ${payload.boat_name}`,
+      `Data: ${payload.date}`,
+      `Fascia oraria: ${slotSel?.selectedOptions?.[0]?.textContent.trim() || payload.slot}`,
+      `Extra: ${selectedExtras}`,
+      `Totale: ${payload.pricing.total}€`,
+      `Nome: ${payload.customer.name}`,
+      `Telefono: ${payload.customer.phone}`,
+      `Email: ${payload.customer.email}`,
+      ...(payload.customer.notes ? [`Note: ${payload.customer.notes}`] : []),
+    ].join("\n");
+    const whatsappUrl = `https://wa.me/393336495188?text=${encodeURIComponent(message)}`;
+    window.open(whatsappUrl, "_blank", "noopener,noreferrer");
   }
 
   // Eventi dei controlli checkout.

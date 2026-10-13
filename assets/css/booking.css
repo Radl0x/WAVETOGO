@@ -139,6 +139,84 @@
   line-height: 1.6;
 }
 
+/* Free booking promo */
+#pm-book .pm-freeBanner{
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  max-width: 560px;
+  margin-top: 18px;
+  padding: 14px 16px;
+  border: 1px solid rgba(104,220,225,.38);
+  border-radius: 16px;
+  background: linear-gradient(120deg,rgba(15,163,177,.3),rgba(4,27,46,.72));
+  box-shadow: 0 10px 28px rgba(0,12,23,.2);
+}
+
+#pm-book .pm-freeIcon{
+  display: grid;
+  flex: 0 0 auto;
+  width: 46px;
+  height: 46px;
+  place-items: center;
+  border-radius: 14px;
+  background: #0fa3b1;
+  color: #fff;
+  font-size: 1.15rem;
+}
+
+#pm-book .pm-freeCopy{
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+  color: rgba(228,243,246,.8);
+  font-size: .76rem;
+  line-height: 1.45;
+}
+
+#pm-book .pm-freeCopy b{
+  color: #fff;
+  font-size: .98rem;
+  font-weight: 800;
+}
+
+#pm-book .pm-freeBadge{
+  align-self: flex-start;
+  padding: 2px 9px;
+  border-radius: 99px;
+  background: rgba(143,232,235,.18);
+  color: #8fe8eb;
+  font-size: .6rem;
+  font-weight: 800;
+  letter-spacing: .12em;
+}
+
+@media (min-width: 901px){
+  #pm-book .pm-intro{
+    display: grid;
+    grid-template-columns: minmax(0,1fr) minmax(300px,420px);
+    column-gap: 40px;
+    align-items: center;
+  }
+
+  #pm-book .pm-intro > :not(.pm-freeBanner){
+    grid-column: 1;
+  }
+
+  #pm-book .pm-intro > .pm-homeLink{
+    justify-self: start;
+  }
+
+  #pm-book .pm-freeBanner{
+    grid-column: 2;
+    grid-row: 1 / span 4;
+    max-width: none;
+    margin-top: 0;
+    padding: 20px 22px;
+  }
+}
+
 /* Horizontal route selector and progress line. */
 #pm-book .pm-rail{
   position: relative;
