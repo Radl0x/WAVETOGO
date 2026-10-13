@@ -546,7 +546,8 @@
 }
 
 #pm-it #itineraryDialog[open] {
-  display: block;
+  display: flex;
+  flex-direction: column;
 }
 
 #pm-it #itineraryDialog::backdrop {
@@ -612,7 +613,10 @@
 }
 
 #pm-it .pm-it-dialog-content {
-  max-height: calc(min(86dvh, 900px) - 88px);
+  min-height: 0;
+  flex: 1 1 auto;
+  box-sizing: border-box;
+  margin-bottom: 10px;
   overflow: auto;
   overscroll-behavior: contain;
 }
@@ -1317,10 +1321,6 @@
     width: 38px;
     height: 38px;
     flex-basis: 38px;
-  }
-
-  #pm-it .pm-it-dialog-content {
-    max-height: calc(90dvh - 72px);
   }
 
   #pm-it .it-dialog-photo {

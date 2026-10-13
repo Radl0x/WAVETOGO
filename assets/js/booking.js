@@ -26,6 +26,15 @@
     desc: getTranslation(`booking.extra.${item.id}.desc`, item.desc),
   }));
 
+  const syncPickerLayer = (wrapper) => {
+    const widget = wrapper.closest(".pm-widget");
+    if (!widget) return;
+    const hasOpenPicker = widget.querySelector(
+      ".pm-datePicker.is-open, .pm-slotPicker.is-open, .pm-boatPicker.is-open",
+    );
+    widget.classList.toggle("pm-picker-open", Boolean(hasOpenPicker));
+  };
+
   let EXTRAS = getTranslatedExtras();
   const fleetOptions = Array.isArray(window.FLEET_DB) ? window.FLEET_DB : [];
 
@@ -190,7 +199,7 @@
 
     const close = () => {
       wrapper.classList.remove("is-open");
-      wrapper.closest(".pm-widget")?.classList.remove("pm-picker-open");
+      syncPickerLayer(wrapper);
       listbox.hidden = true;
       trigger.setAttribute("aria-expanded", "false");
       trigger.removeAttribute("aria-activedescendant");
@@ -327,7 +336,7 @@
 
     const close = () => {
       wrapper.classList.remove("is-open");
-      wrapper.closest(".pm-widget")?.classList.remove("pm-picker-open");
+      syncPickerLayer(wrapper);
       listbox.hidden = true;
       trigger.setAttribute("aria-expanded", "false");
       trigger.removeAttribute("aria-activedescendant");
@@ -491,7 +500,7 @@
 
     const close = () => {
       wrapper.classList.remove("is-open");
-      wrapper.closest(".pm-widget")?.classList.remove("pm-picker-open");
+      syncPickerLayer(wrapper);
       calendar.hidden = true;
       trigger.setAttribute("aria-expanded", "false");
     };
@@ -585,28 +594,30 @@
 
     extrasWrap.innerHTML = "";
     EXTRAS.forEach((x) => {
-      const row = document.createElement("button");
-      row.type = "button";
+      const row = document.createElement("div");
       row.className = "pm-extra";
       row.dataset.id = x.id;
       row.dataset.type = x.type;
       row.dataset.checked = "false";
-      row.setAttribute("role", "checkbox");
-      row.setAttribute("aria-checked", "false");
+      row.setAttribute("role", "group");
+      row.setAttribute("aria-label", x.label);
 
       row.innerHTML = `
-        <span class="pm-cb" aria-hidden="true"></span>
+        <span class="pm-cb" role="checkbox" aria-checked="false" tabindex="0"></span>
         <span class="pm-ico" aria-hidden="true"><i class="${x.icon}"></i></span>
         <span class="pm-extraTxt"><b>${x.label}</b><small>${x.desc}</small></span>
-        ${x.type === "qty" ? `
-          <span class="pm-qty" aria-label="Quantità">
-            <button type="button" data-q="dec" aria-label="Diminuisci">-</button>
-            <span data-q="val">0</span>
-            <button type="button" data-q="inc" aria-label="Aumenta">+</button>
-          </span>
-        ` : "<span></span>"}
-        <span class="pm-price">+${euro(x.price)}</span>
+        <span class="pm-extraMeta">
+          <span class="pm-price">+${euro(x.price)}</span>
+          ${x.type === "qty" ? `
+            <span class="pm-qty" aria-label="Quantità">
+              <button type="button" data-q="dec" aria-label="Diminuisci">−</button>
+              <span data-q="val">0</span>
+              <button type="button" data-q="inc" aria-label="Aumenta">+</button>
+            </span>
+          ` : ""}
+        </span>
       `;
+      row.querySelector(".pm-cb").setAttribute("aria-label", x.label);
       extrasWrap.appendChild(row);
     });
     syncExtrasUI();
@@ -621,7 +632,7 @@
       const v = extraState[id];
       const checked = type === "toggle" ? !!v : v > 0;
       row.dataset.checked = checked ? "true" : "false";
-      row.setAttribute("aria-checked", checked ? "true" : "false");
+      row.querySelector(".pm-cb")?.setAttribute("aria-checked", checked ? "true" : "false");
       const val = row.querySelector('[data-q="val"]');
       if (val) val.textContent = String(v);
     });
@@ -632,6 +643,7 @@
     const miniTotal = document.getElementById("pm-miniTotal");
     const miniBase = document.getElementById("pm-miniBase");
     const miniExtra = document.getElementById("pm-miniExtra");
+    const extraBreakdown = document.querySelector("#pm-extraBreakdown ul");
     if (!miniTotal || !miniBase || !miniExtra) return;
 
     const b = basePrice();
@@ -640,6 +652,35 @@
     miniBase.textContent = euro(b);
     miniExtra.textContent = euro(e);
     miniTotal.textContent = euro(t);
+
+    if (extraBreakdown) {
+      extraBreakdown.replaceChildren();
+      const selectedExtras = EXTRAS.filter((x) => (
+        x.type === "toggle" ? Boolean(extraState[x.id]) : extraState[x.id] > 0
+      ));
+
+      selectedExtras.forEach((x) => {
+        const quantity = x.type === "qty" ? extraState[x.id] : 1;
+        const item = document.createElement("li");
+        const label = document.createElement("span");
+        const amount = document.createElement("b");
+
+        label.className = "pm-extraBreakdownName";
+        label.textContent = x.label;
+        if (x.type === "qty") {
+          const count = document.createElement("small");
+          count.textContent = `× ${quantity}`;
+          label.append(" ", count);
+        }
+
+        amount.textContent = euro(x.price * quantity);
+        item.append(label, amount);
+        extraBreakdown.appendChild(item);
+      });
+
+      const breakdown = document.getElementById("pm-extraBreakdown");
+      if (breakdown) breakdown.hidden = step < 3 || selectedExtras.length === 0;
+    }
   }
 
   // Aggiornamento degli indicatori del passaggio attivo.
@@ -676,7 +717,8 @@
 
   function updateActionButtons() {
     if (btnBack) {
-      btnBack.innerHTML = `<i class="fa-solid fa-arrow-left"></i> ${getTranslation("booking.actions.back", "Indietro")}`;
+      btnBack.innerHTML = '<i class="fa-solid fa-arrow-left" aria-hidden="true"></i>';
+      btnBack.setAttribute("aria-label", getTranslation("booking.actions.back", "Indietro"));
       btnBack.disabled = step === 1;
     }
     if (btnNext) {
@@ -684,21 +726,29 @@
     }
   }
 
-  function go(n) {
+  function go(n, scrollToBooking = true) {
     if (!unlocked.has(n)) return;
     step = n;
+    document.querySelector(".pm-checkoutDock")?.classList.toggle("pm-reviewStep", n >= 3);
 
     Object.values(panels).forEach((p) => p && p.classList.remove("pm-show"));
     if (panels[n]) panels[n].classList.add("pm-show");
 
-    Object.values(tabs).forEach((t) => t && t.classList.remove("pm-on"));
-    if (tabs[n]) tabs[n].classList.add("pm-on");
+    Object.entries(tabs).forEach(([tabStep, tab]) => {
+      if (!tab) return;
+      const active = Number(tabStep) === n;
+      tab.classList.toggle("pm-on", active);
+      if (active) tab.setAttribute("aria-current", "step");
+      else tab.removeAttribute("aria-current");
+    });
 
     setHeader();
     setProgress();
     updateMini();
     updateActionButtons();
-    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+    if (scrollToBooking) {
+      document.getElementById("pm-book")?.scrollIntoView({ block: "start", behavior: "smooth" });
+    }
   }
 
   // Validazione dei campi e messaggi di errore.
@@ -802,6 +852,14 @@
     updateMini();
   });
 
+  extrasWrap?.addEventListener("keydown", (e) => {
+    if (e.key !== "Enter" && e.key !== " ") return;
+    const row = e.target.closest(".pm-extra");
+    if (!row || e.target.closest("button[data-q]") || !e.target.closest(".pm-cb")) return;
+    e.preventDefault();
+    row.click();
+  });
+
   slotSel?.addEventListener("change", () => {
     setDefaults();
     updateMini();
@@ -855,5 +913,5 @@
   setProgress();
   updateMini();
   updateActionButtons();
-  go(1);
+  go(1, false);
 })();
