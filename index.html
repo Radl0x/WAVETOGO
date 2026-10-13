@@ -601,189 +601,88 @@
                   </div>
                 </div>
               </section>
-              <!-- 4) BLOCCO C — TABS: PERCHÉ TORNANO -->
-              <section class="wtg-tabs" aria-label="Perché i clienti tornano">
-                <div class="wtg-tabs__head">
-                  <h3 class="wtg-tabs__title">Perché tornano da Blu Diamond Rent</h3>
-                  <p class="wtg-tabs__sub">
-                    Tre motivi, sempre gli stessi: esperienza, chiarezza,
-                    presenza.
-                  </p>
+              <section class="wtg-arrival" aria-labelledby="wtg-arrival-title" data-arrival-interactive>
+                <header class="wtg-arrival__header" data-arrival-reveal>
+                  <div class="wtg-arrival__headline">
+                    <div class="wtg-arrival__brand">
+                      <span class="wtg-arrival__brandLogo">
+                        <img src="./Blu-Diamond-Rent-3 copy.png" alt="Logo Blu Diamond Rent" />
+                      </span>
+                      <span class="wtg-arrival__brandCaption">BLU DIAMOND RENT <i aria-hidden="true"></i> GOLFO ARANCI</span>
+                    </div>
+                    <span class="wtg-arrival__eyebrow">
+                      <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
+                      IL MARE COMINCIA DA QUI
+                    </span>
+                    <h3 id="wtg-arrival-title">La tua prossima avventura<br><span>parte da Golfo Aranci.</span></h3>
+                    <p class="wtg-arrival__lead">
+                      Ti aspettiamo al porto: raggiungici, fai il briefing con il team
+                      e salpa alla scoperta della costa.
+                    </p>
+                  </div>
+                </header>
+
+                <div class="wtg-arrival__mapCard" data-arrival-reveal>
+                  <div class="wtg-arrival__mapTop">
+                    <div class="wtg-arrival__mapTitle">
+                      <span class="wtg-arrival__mapPulse" aria-hidden="true"><i class="fa-solid fa-location-crosshairs"></i></span>
+                      <span><b>Il punto d’imbarco</b><small>Golfo Aranci · 40°59'50.4"N 9°37'22.1"E</small></span>
+                    </div>
+                    <div class="wtg-arrival__mapViews" role="group" aria-label="Visualizzazione mappa">
+                      <button type="button" class="is-active" data-map-view="m" aria-pressed="true">Mappa</button>
+                      <button type="button" data-map-view="k" aria-pressed="false">Satellite</button>
+                    </div>
+                  </div>
+                  <div class="wtg-arrival__mapFrame">
+                    <iframe
+                      data-arrival-map
+                      src="https://maps.google.com/maps?q=40.9973222,9.6227966&t=m&z=15&output=embed"
+                      title="Mappa del punto d’imbarco Blu Diamond Rent a Golfo Aranci"
+                      loading="lazy"
+                      referrerpolicy="no-referrer-when-downgrade"
+                      allowfullscreen
+                    ></iframe>
+                    <span class="wtg-arrival__mapTag"><i class="fa-solid fa-water" aria-hidden="true"></i> Costa Smeralda · Sardegna</span>
+                  </div>
+                  <div class="wtg-arrival__mapBottom">
+                    <span class="wtg-arrival__address">
+                      <i class="fa-solid fa-anchor" aria-hidden="true"></i>
+                      <span><b>Blu Diamond Rent</b><small>Via dei Marinai, snc · 07020 Golfo Aranci (SS)</small></span>
+                    </span>
+                    <a
+                      class="wtg-arrival__route"
+                      href="https://www.google.com/maps/dir//Blu+Diamond+Rent+Noleggio+Gommoni+Golfo+Aranci,+Via+dei+Marinai,+snc,+07020+Golfo+Aranci+SS/@40.9398888,9.4894979,12z/data=!4m8!4m7!1m0!1m5!1m1!1s0x12d93728a92a6447:0xae2222feb0294e2d!2m2!1d9.6227966!2d40.9973222?entry=ttu&g_ep=EgoyMDI2MTAwNy4wIKXMDSoASAFQAw%3D%3D"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <i class="fa-solid fa-diamond-turn-right" aria-hidden="true"></i>
+                      <span>Come arrivare</span>
+                      <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>
+                    </a>
+                  </div>
                 </div>
-                <div
-                  class="wtg-tabs__bar"
-                  role="tablist"
-                  aria-label="Motivi principali"
-                >
-                  <button
-                    class="wtg-tab is-active"
-                    role="tab"
-                    aria-selected="true"
-                    aria-controls="tab-esperienza"
-                    id="tab-esperienza-btn"
-                    type="button"
-                  >
-                    <i class="fa-solid fa-sun" aria-hidden="true"></i>
-                    Esperienza
-                  </button>
-                  <button
-                    class="wtg-tab"
-                    role="tab"
-                    aria-selected="false"
-                    aria-controls="tab-trasparenza"
-                    id="tab-trasparenza-btn"
-                    type="button"
-                  >
-                    <i
-                      class="fa-solid fa-scale-balanced"
-                      aria-hidden="true"
-                    ></i>
-                    Trasparenza
-                  </button>
-                  <button
-                    class="wtg-tab"
-                    role="tab"
-                    aria-selected="false"
-                    aria-controls="wtg-panel-supporto"
-                    id="tab-supporto-btn"
-                    type="button"
-                  >
-                    <i class="fa-solid fa-headset" aria-hidden="true"></i>
-                    Assistenza
-                  </button>
-                  <span class="wtg-tabs__ink" aria-hidden="true"></span>
-                </div>
-                <div class="wtg-tabs__panels">
-                  <!-- Panel 1 -->
-                  <article
-                    class="wtg-panel is-active"
-                    role="tabpanel"
-                    id="tab-esperienza"
-                    aria-labelledby="tab-esperienza-btn"
-                    tabindex="0"
-                  >
-                    <div class="wtg-panel__grid">
-                      <div class="wtg-panel__content">
-                        <h4>Non “un giro”, ma la tua giornata perfetta</h4>
-                        <p>
-                          Mettiamo insieme rotta, soste e tempi: ti godi le
-                          calette migliori quando sono davvero belle.
-                        </p>
-                        <ul class="wtg-panel__list" role="list">
-                          <li>
-                            <i class="fa-solid fa-check" aria-hidden="true"></i>
-                            Orari consigliati per mare più calmo
-                          </li>
-                          <li>
-                            <i class="fa-solid fa-check" aria-hidden="true"></i>
-                            Spot foto e snorkeling già selezionati
-                          </li>
-                          <li>
-                            <i class="fa-solid fa-check" aria-hidden="true"></i>
-                            Consigli pratici su ancoraggio e fondali
-                          </li>
-                        </ul>
-                      </div>
-                      <div class="wtg-panel__aside" aria-hidden="true">
-                        <div class="wtg-panel__quote">
-                          <i
-                            class="fa-solid fa-quote-left"
-                            aria-hidden="true"
-                          ></i>
-                          <p>
-                            “Abbiamo seguito i consigli e abbiamo trovato acqua
-                            vetro. Giornata perfetta.”
-                          </p>
-                          <span>— Recensione verificata</span>
-                        </div>
-                      </div>
-                    </div>
-                  </article>
-                  <!-- Panel 2 -->
-                  <article
-                    class="wtg-panel"
-                    role="tabpanel"
-                    id="tab-trasparenza"
-                    aria-labelledby="tab-trasparenza-btn"
-                    tabindex="0"
-                  >
-                    <div class="wtg-panel__grid">
-                      <div class="wtg-panel__content">
-                        <h4>Chiarezza prima, serenità durante</h4>
-                        <p>
-                          Sai cosa stai prenotando, come funziona e cosa
-                          aspettarti. È così che si fidano (e tornano).
-                        </p>
-                        <ul class="wtg-panel__list" role="list">
-                          <li>
-                            <i class="fa-solid fa-check" aria-hidden="true"></i>
-                            Regole e condizioni spiegate in 60 secondi
-                          </li>
-                          <li>
-                            <i class="fa-solid fa-check" aria-hidden="true"></i>
-                            Checklist pre-partenza, senza fretta
-                          </li>
-                          <li>
-                            <i class="fa-solid fa-check" aria-hidden="true"></i>
-                            Nessuna “sorpresa” al rientro
-                          </li>
-                        </ul>
-                      </div>
-                      <div class="wtg-panel__aside" aria-hidden="true">
-                        <div class="wtg-panel__stat">
-                          <b>48h</b> <span>cancellazione facile</span>
-                        </div>
-                        <div class="wtg-panel__stat">
-                          <b>0</b> <span>spiegazioni complicate</span>
-                        </div>
-                      </div>
-                    </div>
-                  </article>
-                  <!-- Panel 3 -->
-                  <article
-                    class="wtg-panel"
-                    role="tabpanel"
-                    id="wtg-panel-supporto"
-                    aria-labelledby="tab-supporto-btn"
-                    tabindex="0"
-                  >
-                    <div class="wtg-panel__grid">
-                      <div class="wtg-panel__content">
-                        <h4>Quando serve, ci siamo</h4>
-                        <p>
-                          Non ti lasciamo “da solo in mare”: supporto rapido,
-                          consigli pratici, calma.
-                        </p>
-                        <ul class="wtg-panel__list" role="list">
-                          <li>
-                            <i class="fa-solid fa-check" aria-hidden="true"></i>
-                            Assistenza durante l’uscita
-                          </li>
-                          <li>
-                            <i class="fa-solid fa-check" aria-hidden="true"></i>
-                            Briefing chiaro: rotta + sicurezza
-                          </li>
-                          <li>
-                            <i class="fa-solid fa-check" aria-hidden="true"></i>
-                            Ti aiutiamo a scegliere in base al meteo
-                          </li>
-                        </ul>
-                      </div>
-                      <div class="wtg-panel__aside" aria-hidden="true">
-                        <div class="wtg-panel__quote">
-                          <i
-                            class="fa-solid fa-life-ring"
-                            aria-hidden="true"
-                          ></i>
-                          <p>
-                            “Ci hanno guidato anche con vento in aumento. Super
-                            professionali.”
-                          </p>
-                          <span>— Cliente (estate)</span>
-                        </div>
-                      </div>
-                    </div>
-                  </article>
+
+                <div class="wtg-arrival__bottom" data-arrival-reveal>
+                  <div class="wtg-arrival__help">
+                    <span class="wtg-arrival__helpLogo">
+                      <img src="./Blu-Diamond-Rent-3 copy.png" alt="" aria-hidden="true" />
+                    </span>
+                    <span class="wtg-arrival__helpCopy">
+                      <small>SIAMO QUI PER TE</small>
+                      <b>Ti diamo una mano?</b>
+                      <span>Dubbi su come raggiungerci o sulla partenza? Scrivici, ti rispondiamo noi.</span>
+                    </span>
+                    <a
+                      class="wtg-arrival__contact"
+                      href="https://wa.me/393336495188?text=Buongiorno%2C%20vorrei%20avere%20informazioni%20sul%20punto%20di%20imbarco%20a%20Golfo%20Aranci."
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
+                      <span>Scrivici su WhatsApp</span>
+                      <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>
+                    </a>
+                  </div>
                 </div>
               </section>
             </div>

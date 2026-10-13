@@ -254,8 +254,17 @@
                           </div>
 
                           <div class="pm-total">
-                            <span data-i18n="booking.summary.total">Totale</span>
-                            <b id="pm-miniTotal">—</b>
+                            <div class="pm-totalPlaceholder" id="pm-total-placeholder">
+                              <span class="pm-totalPlaceholder__icon" aria-hidden="true"><i class="fa-solid fa-compass"></i></span>
+                              <span class="pm-totalPlaceholder__copy">
+                                <b data-i18n="booking.summary.prompt.title">Il tuo preventivo prende forma</b>
+                                <small data-i18n="booking.summary.prompt.text">Scegli barca, data e fascia oraria per scoprire il totale.</small>
+                              </span>
+                            </div>
+                            <div class="pm-totalValue" id="pm-total-value" hidden>
+                              <span data-i18n="booking.summary.total">Totale</span>
+                              <b id="pm-miniTotal">—</b>
+                            </div>
                           </div>
 
                           <div class="pm-sFine">
@@ -453,5 +462,4 @@
     <script src="./assets/js/booking.js" defer></script>
   </body>
 </html>
-
 

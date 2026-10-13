@@ -390,4 +390,87 @@ items.forEach(item => observer.observe(item));
 
   const gallerySection = section.querySelector(".wtg-gallery");
   if (gallerySection) initLightbox(gallerySection);
+
+  const arrivalMap = section.querySelector("[data-arrival-map]");
+  const arrivalMapFrame = section.querySelector(".wtg-arrival__mapFrame");
+  const mapViewButtons = Array.from(section.querySelectorAll("[data-map-view]"));
+  let mapLoadTimeout;
+
+  if ("IntersectionObserver" in window && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    const arrivalObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add("is-visible");
+        arrivalObserver.unobserve(entry.target);
+      });
+    }, { threshold: 0.14 });
+
+    section.classList.add("is-enhanced");
+    section.querySelectorAll("[data-arrival-reveal]").forEach((element, index) => {
+      element.style.setProperty("--arrival-reveal-delay", `${index * 140}ms`);
+      arrivalObserver.observe(element);
+    });
+    arrivalObserver.observe(section);
+  } else {
+    section.classList.add("is-visible");
+  }
+
+  if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
+    let pointerFrame = 0;
+    let pointerPosition;
+    section.addEventListener("pointermove", event => {
+      if (event.pointerType !== "mouse") return;
+      pointerPosition = { x: event.clientX, y: event.clientY };
+      if (pointerFrame) return;
+
+      pointerFrame = requestAnimationFrame(() => {
+        pointerFrame = 0;
+        const bounds = section.getBoundingClientRect();
+        const x = Math.max(0, Math.min(100, ((pointerPosition.x - bounds.left) / bounds.width) * 100));
+        const y = Math.max(0, Math.min(100, ((pointerPosition.y - bounds.top) / bounds.height) * 100));
+        const mapBounds = section.querySelector(".wtg-arrival__mapCard").getBoundingClientRect();
+        const mapX = Math.max(-1, Math.min(1, ((pointerPosition.x - mapBounds.left) / mapBounds.width - .5) * 2));
+        const mapY = Math.max(-1, Math.min(1, ((pointerPosition.y - mapBounds.top) / mapBounds.height - .5) * 2));
+
+        section.style.setProperty("--arrival-glow-x", `${x}%`);
+        section.style.setProperty("--arrival-glow-y", `${y}%`);
+        section.style.setProperty("--arrival-tilt-x", `${-mapY * 1.8}deg`);
+        section.style.setProperty("--arrival-tilt-y", `${mapX * 2.2 - 2}deg`);
+        section.classList.add("is-pointer-tracking");
+      });
+    });
+
+    section.addEventListener("pointerleave", () => {
+      section.classList.remove("is-pointer-tracking");
+      section.style.setProperty("--arrival-glow-x", "0%");
+      section.style.setProperty("--arrival-glow-y", "0%");
+      section.style.setProperty("--arrival-tilt-x", "0deg");
+      section.style.setProperty("--arrival-tilt-y", "-2deg");
+    });
+  }
+
+  arrivalMap?.addEventListener("load", () => {
+    arrivalMapFrame?.classList.remove("is-loading");
+    window.clearTimeout(mapLoadTimeout);
+  });
+
+  mapViewButtons.forEach(button => {
+    button.addEventListener("click", () => {
+      const mapType = button.dataset.mapView;
+      if (!arrivalMap || !["m", "k"].includes(mapType)) return;
+      if (arrivalMap.src.includes(`&t=${mapType}&`)) return;
+
+      arrivalMapFrame?.classList.add("is-loading");
+      arrivalMap.src = `https://maps.google.com/maps?q=40.9973222,9.6227966&t=${mapType}&z=15&output=embed`;
+      mapViewButtons.forEach(viewButton => {
+        const isActive = viewButton === button;
+        viewButton.classList.toggle("is-active", isActive);
+        viewButton.setAttribute("aria-pressed", String(isActive));
+      });
+      window.clearTimeout(mapLoadTimeout);
+      mapLoadTimeout = window.setTimeout(() => {
+        arrivalMapFrame?.classList.remove("is-loading");
+      }, 8000);
+    });
+  });
 })();

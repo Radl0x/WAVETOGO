@@ -84,7 +84,8 @@
 
   // Calcolo prezzi e formattazione importi.
   const euro = (n) => `${Math.round(n)}€`;
-  const slotValue = () => document.getElementById("pm-slot")?.value || "day";
+  const slotValue = () => slotSel?.value || "";
+  const hasBookingSelection = () => Boolean(boatSel?.value && dateInp?.value && slotValue());
   const selectedBoat = () => fleetOptions.find(
     (boat) => String(boat.id || boat.name) === String(boatSel?.value || ""),
   );
@@ -93,6 +94,7 @@
     return Number.isFinite(boatPrice) && boatPrice > 0 ? boatPrice : PRICES.day;
   };
   const basePrice = () => {
+    if (!slotValue()) return 0;
     return slotValue() === "day"
       ? dailyPrice()
       : dailyPrice() * HALF_DAY_PRICE_RATIO;
@@ -147,22 +149,45 @@
       const optionId = `pm-boat-option-${index}`;
       const value = String(boat.id || boat.name);
       const name = boat.name || "Barca";
-      const power = boat.power || "";
+      const power = String(boat.power || "").replace(/\bHP\b/gi, "CV");
+      const capacity = Number(boat.capacity);
       option.className = "pm-boatPicker__option";
       option.id = optionId;
       option.setAttribute("role", "option");
       option.dataset.value = value;
-      option.setAttribute("aria-label", power ? `${name}, motore ${power}` : name);
+      const optionDetails = [
+        power && `motore ${power}`,
+        Number.isFinite(capacity) && capacity > 0 && `${capacity} persone`,
+      ].filter(Boolean);
+      option.setAttribute("aria-label", [name, ...optionDetails].join(", "));
       option.innerHTML = `
         <span class="pm-boatPicker__name"></span>
+        <span class="pm-boatPicker__meta"></span>
       `;
       option.querySelector(".pm-boatPicker__name").textContent = name;
-      if (power) {
-        const powerBadge = document.createElement("span");
-        powerBadge.className = "pm-boatPicker__power";
-        powerBadge.innerHTML = '<i class="fa-solid fa-gears" aria-hidden="true"></i><span></span>';
-        powerBadge.querySelector("span").textContent = power;
-        option.appendChild(powerBadge);
+      const meta = option.querySelector(".pm-boatPicker__meta");
+      if (power || (Number.isFinite(capacity) && capacity > 0)) {
+        meta.classList.add("pm-boatPicker__specs");
+        if (power) {
+          const powerDetail = document.createElement("span");
+          powerDetail.className = "pm-boatPicker__spec";
+          powerDetail.innerHTML = '<i class="fa-solid fa-gears" aria-hidden="true"></i><span></span>';
+          powerDetail.querySelector("span").textContent = power;
+          meta.appendChild(powerDetail);
+        }
+        if (power && Number.isFinite(capacity) && capacity > 0) {
+          const divider = document.createElement("span");
+          divider.className = "pm-boatPicker__divider";
+          divider.setAttribute("aria-hidden", "true");
+          meta.appendChild(divider);
+        }
+        if (Number.isFinite(capacity) && capacity > 0) {
+          const capacityDetail = document.createElement("span");
+          capacityDetail.className = "pm-boatPicker__spec";
+          capacityDetail.innerHTML = '<i class="fa-solid fa-people-group" aria-hidden="true"></i><span></span>';
+          capacityDetail.querySelector("span").textContent = `${capacity} pax`;
+          meta.appendChild(capacityDetail);
+        }
       }
       listbox.appendChild(option);
       return option;
@@ -317,7 +342,8 @@
 
     const updateSelection = () => {
       const selectedOption = options.find(option => option.dataset.value === slotSel.value);
-      selectedLabel.textContent = selectedOption?.querySelector(".pm-slotPicker__label").textContent || "";
+      selectedLabel.textContent = selectedOption?.querySelector(".pm-slotPicker__label").textContent
+        || getTranslation("booking.slot.placeholder", "Scegli una fascia oraria");
       selectedTime.textContent = selectedOption?.querySelector(".pm-slotPicker__time").textContent || "";
       options.forEach(option => {
         const selected = option === selectedOption;
@@ -568,7 +594,9 @@
 
   function setDefaults() {
     if (baseHint) {
-      baseHint.textContent = `${getTranslation("booking.base.price", "Prezzo base")}: ${euro(basePrice())}`;
+      baseHint.textContent = hasBookingSelection()
+        ? `${getTranslation("booking.base.price", "Prezzo base")}: ${euro(basePrice())}`
+        : "";
     }
     updateBoatSummary();
   }
@@ -642,15 +670,20 @@
     const miniTotal = document.getElementById("pm-miniTotal");
     const miniBase = document.getElementById("pm-miniBase");
     const miniExtra = document.getElementById("pm-miniExtra");
+    const totalPlaceholder = document.getElementById("pm-total-placeholder");
+    const totalValue = document.getElementById("pm-total-value");
     const extraBreakdown = document.querySelector("#pm-extraBreakdown ul");
     if (!miniTotal || !miniBase || !miniExtra) return;
 
+    const isReady = hasBookingSelection();
     const b = basePrice();
     const e = extraTotal();
     const t = total();
-    miniBase.textContent = euro(b);
+    miniBase.textContent = isReady ? euro(b) : "—";
     miniExtra.textContent = euro(e);
-    miniTotal.textContent = euro(t);
+    if (totalPlaceholder) totalPlaceholder.hidden = isReady;
+    if (totalValue) totalValue.hidden = !isReady;
+    miniTotal.textContent = isReady ? euro(t) : "—";
 
     if (extraBreakdown) {
       extraBreakdown.replaceChildren();
@@ -771,6 +804,10 @@
     }
     if (!dateInp.value) {
       showErr(err1, getTranslation("booking.validation.date", "⚠️ Seleziona una data."));
+      return false;
+    }
+    if (!slotValue()) {
+      showErr(err1, getTranslation("booking.validation.slot", "⚠️ Seleziona una fascia oraria."));
       return false;
     }
     return true;
@@ -897,7 +934,10 @@
     setDefaults();
     updateMini();
   });
-  dateInp?.addEventListener("change", updateMini);
+  dateInp?.addEventListener("change", () => {
+    setDefaults();
+    updateMini();
+  });
 
   btnBack?.addEventListener("click", () => go(Math.max(1, step - 1)));
   btnNext?.addEventListener("click", () => {
@@ -934,6 +974,7 @@
 
   // Stato iniziale del widget.
   populateBoatSelect();
+  if (slotSel) slotSel.selectedIndex = -1;
   initSlotPicker();
   initDatePicker();
   renderExtras();
