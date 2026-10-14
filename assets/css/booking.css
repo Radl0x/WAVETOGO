@@ -20,9 +20,7 @@
   padding: 84px 0 48px;
   overflow: visible;
   text-align: left;
-  background:
-    radial-gradient(ellipse at 82% 8%, rgba(57,198,210,.2), transparent 34%),
-    linear-gradient(148deg, #0a455a 0%, #062b44 43%, #04172b 100%);
+  background: linear-gradient(220deg, var(--primary), var(--accent));
 }
 
 .hero--booking > .hero-overlay{
@@ -30,7 +28,6 @@
   inset: 0;
   height: 100%;
   pointer-events: none;
-  background: linear-gradient(180deg,rgba(1,17,33,.12),rgba(2,18,33,.48));
 }
 
 .hero--booking > #mobilesvg,
@@ -924,6 +921,18 @@
   transition: transform .2s ease,border-color .2s ease,background .2s ease,box-shadow .2s ease;
 }
 
+#pm-book .pm-extra[data-type="qty"]{
+  grid-template-columns: 19px 48px minmax(0,1fr) 168px;
+}
+
+#pm-book .pm-extra[data-type="qty"] .pm-extraMeta{
+  min-height: 0;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
 #pm-book .pm-extra::before{
   position: absolute;
   z-index: -1;
@@ -1615,6 +1624,10 @@
     grid-template-rows: auto auto;
     gap: 8px 10px;
     padding: 14px;
+  }
+
+  #pm-book .pm-extra[data-type="qty"]{
+    grid-template-columns: 18px 40px minmax(0,1fr);
   }
 
   #pm-book .pm-cb,

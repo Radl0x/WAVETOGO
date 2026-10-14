@@ -1,22 +1,36 @@
 /* EFFETTI HERO: ARTWORK E BOLLE */
 // Riferimenti agli elementi decorativi della hero.
+const heroArts = document.querySelectorAll('.hero-top-art, .hero-scroll-art');
 const heroArt = document.querySelector('.hero-scroll-art');
 const topArt = document.querySelector('.hero-top-art');
 
+heroArts.forEach((art) => art.classList.add('hero-art-reveal'));
+
+const revealVisibleHeroArts = () => {
+  heroArts.forEach((art) => {
+    const bounds = art.getBoundingClientRect();
+    if (bounds.bottom > 0 && bounds.top < window.innerHeight) {
+      art.classList.add('is-visible');
+    }
+  });
+};
+
+requestAnimationFrame(() => requestAnimationFrame(revealVisibleHeroArts));
+window.addEventListener('scroll', revealVisibleHeroArts, { passive: true });
+window.addEventListener('resize', revealVisibleHeroArts);
+
 // Aggiornamento delle variabili di movimento dell'artwork.
-const updateFloatVars = (el, x, y, rot, opacity) => {
+const updateFloatVars = (el, x, y, rot) => {
   if (!el) return;
   el.style.setProperty('--float-x', x);
   el.style.setProperty('--float-y', y);
   el.style.setProperty('--float-rot', rot);
-  el.style.opacity = opacity;
 };
 
 if (heroArt) {
   heroArt.style.setProperty('--float-x', '15%');
   heroArt.style.setProperty('--float-y', '0px');
   heroArt.style.setProperty('--float-rot', '-20deg');
-  heroArt.style.opacity = '1';
 }
 
 // Movimento scroll dell'artwork superiore.
@@ -31,8 +45,7 @@ if (topArt) {
       topArt,
       `${driftX}px`,
       `${-driftY * 0.18}px`,
-      rotate,
-      '0.85'
+      rotate
     );
   };
 

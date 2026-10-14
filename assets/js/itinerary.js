@@ -180,7 +180,9 @@
       const data = readCardData(card);
       const est = estimate(data.distanceNm);
 
-      const text = `ITINERARIO: ${data.title}\nDurata: ${data.duration === "half" ? getTranslation("itinerary.filter.half", "Mezza giornata") : getTranslation("itinerary.filter.full", "Giornata intera")} | Difficoltà: ${String(data.difficulty).toUpperCase()}\nDistanza: ${fmt(data.distanceNm, 0)} NM | Navigazione stimata: ${fmt(est.hours, 1)} h\n\nVENTO:\nOK: ${data.windOk.join(", ")}\nEVITA: ${data.windAvoid.join(", ")}\nConsiglio: ${data.windTips}\n\nSPOT:\nSnorkeling: ${data.snorkel.join(" • ")}\nSelfie: ${data.selfie.join(" • ")}\nCoste vicine: ${data.nearby.join(" • ")}\n\nRISCHI:\n${data.hazards.map((x) => `- ${x}`).join("\n")}\n`;
+      const L = (s) => (window.WTG_i18n ? window.WTG_i18n.tr(s) : s);
+      const diffLabel = getTranslation(`itinerary.filter.${data.difficulty}`, String(data.difficulty)).toUpperCase();
+      const text = `${L("ITINERARIO")}: ${data.title}\n${L("Durata")}: ${data.duration === "half" ? getTranslation("itinerary.filter.half", "Mezza giornata") : getTranslation("itinerary.filter.full", "Giornata intera")} | ${L("Difficoltà")}: ${diffLabel}\n${L("Distanza")}: ${fmt(data.distanceNm, 0)} NM | ${L("Navigazione stimata")}: ${fmt(est.hours, 1)} h\n\n${L("VENTO")}:\nOK: ${data.windOk.join(", ")}\n${L("EVITA")}: ${data.windAvoid.join(", ")}\n${L("Consiglio")}: ${data.windTips}\n\n${L("SPOT")}:\n${L("Snorkeling")}: ${data.snorkel.join(" • ")}\n${L("Selfie")}: ${data.selfie.join(" • ")}\n${L("Coste vicine")}: ${data.nearby.join(" • ")}\n\n${L("RISCHI")}:\n${data.hazards.map((x) => `- ${x}`).join("\n")}\n`;
 
       try {
         await navigator.clipboard.writeText(text);
@@ -188,7 +190,7 @@
         btn.textContent = getTranslation("itinerary.copied", "Copiato ✓");
         setTimeout(() => (btn.textContent = old), 900);
       } catch {
-        prompt("Copia manualmente:", text);
+        prompt(window.WTG_i18n ? window.WTG_i18n.tr("Copia manualmente:") : "Copia manualmente:", text);
       }
     });
 

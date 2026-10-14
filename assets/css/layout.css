@@ -352,6 +352,21 @@
   font-size: 0.95rem;
 }
 
+.footer-discover-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  color: #0fa3b1;
+  font-weight: 700;
+  text-decoration: none;
+  transition: color 0.2s ease, gap 0.2s ease;
+}
+
+.footer-discover-link:hover {
+  color: #ffffff;
+  gap: 0.8rem;
+}
+
 /* Divisore verticale tra le colonne.
    L'altezza segue quella dell'area che lo contiene. */
 .footer-divider {

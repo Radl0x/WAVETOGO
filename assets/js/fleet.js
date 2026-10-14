@@ -20,6 +20,12 @@
     const priceDifference = priceForSort(a.price) - priceForSort(b.price);
     return Number.isNaN(priceDifference) ? 0 : priceDifference;
   });
+  const hasPhoto = (item) =>
+    (Array.isArray(item.images) && item.images.length > 0) || Boolean(item.image);
+  if (displayFleet.length > 3 && !hasPhoto(displayFleet[0])) {
+    const firstItem = displayFleet.shift();
+    displayFleet.splice(3, 0, firstItem);
+  }
 
   const modal = document.createElement("div");
   modal.className = "wtg-fleet-modal";

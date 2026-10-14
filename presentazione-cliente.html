@@ -1,0 +1,643 @@
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#062a43" />
+    <title>Blu Diamond Rent — Presentazione del sito</title>
+    <style>
+      :root {
+        color-scheme: dark;
+        --ink: #f4fbfd;
+        --muted: #a9c6d1;
+        --cyan: #5ce0e0;
+        --sea: #073a55;
+        --deep: #041c30;
+        --line: rgba(166, 228, 237, 0.2);
+      }
+
+      * { box-sizing: border-box; }
+
+      html { scroll-snap-type: y mandatory; background: var(--deep); }
+
+      body {
+        margin: 0;
+        color: var(--ink);
+        background: var(--deep);
+        font-family: Montserrat, "Aptos", "Segoe UI", sans-serif;
+      }
+
+      .slide {
+        position: relative;
+        display: grid;
+        width: 100%;
+        min-height: 100svh;
+        grid-template-rows: auto 1fr auto;
+        gap: clamp(20px, 3vh, 34px);
+        overflow: hidden;
+        padding: clamp(26px, 5vw, 72px);
+        isolation: isolate;
+        scroll-snap-align: start;
+        background:
+          radial-gradient(ellipse at 83% 4%, rgba(14, 163, 177, 0.24), transparent 36%),
+          linear-gradient(145deg, #073a55, var(--deep) 76%);
+      }
+
+      .pdf-backdrop {
+        position: absolute;
+        z-index: -1;
+        inset: 0;
+        display: none;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+      }
+
+      .slide::before {
+        position: absolute;
+        z-index: -1;
+        inset: 0;
+        background: linear-gradient(115deg, transparent 52%, rgba(100, 224, 222, 0.06), transparent 75%);
+        content: "";
+        pointer-events: none;
+      }
+
+      .topbar,
+      .footbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 18px;
+      }
+
+      .brand {
+        font-size: clamp(14px, 1.4vw, 19px);
+        font-weight: 800;
+        letter-spacing: -0.04em;
+      }
+
+      .brand span,
+      .kicker,
+      .slide-number { color: var(--cyan); }
+
+      .kicker {
+        margin: 0 0 14px;
+        font-size: 11px;
+        font-weight: 800;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+      }
+
+      h1,
+      h2,
+      p { margin-top: 0; }
+
+      h1 {
+        max-width: 10ch;
+        margin-bottom: 18px;
+        font-size: clamp(46px, 7.2vw, 96px);
+        line-height: 0.97;
+        letter-spacing: -0.065em;
+      }
+
+      h2 {
+        max-width: 13ch;
+        margin-bottom: 18px;
+        font-size: clamp(34px, 5vw, 62px);
+        line-height: 1;
+        letter-spacing: -0.055em;
+      }
+
+      .lead {
+        max-width: 46ch;
+        color: var(--muted);
+        font-size: clamp(15px, 1.55vw, 20px);
+        line-height: 1.65;
+      }
+
+      .footbar {
+        padding-top: 14px;
+        border-top: 1px solid var(--line);
+        color: var(--muted);
+        font-size: 11px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .cover-content,
+      .showcase-content {
+        display: grid;
+        min-height: 0;
+        grid-template-columns: 0.82fr 1.18fr;
+        align-items: center;
+        gap: clamp(30px, 6vw, 84px);
+      }
+
+      .cover .capture {
+        height: min(67vh, 650px);
+      }
+
+      .capture {
+        position: relative;
+        min-height: 340px;
+        overflow: hidden;
+        border: 1px solid rgba(147, 231, 237, 0.32);
+        border-radius: 22px;
+        background: #062b43;
+        box-shadow: 0 30px 90px rgba(0, 10, 22, 0.48), 0 0 50px rgba(37, 195, 207, 0.09);
+      }
+
+      .capture::after {
+        position: absolute;
+        inset: 0;
+        border-radius: inherit;
+        box-shadow: inset 0 1px rgba(255, 255, 255, 0.16);
+        content: "";
+        pointer-events: none;
+      }
+
+      .capture iframe {
+        display: block;
+        width: 200%;
+        height: 200%;
+        border: 0;
+        transform: scale(0.5);
+        transform-origin: top left;
+        background: #062b43;
+      }
+
+      .showcase-content {
+        grid-template-columns: minmax(240px, 0.72fr) minmax(0, 1.28fr);
+      }
+
+      .showcase-content .capture { height: min(67vh, 650px); }
+
+      .mobile-showcase {
+        display: grid;
+        min-height: 0;
+        grid-template-columns: 1fr 0.72fr;
+        align-items: center;
+        gap: clamp(32px, 8vw, 110px);
+      }
+
+      .phone-stage {
+        display: grid;
+        min-height: 0;
+        justify-items: center;
+        align-items: center;
+      }
+
+      .phone-frame {
+        position: relative;
+        width: 300px;
+        height: 644px;
+        padding: 11px;
+        overflow: hidden;
+        border: 2px solid rgba(160, 222, 230, 0.55);
+        border-radius: 40px;
+        background: #061521;
+        box-shadow: 0 30px 90px rgba(0, 10, 22, 0.55), 0 0 55px rgba(37, 195, 207, 0.12);
+      }
+
+      .phone-screen {
+        position: relative;
+        width: 274px;
+        height: 618px;
+        overflow: hidden;
+        border-radius: 29px;
+        background: #062b43;
+      }
+
+      .phone-screen iframe {
+        display: block;
+        width: 390px;
+        height: 880px;
+        border: 0;
+        transform: scale(0.70256);
+        transform-origin: top left;
+        background: #062b43;
+      }
+
+      .phone-island {
+        position: absolute;
+        z-index: 1;
+        top: 12px;
+        left: 50%;
+        width: 77px;
+        height: 19px;
+        border-radius: 999px;
+        background: #061521;
+        transform: translateX(-50%);
+        pointer-events: none;
+      }
+
+      .note {
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+        margin-top: 24px;
+        padding: 15px 16px;
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        color: var(--muted);
+        background: rgba(255, 255, 255, 0.045);
+        font-size: 13px;
+        line-height: 1.55;
+      }
+
+      .note i {
+        width: 8px;
+        height: 8px;
+        flex: 0 0 auto;
+        margin-top: 5px;
+        border-radius: 50%;
+        background: var(--cyan);
+        box-shadow: 0 0 16px rgba(92, 224, 224, 0.7);
+      }
+
+      .benefits {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 16px;
+        margin-top: 34px;
+      }
+
+      .benefit {
+        min-height: 158px;
+        padding: 22px;
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        background: linear-gradient(145deg, rgba(255,255,255,.075), rgba(255,255,255,.025));
+      }
+
+      .benefit b {
+        display: block;
+        margin-bottom: 12px;
+        color: var(--cyan);
+        font-size: 12px;
+        letter-spacing: 0.12em;
+      }
+
+      .benefit h3 {
+        margin: 0 0 8px;
+        font-size: 18px;
+        letter-spacing: -0.03em;
+      }
+
+      .benefit p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 13px;
+        line-height: 1.55;
+      }
+
+      .closing-copy {
+        max-width: 850px;
+        align-self: center;
+      }
+
+      .closing-copy h2 { max-width: 14ch; }
+
+      .tagline {
+        display: inline-flex;
+        margin-top: 12px;
+        padding: 11px 15px;
+        border: 1px solid rgba(92, 224, 224, 0.34);
+        border-radius: 999px;
+        color: var(--cyan);
+        font-size: 12px;
+        font-weight: 750;
+        letter-spacing: 0.08em;
+      }
+
+      .toolbar {
+        position: fixed;
+        z-index: 5;
+        right: 18px;
+        bottom: 18px;
+        display: flex;
+        gap: 8px;
+      }
+
+      .toolbar button {
+        padding: 11px 15px;
+        border: 1px solid rgba(146, 231, 237, 0.35);
+        border-radius: 999px;
+        color: var(--ink);
+        background: rgba(4, 28, 48, 0.88);
+        font: inherit;
+        font-size: 12px;
+        font-weight: 700;
+        cursor: pointer;
+        backdrop-filter: blur(12px);
+      }
+
+      .toolbar button:hover {
+        border-color: var(--cyan);
+        background: #07506a;
+      }
+
+      @media (max-width: 760px) {
+        .slide { min-height: 100svh; padding: 26px 20px; }
+        .cover-content,
+        .showcase-content,
+        .mobile-showcase { grid-template-columns: 1fr; gap: 20px; }
+        .cover .capture,
+        .showcase-content .capture { height: 46vh; min-height: 270px; }
+        .mobile-showcase { grid-template-columns: 1fr; }
+        .phone-frame { transform: scale(0.8); transform-origin: top center; }
+        .phone-stage { max-height: 525px; }
+        .benefits { grid-template-columns: 1fr; }
+        .benefit { min-height: auto; }
+      }
+
+      @page { size: A4 landscape; margin: 0; }
+
+      @media print {
+        html { scroll-snap-type: none; }
+        body { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+        .slide { background: transparent; }
+        .slide > .pdf-backdrop { display: block; }
+        .slide {
+          width: 297mm;
+          height: 210mm;
+          min-height: 0;
+          padding: 13mm 15mm 11mm;
+          gap: 6mm;
+          break-after: page;
+          page-break-after: always;
+        }
+        .slide:last-of-type { break-after: auto; page-break-after: auto; }
+        .cover .capture,
+        .showcase-content .capture { height: 132mm; min-height: 0; }
+        .mobile-showcase {
+          height: 142mm;
+          grid-template-columns: 1fr 0.72fr;
+          gap: 14mm;
+        }
+        .phone-frame { transform: scale(0.82); transform-origin: center; }
+        .phone-stage { max-height: none; }
+        .capture { border-radius: 5mm; }
+        .capture iframe { width: 200%; height: 200%; }
+        .toolbar { display: none; }
+        .benefits { gap: 4mm; margin-top: 9mm; }
+        .benefit { min-height: 42mm; padding: 6mm; }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="toolbar" aria-label="Azioni presentazione">
+      <button type="button" onclick="window.print()">Esporta in PDF</button>
+    </nav>
+
+    <section class="slide cover">
+      <header class="topbar">
+        <div class="brand">BLU <span>DIAMOND</span> RENT</div>
+        <div class="slide-number">PRESENTAZIONE DEL SITO</div>
+      </header>
+      <div class="cover-content">
+        <div>
+          <p class="kicker">Golfo Aranci · Sardegna</p>
+          <h1>Il mare, a modo tuo.</h1>
+          <p class="lead">
+            Un’esperienza digitale pensata per trasformare la voglia di partire
+            in una giornata in mare, tra navigazione semplice e dettagli curati.
+          </p>
+          <div class="tagline">NAVIGA · SCOPRI · PRENOTA</div>
+        </div>
+        <div class="capture">
+          <iframe data-src="./index.html" title="Schermata della homepage Blu Diamond Rent"></iframe>
+        </div>
+      </div>
+      <footer class="footbar"><span>Presentazione progetto digitale</span><span>01 / 06</span></footer>
+    </section>
+
+    <section class="slide">
+      <header class="topbar">
+        <div class="brand">BLU <span>DIAMOND</span> RENT</div>
+        <div class="slide-number">01 — HOMEPAGE</div>
+      </header>
+      <div class="showcase-content">
+        <div>
+          <p class="kicker">Il primo impatto</p>
+          <h2>Un invito a salpare.</h2>
+          <p class="lead">
+            La homepage presenta subito la destinazione, l’identità del brand e
+            le esperienze disponibili, con immagini e contenuti organizzati per
+            accompagnare la navigazione.
+          </p>
+          <div class="note"><i></i><span>Design responsive, contenuti in più lingue e inviti all’azione chiari.</span></div>
+        </div>
+        <div class="capture">
+          <iframe data-src="./index.html" title="Schermata homepage e contenuti principali"></iframe>
+        </div>
+      </div>
+      <footer class="footbar"><span>Un ingresso immediato nell’esperienza</span><span>02 / 06</span></footer>
+    </section>
+
+    <section class="slide">
+      <header class="topbar">
+        <div class="brand">BLU <span>DIAMOND</span> RENT</div>
+        <div class="slide-number">02 — PRENOTAZIONE</div>
+      </header>
+      <div class="showcase-content">
+        <div>
+          <p class="kicker">Un percorso guidato</p>
+          <h2>Prenotare, senza complicazioni.</h2>
+          <p class="lead">
+            Il flusso accompagna il cliente dalla scelta dell’imbarcazione a
+            data, orario e servizi extra, fino ai dati e alle regole della
+            prenotazione.
+          </p>
+          <div class="note"><i></i><span>Passaggi progressivi, riepilogo sempre visibile e interfaccia ottimizzata anche per mobile.</span></div>
+        </div>
+        <div class="capture">
+          <iframe data-src="./booking.html" title="Schermata del flusso di prenotazione"></iframe>
+        </div>
+      </div>
+      <footer class="footbar"><span>Dalla scelta alla richiesta di prenotazione</span><span>04 / 06</span></footer>
+    </section>
+
+    <section class="slide">
+      <header class="topbar">
+        <div class="brand">BLU <span>DIAMOND</span> RENT</div>
+        <div class="slide-number">03 — ESPERIENZA MOBILE</div>
+      </header>
+      <div class="mobile-showcase">
+        <div>
+          <p class="kicker">Progettato anche per smartphone</p>
+          <h2>Tutta l’esperienza, a portata di mano.</h2>
+          <p class="lead">
+            La visuale mostra la homepage adattata a uno schermo da smartphone:
+            contenuti, navigazione e immagini si riorganizzano per una fruizione
+            comoda anche in movimento.
+          </p>
+          <div class="note"><i></i><span>Anteprima in viewport mobile reale (390 px), con layout responsive del sito.</span></div>
+        </div>
+        <div class="phone-stage">
+          <div class="phone-frame">
+            <div class="phone-screen">
+              <div class="phone-island"></div>
+              <iframe data-src="./index.html" title="Homepage Blu Diamond Rent in visuale smartphone"></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="footbar"><span>Esperienza responsive per ogni schermo</span><span>03 / 06</span></footer>
+    </section>
+
+    <section class="slide">
+      <header class="topbar">
+        <div class="brand">BLU <span>DIAMOND</span> RENT</div>
+        <div class="slide-number">03 — ITINERARI</div>
+      </header>
+      <div class="showcase-content">
+        <div>
+          <p class="kicker">La costa da scoprire</p>
+          <h2>Ogni rotta apre una possibilità.</h2>
+          <p class="lead">
+            Gli itinerari valorizzano le destinazioni della zona con schede
+            visuali, indicazioni pratiche e strumenti per trovare il percorso
+            più adatto alla propria uscita.
+          </p>
+          <div class="note"><i></i><span>Ricerca e filtri rendono più semplice orientarsi tra mete, durata e difficoltà.</span></div>
+        </div>
+        <div class="capture">
+          <iframe data-src="./itinerary.html" title="Schermata degli itinerari disponibili"></iframe>
+        </div>
+      </div>
+      <footer class="footbar"><span>Luoghi, esperienze e informazioni utili</span><span>05 / 06</span></footer>
+    </section>
+
+    <section class="slide">
+      <header class="topbar">
+        <div class="brand">BLU <span>DIAMOND</span> RENT</div>
+        <div class="slide-number">UN’ESPERIENZA COMPLETA</div>
+      </header>
+      <div class="closing-copy">
+        <p class="kicker">Dal primo click alla partenza</p>
+        <h2>Un sito progettato intorno alla giornata in mare.</h2>
+        <p class="lead">
+          Brand, flotta, itinerari e prenotazione si incontrano in un unico
+          percorso, così il cliente può immaginare la propria uscita e capire
+          come organizzarla.
+        </p>
+        <div class="benefits">
+          <article class="benefit">
+            <b>01 / SCOPERTA</b>
+            <h3>Una destinazione da vivere</h3>
+            <p>Immagini e contenuti raccontano il territorio e le esperienze proposte.</p>
+          </article>
+          <article class="benefit">
+            <b>02 / ORIENTAMENTO</b>
+            <h3>Informazioni a portata di mano</h3>
+            <p>Flotta, rotte e dettagli aiutano a scegliere con più sicurezza.</p>
+          </article>
+          <article class="benefit">
+            <b>03 / AZIONE</b>
+            <h3>Un percorso per prenotare</h3>
+            <p>Un flusso guidato porta dalla scelta all’invio dei dati richiesti.</p>
+          </article>
+        </div>
+        <div class="tagline">BLU DIAMOND RENT · GOLFO ARANCI</div>
+      </div>
+      <footer class="footbar"><span>Grazie per l’attenzione</span><span>06 / 06</span></footer>
+    </section>
+    <script>
+      const captures = [...document.querySelectorAll(".capture iframe, .phone-screen iframe")];
+      const previousLanguage = localStorage.getItem("site_lang");
+      const resetCaptureScroll = (frame) => frame.contentWindow?.scrollTo(0, 0);
+      const svgNamespace = "http://www.w3.org/2000/svg";
+
+      localStorage.setItem("site_lang", "it");
+
+      const createPrintBackdrop = (doc, className) => {
+        const svg = doc.createElementNS(svgNamespace, "svg");
+        svg.classList.add(className);
+        svg.setAttribute("viewBox", "0 0 1200 1200");
+        svg.setAttribute("preserveAspectRatio", "xMidYMid slice");
+        svg.setAttribute("aria-hidden", "true");
+
+        const defs = doc.createElementNS(svgNamespace, "defs");
+        const linear = doc.createElementNS(svgNamespace, "linearGradient");
+        linear.id = `${className}-linear`;
+        linear.setAttribute("x1", "0");
+        linear.setAttribute("y1", "0");
+        linear.setAttribute("x2", "1");
+        linear.setAttribute("y2", "1");
+        [["#073a55", "0"], ["#041c30", "1"]].forEach(([color, offset]) => {
+          const stop = doc.createElementNS(svgNamespace, "stop");
+          stop.setAttribute("stop-color", color);
+          stop.setAttribute("offset", offset);
+          linear.append(stop);
+        });
+
+        const radial = doc.createElementNS(svgNamespace, "radialGradient");
+        radial.id = `${className}-radial`;
+        [["#0ea3b1", "0.24", "0"], ["#0ea3b1", "0", "1"]].forEach(([color, opacity, offset]) => {
+          const stop = doc.createElementNS(svgNamespace, "stop");
+          stop.setAttribute("stop-color", color);
+          stop.setAttribute("stop-opacity", opacity);
+          stop.setAttribute("offset", offset);
+          radial.append(stop);
+        });
+        defs.append(linear, radial);
+
+        const base = doc.createElementNS(svgNamespace, "rect");
+        base.setAttribute("width", "1200");
+        base.setAttribute("height", "1200");
+        base.setAttribute("fill", `url(#${linear.id})`);
+
+        const light = doc.createElementNS(svgNamespace, "ellipse");
+        light.setAttribute("cx", "1000");
+        light.setAttribute("cy", "80");
+        light.setAttribute("rx", "600");
+        light.setAttribute("ry", "600");
+        light.setAttribute("fill", `url(#${radial.id})`);
+        svg.append(defs, base, light);
+        return svg;
+      };
+
+      document.querySelectorAll(".slide").forEach((slide) => {
+        slide.prepend(createPrintBackdrop(document, "pdf-backdrop"));
+      });
+
+      const installFramePrintSupport = (frame) => {
+        const doc = frame.contentDocument;
+        if (!doc?.body || doc.querySelector(".__pdfPrintStyles")) return;
+
+        const style = doc.createElement("style");
+        style.className = "__pdfPrintStyles";
+        style.textContent = `
+          .__pdfBackdrop { display: none; position: absolute; z-index: -1; inset: 0; width: 100vw; height: 100vh; pointer-events: none; }
+          @media print {
+            html { height: 100vh !important; max-height: 100vh !important; overflow: hidden !important; background: transparent !important; }
+            body { position: relative !important; height: 100vh !important; max-height: 100vh !important; overflow: hidden !important; background: transparent !important; }
+            body > .__pdfBackdrop { display: block !important; }
+          }
+        `;
+        doc.head.append(style);
+        doc.body.prepend(createPrintBackdrop(doc, "__pdfBackdrop"));
+      };
+
+      captures.forEach((frame) => {
+        frame.addEventListener("load", () => {
+          resetCaptureScroll(frame);
+          installFramePrintSupport(frame);
+        }, { once: true });
+        frame.src = frame.dataset.src;
+      });
+
+      Promise.all(captures.map((frame) => new Promise((resolve) => frame.addEventListener("load", resolve, { once: true }))))
+        .then(() => {
+          if (previousLanguage === null) localStorage.removeItem("site_lang");
+          else localStorage.setItem("site_lang", previousLanguage);
+        });
+
+      window.addEventListener("beforeprint", () => captures.forEach((frame) => {
+        resetCaptureScroll(frame);
+        installFramePrintSupport(frame);
+      }));
+    </script>
+  </body>
+</html>

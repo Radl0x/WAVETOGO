@@ -634,7 +634,6 @@
         <span class="pm-ico" aria-hidden="true"><i class="${x.icon}"></i></span>
         <span class="pm-extraTxt"><b>${x.label}</b><small>${x.desc}</small></span>
         <span class="pm-extraMeta">
-          <span class="pm-price">+${euro(x.price)}</span>
           ${x.type === "qty" ? `
             <span class="pm-qty" aria-label="Quantità">
               <button type="button" data-q="dec" aria-label="Diminuisci">−</button>
@@ -642,6 +641,7 @@
               <button type="button" data-q="inc" aria-label="Aumenta">+</button>
             </span>
           ` : ""}
+          <span class="pm-price">+${euro(x.price)}</span>
         </span>
       `;
       row.querySelector(".pm-cb").setAttribute("aria-label", x.label);
@@ -853,8 +853,14 @@
       },
     };
 
+    const itDict = window.WaveToGoTranslations?.translations?.it || {};
+    const selectedSlot = slotSel?.selectedOptions?.[0];
+    const slotItalian = (selectedSlot && itDict[selectedSlot.dataset.i18n]) || selectedSlot?.textContent.trim() || payload.slot;
     const selectedExtras = payload.extras
-      .map((extra) => `• ${extra.label}${extra.type === "qty" ? ` x${extra.value}` : ""}`)
+      .map((extra) => {
+        const base = BASE_EXTRAS.find((item) => item.id === extra.id);
+        return `• ${base ? base.label : extra.label}${extra.type === "qty" ? ` x${extra.value}` : ""}`;
+      })
       .join("\n") || "• Nessuno";
     const message = [
       "🌊 *RICHIESTA PRENOTAZIONE*",
@@ -863,7 +869,7 @@
       "*ESPERIENZA*",
       `• Imbarcazione: ${payload.boat_name}`,
       `• Data: ${payload.date}`,
-      `• Orario: ${slotSel?.selectedOptions?.[0]?.textContent.trim() || payload.slot}`,
+      `• Orario: ${slotItalian}`,
       "",
       "*EXTRA SELEZIONATI*",
       selectedExtras,
